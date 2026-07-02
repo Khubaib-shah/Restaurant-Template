@@ -46,28 +46,36 @@ const RestaurantAppContent: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Manage dynamic background styles on document.body
   useEffect(() => {
     const body = document.body;
+
     if (isLoading) {
-      body.style.backgroundImage = 'none';
-      body.style.backgroundColor = '#FAF9F6'; // Solid matching background during skeleton loading
-    } else if (isCheckoutActive) {
-      body.style.backgroundImage = 'none';
-      body.style.backgroundColor = '#FFFFFF'; // Snow White background requested by user
-    } else {
-      if (config.brand.bgImage) {
-        body.style.backgroundImage = `url('${config.brand.bgImage}')`;
-        body.style.backgroundSize = 'cover';
-        body.style.backgroundRepeat = 'no-repeat';
-        body.style.backgroundAttachment = 'fixed';
-        body.style.backgroundPosition = 'center center';
-      } else {
-        body.style.backgroundImage = 'none';
-        body.style.backgroundColor = config.brand.bgColor || 'transparent';
-      }
+      body.style.backgroundImage = "none";
+      body.style.backgroundColor = "#FAF9F6";
+      return;
     }
-  }, [isLoading, config, isCheckoutActive]);
+
+    if (isCheckoutActive) {
+      body.style.backgroundImage = "none";
+      body.style.backgroundColor = "#FFFFFF";
+      return;
+    }
+
+    const background = config.theme.assets.background;
+
+    if (background.mode === "image" && background.image) {
+      body.style.backgroundImage = `url(${background.image})`;
+      body.style.backgroundSize = "cover";
+      body.style.backgroundRepeat = "no-repeat";
+      body.style.backgroundPosition = "center";
+      body.style.backgroundAttachment = "fixed";
+    } else {
+      body.style.backgroundImage = "none";
+      body.style.backgroundColor =
+        config.theme.colors.background.page;
+    }
+  }, [config, isLoading, isCheckoutActive]);
+
 
   // List of category slugs for scroll spy
   const categorySlugs = useMemo(() => {
@@ -82,7 +90,7 @@ const RestaurantAppContent: React.FC = () => {
   // Filter items based on query in real-time
   const filteredItemsByCategory = useMemo(() => {
     const result: Record<string, MenuItem[]> = {};
-    
+
     // Initialize records
     categories.forEach((cat) => {
       result[cat.id] = [];
@@ -91,10 +99,10 @@ const RestaurantAppContent: React.FC = () => {
     const cleanQuery = searchQuery.trim().toLowerCase();
 
     menuItems.forEach((item) => {
-      const matchesSearch = !cleanQuery || 
-        item.name.toLowerCase().includes(cleanQuery) || 
+      const matchesSearch = !cleanQuery ||
+        item.name.toLowerCase().includes(cleanQuery) ||
         (item.description && item.description.toLowerCase().includes(cleanQuery));
-      
+
       if (matchesSearch) {
         if (!result[item.categoryId]) {
           result[item.categoryId] = [];
@@ -125,7 +133,7 @@ const RestaurantAppContent: React.FC = () => {
 
   return (
     <div id="ghalib-app-root" className="min-h-screen bg-transparent text-gray-900 flex flex-col font-sans">
-      
+
       {/* 1. Announcement notification bar strip */}
       <AnnouncementBar />
 
@@ -156,14 +164,14 @@ const RestaurantAppContent: React.FC = () => {
           {/* 8. Main Body Grid: Category Items Lists */}
           <main id="main-content-layout" className="flex-1 max-w-[1280px] w-full mx-auto px-2 sm:px-4 md:px-8 py-4 select-none">
             <div className="flex gap-8 items-start">
-              
+
               {/* Left: Food Section Blocks */}
               <div id="menu-sections-column" className="flex-1 min-w-0 space-y-6">
                 {hasMatchingItems ? (
                   categories.map((category) => {
                     const categoryItems = filteredItemsByCategory[category.id] || [];
                     if (categoryItems.length === 0) return null;
-                    
+
                     return (
                       <MenuSection
                         key={category.id}

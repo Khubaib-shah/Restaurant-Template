@@ -26,9 +26,9 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
       setQuantity(1);
       setNote('');
       setValidationErrors({});
-      
+
       const initialSelections: Record<string, VariantOption[]> = {};
-      
+
       item.variants?.forEach((group) => {
         if (group.required && group.options.length > 0) {
           // Pre-select the first option for required groups if minSelect === 1
@@ -41,7 +41,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
           initialSelections[group.id] = [];
         }
       });
-      
+
       setSelections(initialSelections);
     }
   }, [item, isOpen]);
@@ -68,7 +68,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
         title: item.name,
         text: item.description,
         url: shareUrl,
-      }).catch(() => {});
+      }).catch(() => { });
     } else {
       navigator.clipboard.writeText(shareUrl).then(() => {
         setIsCopied(true);
@@ -226,14 +226,14 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                 )}
                 {/* Dark Gradient Overlay for optimal legibility */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none" />
-                
+
                 {/* Text overlay */}
                 <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
-                  <h2 className="text-xl md:text-2xl font-black leading-tight tracking-tight mb-1.5 drop-shadow">
+                  <h2 className="text-xl md:text-2xl font-medium md:font-bold leading-tight tracking-tight mb-1.5 drop-shadow">
                     {item.name}
                   </h2>
                   {item.description && (
-                    <p className="text-[11px] md:text-xs text-gray-200/90 leading-relaxed font-medium line-clamp-3 drop-shadow">
+                    <p className="text-[11px] md:text-xs text-gray-200/90 leading-relaxed line-clamp-3 drop-shadow">
                       {item.description}
                     </p>
                   )}
@@ -263,7 +263,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                       aria-label="Share Item"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3"/>
+                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3" />
                       </svg>
                       {isCopied && (
                         <span className="absolute -top-9 right-0 bg-gray-900 text-white text-[10px] py-1 px-2.5 rounded-lg whitespace-nowrap shadow-md">
@@ -296,9 +296,8 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                           <div
                             key={group.id}
                             id={`group-${group.id}`}
-                            className={`space-y-3 pb-5 border-b border-gray-100 last:border-0 last:pb-0 ${
-                              isError ? 'animate-shake' : ''
-                            }`}
+                            className={`space-y-3 pb-5 border-b border-gray-100 last:border-0 last:pb-0 ${isError ? 'animate-shake' : ''
+                              }`}
                           >
                             <div className="flex items-baseline justify-between">
                               <div className="flex items-center gap-1.5">
@@ -322,25 +321,23 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                               {group.options.map((option) => {
                                 const isSelected = selectedOptions.some((o) => o.id === option.id);
-                                
+
                                 return (
                                   <button
                                     key={option.id}
                                     id={`option-${option.id}`}
                                     onClick={() => handleOptionSelect(group, option)}
-                                    className={`flex items-center justify-between p-2.5 rounded-xl border text-left transition-all cursor-pointer text-xs ${
-                                      isSelected
-                                        ? 'border-brand-primary bg-brand-primary/5 text-brand-primary font-bold shadow-sm'
-                                        : 'border-gray-100 hover:border-gray-200 bg-white text-gray-700'
-                                    }`}
+                                    className={`flex items-center justify-between p-2.5 rounded-xl border text-left transition-all cursor-pointer text-xs ${isSelected
+                                      ? 'border-brand-primary bg-brand-primary/5 text-brand-primary font-bold shadow-sm'
+                                      : 'border-gray-100 hover:border-gray-200 bg-white text-gray-700'
+                                      }`}
                                   >
                                     <div className="flex items-center gap-2">
                                       <div
-                                        className={`w-3.5 h-3.5 rounded-full flex items-center justify-center border ${
-                                          isSelected
-                                            ? 'border-brand-primary'
-                                            : 'border-gray-300'
-                                        }`}
+                                        className={`w-3.5 h-3.5 rounded-full flex items-center justify-center border ${isSelected
+                                          ? 'border-brand-primary'
+                                          : 'border-gray-300'
+                                          }`}
                                       >
                                         {isSelected && (
                                           <div className="w-1.5 h-1.5 rounded-full bg-brand-primary" />
@@ -375,7 +372,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
 
                   {/* Special Instructions */}
                   <div className="space-y-2">
-                    <label htmlFor="instructions-note" className="text-xs font-black text-gray-500 uppercase tracking-wider block">
+                    <label htmlFor="instructions-note" className="text-xs font-medium md:font-bold text-gray-500 uppercase tracking-wider block">
                       Special Instructions
                     </label>
                     <textarea
@@ -432,7 +429,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                   <button
                     id="add-customised-item-btn"
                     onClick={handleAddToCart}
-                    className="flex-1 h-[46px] bg-[#052E16] hover:bg-[#032110] text-white rounded-xl flex items-center justify-center px-3 gap-0.5 sm:gap-1 font-extrabold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all cursor-pointer select-none active:scale-[0.99] min-w-0"
+                    className="flex-1 h-[46px] bg-[#052E16] hover:bg-[#032110] text-white rounded-xl flex items-center justify-center px-3 gap-0.5 sm:gap-1 font-medium text-xs sm:text-sm shadow-md hover:shadow-lg transition-all cursor-pointer select-none active:scale-[0.99] min-w-0"
                   >
                     <span className="whitespace-nowrap">{formatPrice(totalPrice)}</span>
                     <span className="opacity-60 font-normal mx-0.5 sm:mx-1">|</span>

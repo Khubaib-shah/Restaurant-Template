@@ -1,6 +1,4 @@
 {
   "name": "Ghalib Restaurant",
-  "description": "A premium, responsive restaurant online ordering frontend featuring a dynamic menu, scroll spy navigation, and a customizable cart drawer.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "description": "A premium, responsive restaurant online ordering frontend featuring a dynamic menu, scroll spy navigation, and a customizable cart drawer."
 }

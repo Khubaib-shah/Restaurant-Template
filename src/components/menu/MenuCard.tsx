@@ -17,20 +17,20 @@ interface MenuCardProps {
 export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, cardStyle: propCardStyle }) => {
   const { state: cartState, addItem, updateQuantity } = useCart();
   const { config } = useRestaurant();
-  const cardStyle = propCardStyle || config.brand.cardStyle || 'default';
+  const cardStyle = propCardStyle || config.theme.cardStyle || 'default';
 
   // Check if item is in cart
   const cartItemsOfThisMenu = cartState.items.filter((i) => i.menuItemId === item.id);
   const totalQuantity = cartItemsOfThisMenu.reduce((sum, i) => sum + i.quantity, 0);
-  
+
   // If non-variant item, we can grab the unique cart item
-  const nonVariantCartItem = !item.hasVariants && cartItemsOfThisMenu.length > 0 
-    ? cartItemsOfThisMenu[0] 
+  const nonVariantCartItem = !item.hasVariants && cartItemsOfThisMenu.length > 0
+    ? cartItemsOfThisMenu[0]
     : null;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
-    
+
     if (!item.isAvailable) return;
 
     if (onCustomizeClick) {
@@ -68,27 +68,24 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
       <motion.div
         id={`menu-card-${item.id}`}
         onClick={handleCardClick}
-        className={`bg-transparent overflow-hidden relative cursor-pointer flex flex-col select-none transition-opacity duration-150 ${
-          !item.isAvailable ? 'opacity-65 grayscale-[40%]' : ''
-        }`}
+        className={`bg-transparent overflow-hidden relative cursor-pointer flex flex-col select-none transition-opacity duration-150 ${!item.isAvailable ? 'opacity-65 grayscale-[40%]' : ''
+          }`}
       >
         {/* Image Block */}
         <div className="relative w-full aspect-square bg-gray-50 overflow-hidden rounded-2xl border border-gray-100">
           {item.badge && <ItemBadge type={item.badge} />}
-          
+
           {item.imageUrl ? (
             <>
-              <div 
-                className={`absolute inset-0 bg-gray-100 transition-opacity duration-300 z-0 ${
-                  imgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
-                }`} 
+              <div
+                className={`absolute inset-0 bg-gray-100 transition-opacity duration-300 z-0 ${imgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                  }`}
               />
               <img
                 src={item.imageUrl}
                 alt={item.name}
-                className={`w-full h-full object-cover select-none transition-all duration-500 hover:scale-105 ${
-                  imgLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-                }`}
+                className={`w-full h-full object-cover select-none transition-all duration-500 hover:scale-105 ${imgLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                  }`}
                 referrerPolicy="no-referrer"
                 loading="lazy"
                 onLoad={() => setImgLoaded(true)}
@@ -170,7 +167,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
           <h3 className="text-xs md:text-sm font-bold text-gray-950 leading-snug line-clamp-2">
             {item.name}
           </h3>
-          
+
           {item.servingNote && (
             <p className="text-[10px] font-bold text-brand-primary uppercase tracking-wider mt-0.5 leading-none">
               {item.servingNote}
@@ -198,18 +195,16 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
       <motion.div
         id={`menu-card-${item.id}`}
         onClick={handleCardClick}
-        className={`bg-white rounded-xl border border-brand-primary/30 p-3 relative cursor-pointer flex items-center gap-3 select-none transition-shadow hover:shadow-md duration-150 ${
-          !item.isAvailable ? 'opacity-65 grayscale-[40%]' : ''
-        }`}
+        className={`bg-white rounded-xl border border-brand-primary/30 p-3 relative cursor-pointer flex items-center gap-3 select-none transition-shadow hover:shadow-md duration-150 ${!item.isAvailable ? 'opacity-65 grayscale-[40%]' : ''
+          }`}
       >
         {/* Left: Compact Image */}
         <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-lg overflow-hidden bg-gray-50 border border-gray-100">
           {item.imageUrl ? (
             <>
-              <div 
-                className={`absolute inset-0 bg-gray-100 transition-opacity duration-300 z-0 ${
-                  imgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
-                }`} 
+              <div
+                className={`absolute inset-0 bg-gray-100 transition-opacity duration-300 z-0 ${imgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                  }`}
               />
               <img
                 src={item.imageUrl}
@@ -238,14 +233,13 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
           <div>
             {item.badge && (
               <div className="mb-1.5 flex flex-wrap">
-                <span className={`inline-block rounded px-2 py-0.5 text-[8px] font-black uppercase tracking-widest whitespace-nowrap shadow-sm ${
-                  item.badge === 'BEST_SELLER' ? 'bg-amber-100 text-amber-800 border border-amber-200/60' :
-                  item.badge === 'HOT_SELLING' ? 'bg-red-105 text-red-800 border border-red-200/60' :
-                  item.badge === 'NEW_ARRIVAL' ? 'bg-green-100 text-green-800 border border-green-200/60' :
-                  item.badge === 'TRENDING' ? 'bg-orange-100 text-orange-800 border border-orange-200/60' :
-                  item.badge === 'POPULAR' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200/60' :
-                  'bg-brand-primary/10 text-brand-primary border border-brand-primary/20'
-                }`}>
+                <span className={`inline-block rounded px-2 py-0.5 text-[8px] font-black uppercase tracking-widest whitespace-nowrap shadow-sm ${item.badge === 'BEST_SELLER' ? 'bg-amber-100 text-amber-800 border border-amber-200/60' :
+                    item.badge === 'HOT_SELLING' ? 'bg-red-105 text-red-800 border border-red-200/60' :
+                      item.badge === 'NEW_ARRIVAL' ? 'bg-green-100 text-green-800 border border-green-200/60' :
+                        item.badge === 'TRENDING' ? 'bg-orange-100 text-orange-800 border border-orange-200/60' :
+                          item.badge === 'POPULAR' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200/60' :
+                            'bg-brand-primary/10 text-brand-primary border border-brand-primary/20'
+                  }`}>
                   {item.badge.replace('_', ' ')}
                 </span>
               </div>
@@ -253,7 +247,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
             <h3 className="text-xs sm:text-sm font-bold text-gray-950 leading-tight line-clamp-1">
               {item.name}
             </h3>
-            
+
             {item.description && (
               <p className="text-[11px] text-gray-500 line-clamp-1 mt-0.5 leading-snug">
                 {item.description}
@@ -334,28 +328,25 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
       id={`menu-card-${item.id}`}
       whileHover={item.isAvailable ? { boxShadow: '0 4px 12px rgba(0,0,0,0.12)' } : undefined}
       onClick={handleCardClick}
-      className={`bg-white rounded-xl border border-brand-primary overflow-hidden relative cursor-pointer flex flex-col justify-between shadow-card select-none transition-opacity duration-150 ${
-        !item.isAvailable ? 'opacity-65 grayscale-[40%]' : ''
-      }`}
+      className={`bg-white rounded-xl border border-brand-primary overflow-hidden relative cursor-pointer flex flex-col justify-between shadow-card select-none transition-opacity duration-150 ${!item.isAvailable ? 'opacity-65 grayscale-[40%]' : ''
+        }`}
     >
       {/* Image Area */}
       <div className="relative w-full aspect-square bg-gray-50 overflow-hidden">
         {item.badge && <ItemBadge type={item.badge} />}
-        
+
         {item.imageUrl ? (
           <>
             {/* Non-pulsing placeholder while loading */}
-            <div 
-              className={`absolute inset-0 bg-gray-100 transition-opacity duration-300 z-0 ${
-                imgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
-              }`} 
+            <div
+              className={`absolute inset-0 bg-gray-100 transition-opacity duration-300 z-0 ${imgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                }`}
             />
             <img
               src={item.imageUrl}
               alt={item.name}
-              className={`w-full h-full object-cover select-none transition-all duration-500 hover:scale-105 ${
-                imgLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-              }`}
+              className={`w-full h-full object-cover select-none transition-all duration-500 hover:scale-105 ${imgLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                }`}
               referrerPolicy="no-referrer"
               loading="lazy"
               onLoad={() => setImgLoaded(true)}
@@ -393,7 +384,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
           <h3 className="text-sm md:text-[14px] font-bold text-gray-900 leading-snug line-clamp-2">
             {item.name}
           </h3>
-          
+
           {/* Servings note */}
           {item.servingNote && (
             <p className="text-[11px] font-semibold text-brand-primary uppercase tracking-wider leading-none">
@@ -418,7 +409,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
                 {item.pricePrefix}
               </span>
             )}
-            
+
             <span className="text-sm md:text-[15px] font-extrabold text-gray-900">
               {formatPrice(item.discountedPrice)}
             </span>
