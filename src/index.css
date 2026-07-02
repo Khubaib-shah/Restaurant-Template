@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Brand (these change per tenant) */
+  --brand-primary:        #1A3C2E;   /* Dark forest green — header, buttons, badges */
+  --brand-primary-hover:  #142d22;   /* Darker on hover */
+  --brand-accent:         #E63946;   /* Red — announcement bar, sale prices (some tenants) */
+
+  /* Surfaces */
+  --bg-page:              #F5F0E8;   /* Warm cream — page background */
+  --bg-card:              #FFFFFF;   /* White — menu cards */
+  --bg-header:            #1A3C2E;   /* Dark green header */
+  --bg-category-banner:   #F5F0E8;   /* Cream wrapper for category divider */
+
+  /* Text */
+  --text-primary:         #1A1A1A;   /* Near-black */
+  --text-secondary:       #6B7280;   /* Muted gray */
+  --text-muted:           #9CA3AF;
+  --text-inverse:         #FFFFFF;
+  --text-price:           #1A1A1A;   /* Current price — dark/bold */
+  --text-original-price:  #9CA3AF;   /* Strikethrough price */
+
+  /* Borders */
+  --border-card:          #E5E7EB;
+  --border-dashed:        #D1D5DB;   /* "Add more items" dashed border */
+
+  /* Category divider */
+  --category-banner-bg:   #1A3C2E;
+  --category-banner-text: #FFFFFF;
+
+  /* Badges (locked, not per-tenant) */
+  --badge-new-arrival:    #16A34A;   /* Green */
+  --badge-best-seller:    #CA8A04;   /* Amber/gold */
+  --badge-trending:       #EA580C;   /* Orange */
+  --badge-popular:        #CA8A04;   /* Amber */
+  --badge-hot-selling:    #DC2626;   /* Red-orange */
+  --badge-most-fav:       #D97706;   /* Amber */
+  --badge-special-flavors:#0891B2;   /* Cyan */
+  --badge-chefs-special:  #0F766E;   /* Teal */
+  --badge-chefs-rec:      #16A34A;   /* Green */
+
+  /* Cart */
+  --cart-header-bg:       #1A3C2E;
+  --cart-savings-bg:      #F0FDF4;   /* Light green tint */
+  --cart-savings-text:    #16A34A;
+
+  /* Shadows */
+  --shadow-card: 0 1px 4px rgba(0,0,0,0.07);
+  --shadow-header: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+@theme {
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-hover: var(--brand-primary-hover);
+  --color-brand-accent: var(--brand-accent);
+  
+  --color-bg-page: var(--bg-page);
+  --color-bg-card: var(--bg-card);
+  --color-bg-header: var(--bg-header);
+  --color-bg-category-banner: var(--bg-category-banner);
+  
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-inverse: var(--text-inverse);
+  --color-text-price: var(--text-price);
+  --color-text-original-price: var(--text-original-price);
+  
+  --color-border-card: var(--border-card);
+  --color-border-dashed: var(--border-dashed);
+  
+  --color-category-banner-bg: var(--category-banner-bg);
+  --color-category-banner-text: var(--category-banner-text);
+  
+  --color-badge-new-arrival: var(--badge-new-arrival);
+  --color-badge-best-seller: var(--badge-best-seller);
+  --color-badge-trending: var(--badge-trending);
+  --color-badge-popular: var(--badge-popular);
+  --color-badge-hot-selling: var(--badge-hot-selling);
+  --color-badge-most-fav: var(--badge-most-fav);
+  --color-badge-special-flavors: var(--badge-special-flavors);
+  --color-badge-chefs-special: var(--badge-chefs-special);
+  --color-badge-chefs-rec: var(--badge-chefs-rec);
+  
+  --color-cart-header-bg: var(--cart-header-bg);
+  --color-cart-savings-bg: var(--cart-savings-bg);
+  --color-cart-savings-text: var(--cart-savings-text);
+  
+  --shadow-card: var(--shadow-card);
+  --shadow-header: var(--shadow-header);
+  
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Custom Hide Scrollbar Utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Page transitions / modal shadows */
+.modal-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+@keyframes flash-shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+.animate-flash {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-flash::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  height: 200%;
+  width: 60px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(45deg);
+  animation: flash-shimmer 4s infinite ease-in-out;
+  pointer-events: none;
+}
+
