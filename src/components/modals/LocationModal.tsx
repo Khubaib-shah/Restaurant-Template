@@ -1,60 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import { X, Search, MapPin, Check } from 'lucide-react';
-import { useRestaurant } from '../../context/RestaurantContext';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState, useEffect } from "react";
+import { X, Search, MapPin, Check } from "lucide-react";
+import { useRestaurant } from "../../context/RestaurantContext";
+import { motion, AnimatePresence } from "motion/react";
+import { localStorage } from "@/src/lib/localStorage";
 
 export const LocationModal: React.FC = () => {
   const {
     currentLocation,
     setLocation,
     isLocationModalOpen,
-    setIsLocationModalOpen
+    setIsLocationModalOpen,
   } = useRestaurant();
 
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   const areas = [
-    'Clifton',
-    'DHA Phase 1-8',
-    'Gulshan-e-Iqbal',
-    'Bahadurabad',
-    'PECHS',
-    'North Nazimabad',
-    'KDA Scheme 1',
-    'Askari IV',
-    'Defence View',
-    'Gulistan-e-Johar',
-    'Malir Cantt',
-    'Sindhi Muslim Society (SMCHS)'
+    "Clifton",
+    "DHA Phase 1-8",
+    "Gulshan-e-Iqbal",
+    "Bahadurabad",
+    "PECHS",
+    "North Nazimabad",
+    "KDA Scheme 1",
+    "Askari IV",
+    "Defence View",
+    "Gulistan-e-Johar",
+    "Malir Cantt",
+    "Sindhi Muslim Society (SMCHS)",
   ];
 
   // Reset search when modal opens/closes
   useEffect(() => {
     if (isLocationModalOpen) {
-      setSearch('');
+      setSearch("");
     }
   }, [isLocationModalOpen]);
 
   // Trap Escape to close modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isLocationModalOpen) {
+      if (e.key === "Escape" && isLocationModalOpen) {
         setIsLocationModalOpen(false);
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isLocationModalOpen, setIsLocationModalOpen]);
 
   const filteredAreas = areas.filter((area) =>
-    area.toLowerCase().includes(search.toLowerCase())
+    area.toLowerCase().includes(search.toLowerCase()),
   );
 
   const handleSelectArea = (area: string) => {
-    setLocation(
-      'Karachi',
-      area,
-    );
+    setLocation("Karachi", area);
+    localStorage().setItem("locationModal", false);
+
     setIsLocationModalOpen(false);
   };
 
@@ -74,10 +74,10 @@ export const LocationModal: React.FC = () => {
           {/* Modal Centered/Drawer Container */}
           <div className="fixed inset-0 z-[170] flex items-end md:items-center justify-center p-0 md:p-4 pointer-events-none select-none">
             <motion.div
-              initial={{ y: '100%' }}
+              initial={{ y: "100%" }}
               animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ type: 'spring', damping: 26, stiffness: 220 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 26, stiffness: 220 }}
               className="bg-background-card w-full md:max-w-[440px] max-h-[80vh] md:max-h-[70vh] p-0 rounded-t-2xl md:rounded-2xl shadow-2xl flex flex-col pointer-events-auto overflow-hidden text-text-primary"
             >
               {/* Header */}
@@ -106,11 +106,16 @@ export const LocationModal: React.FC = () => {
 
               {/* Search bar */}
               <div className="px-2 md:px-5 py-3 border-b border-brand-primary/5 shrink-0 relative flex items-center">
-                <Search size={16} className="absolute left-8 text-text-secondary pointer-events-none" />
+                <Search
+                  size={16}
+                  className="absolute left-8 text-text-secondary pointer-events-none"
+                />
                 <input
                   type="text"
                   value={search}
-                  onChange={(e) => setSearch(e.target.value.replace(/[^a-zA-Z0-9\s,\-]/g, ''))}
+                  onChange={(e) =>
+                    setSearch(e.target.value.replace(/[^a-zA-Z0-9\s,\-]/g, ""))
+                  }
                   placeholder="Search your area, town, or phase..."
                   className="w-full h-10 bg-brand-primary/5/50 hover:bg-brand-primary/5 border border-gray-200 focus:border-brand-primary focus:bg-background-card pl-10 pr-4 rounded-lg focus:outline-none text-xs md:text-sm font-medium transition-colors"
                 />
@@ -126,13 +131,21 @@ export const LocationModal: React.FC = () => {
                       <button
                         key={area}
                         onClick={() => handleSelectArea(area)}
-                        className={`w-full py-3 px-3 rounded-lg flex items-center justify-between text-left transition-all cursor-pointer ${isSelected
-                          ? 'bg-brand-primary/5 text-brand-primary font-bold'
-                          : 'hover:bg-brand-primary/5 text-gray-700'
-                          }`}
+                        className={`w-full py-3 px-3 rounded-lg flex items-center justify-between text-left transition-all cursor-pointer ${
+                          isSelected
+                            ? "bg-brand-primary/5 text-brand-primary font-bold"
+                            : "hover:bg-brand-primary/5 text-gray-700"
+                        }`}
                       >
                         <div className="flex items-center gap-3">
-                          <MapPin size={15} className={isSelected ? 'text-brand-primary' : 'text-text-secondary'} />
+                          <MapPin
+                            size={15}
+                            className={
+                              isSelected
+                                ? "text-brand-primary"
+                                : "text-text-secondary"
+                            }
+                          />
                           <span className="text-[13px]">{area}</span>
                         </div>
                         {isSelected && (

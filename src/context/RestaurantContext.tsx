@@ -1,7 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { RestaurantConfig } from '../types/restaurant';
-import { restaurantConfig } from '../config/restaurant.config';
-import { toKebabCase } from '../lib/toKebabCase';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { RestaurantConfig } from "../types/restaurant";
+import { restaurantConfig } from "../config/restaurant.config";
+import { toKebabCase } from "../lib/toKebabCase";
+import { localStorage } from "../lib/localStorage";
 
 interface RestaurantContextType {
   config: RestaurantConfig;
@@ -9,32 +10,36 @@ interface RestaurantContextType {
     city: string;
     area: string;
   };
-  setCurrentLocation?: (city: string, area: string) => void
+  setCurrentLocation?: (city: string, area: string) => void;
   setLocation: (city: string, area: string) => void;
   isLocationModalOpen: boolean;
   setIsLocationModalOpen: (open: boolean) => void;
 }
 
-const RestaurantContext = createContext<RestaurantContextType | undefined>(undefined);
+const RestaurantContext = createContext<RestaurantContextType | undefined>(
+  undefined,
+);
 
-export const RestaurantProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const RestaurantProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [config] = useState<RestaurantConfig>(restaurantConfig);
   const [currentLocation, setCurrentLocation] = useState({
     city: restaurantConfig.location.city,
     area: restaurantConfig.location.area,
   });
-  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const [isLocationModalOpen, setIsLocationModalOpen] = useState(
+    localStorage().getItem("locationModal") ?? true,
+  );
 
   useEffect(() => {
     const root = document.documentElement;
 
-    const applyTheme = (
-      obj: Record<string, any>,
-      prefix = ""
-    ) => {
+    const applyTheme = (obj: Record<string, any>, prefix = "") => {
       Object.entries(obj).forEach(([key, value]) => {
-
-        const variable = prefix ? `${toKebabCase(prefix)}-${toKebabCase(key)}` : toKebabCase(key);
+        const variable = prefix
+          ? `${toKebabCase(prefix)}-${toKebabCase(key)}`
+          : toKebabCase(key);
 
         if (typeof value === "object" && value !== null) {
           applyTheme(value, variable);
@@ -50,21 +55,17 @@ export const RestaurantProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     // Assets
     root.style.setProperty(
       "--page-background-image",
-      config.theme.assets.background.image ?? ""
+      config.theme.assets.background.image ?? "",
     );
 
     root.style.setProperty(
       "--category-background-image",
-      config.theme.assets.categoryBackground ?? ""
+      config.theme.assets.categoryBackground ?? "",
     );
 
     // Card Style
-    root.setAttribute(
-      "data-card-style",
-      config.theme.cardStyle ?? "default"
-    );
+    root.setAttribute("data-card-style", config.theme.cardStyle ?? "default");
   }, [config]);
-
 
   const setLocation = (city: string, area: string) => {
     setCurrentLocation({ city, area });
@@ -88,7 +89,7 @@ export const RestaurantProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 export const useRestaurant = () => {
   const context = useContext(RestaurantContext);
   if (!context) {
-    throw new Error('useRestaurant must be used within a RestaurantProvider');
+    throw new Error("useRestaurant must be used within a RestaurantProvider");
   }
   return context;
 };

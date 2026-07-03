@@ -1,26 +1,27 @@
 ﻿import React from "react";
 import { Facebook, Instagram } from "lucide-react";
 import { useRestaurant } from "../../context/RestaurantContext";
+import { handleSearchFocus } from "@/src/lib/searchScroll";
 
 const productLinks = [
-  { label: "Features", href: "#" },
-  { label: "Pricing", href: "#" },
-  { label: "Integrations", href: "#" },
-  { label: "Changelog", href: "#" },
+  { label: "Search", href: "/" },
+  { label: "Pricing", href: "/" },
+  { label: "Deals", href: "/" },
+  { label: "Track Order", href: "/" },
 ];
 
 const resourceLinks = [
-  { label: "Documentation", href: "#" },
-  { label: "Tutorials", href: "#" },
-  { label: "Blog", href: "#" },
-  { label: "Support", href: "#" },
+  { label: "Opening Hours", href: "/" },
+  { label: "How It Works", href: "/" },
+  { label: "FAQs", href: "/" },
+  { label: "Support", href: "mailto:syedkhubaibshah@icloud.com" },
 ];
 
 const companyLinks = [
-  { label: "About", href: "#" },
-  { label: "Careers", href: "#" },
-  { label: "Contact", href: "#" },
-  { label: "Partners", href: "#" },
+  { label: "About Us", href: "/pages/about" },
+  { label: "Developer Portfolio", href: "https://www.thekhubaib.me" },
+  { label: "Contact Developer", href: "mailto:syedkhubaibshah@icloud.com" },
+  { label: "Custom Development", href: "https://www.thekhubaib.me" },
 ];
 
 export const Footer: React.FC = () => {
@@ -30,8 +31,8 @@ export const Footer: React.FC = () => {
   return (
     <footer className="border-t border-brand-primary/10 bg-background-card text-text-secondary">
       <section className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid gap-14 lg:grid-cols-12 items-center justify-center">
-          <div className="space-y-6 col-span-6">
+        <div className="grid gap-14 grid-cols-2 lg:grid-cols-12 items-center justify-center">
+          <div className="space-y-6 col-span-2 md:col-span-6">
             <div className="flex items-center gap-4">
               <div className="flex h-12 w-12 items-center justify-center rounded-3xl text-brand-primary">
                 <img
@@ -73,24 +74,36 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-5 col-span-2">
+          <div className="space-y-5  md:col-span-2">
             <h3 className="text-sm uppercase tracking-[0.35em] text-text-primary font-semibold">
               Product
             </h3>
             <div className="flex flex-col gap-3 text-sm text-text-secondary">
-              {productLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="hover:text-brand-primary transition-colors"
-                >
-                  {link.label}
-                </a>
+              {productLinks.map((link, index) => (
+                <>
+                  {link.label === "Search" ? (
+                    <a
+                      key={link.label + index}
+                      className="hover:text-brand-primary transition-colors"
+                      onClick={handleSearchFocus}
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <a
+                      key={link.label + index}
+                      href={link.href}
+                      className="hover:text-brand-primary transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  )}
+                </>
               ))}
             </div>
           </div>
 
-          <div className="space-y-5 col-span-2">
+          <div className="space-y-5 md:col-span-2">
             <h3 className="text-sm uppercase tracking-[0.35em] text-text-primary font-semibold">
               Resources
             </h3>
@@ -107,14 +120,14 @@ export const Footer: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-5 col-span-2">
+          <div className="space-y-5 md:col-span-2">
             <h3 className="text-sm uppercase tracking-[0.35em] text-text-primary font-semibold">
               Company
             </h3>
             <div className="flex flex-col gap-3 text-sm text-text-secondary">
-              {companyLinks.map((link) => (
+              {companyLinks.map((link, index) => (
                 <a
-                  key={link.label}
+                  key={link.label + index}
                   href={link.href}
                   className="hover:text-brand-primary transition-colors"
                 >
@@ -132,19 +145,19 @@ export const Footer: React.FC = () => {
             </p>
             <div className="flex flex-wrap items-center gap-4">
               <a
-                href="#"
+                href="/"
                 className="hover:text-brand-primary transition-colors"
               >
                 Privacy Policy
               </a>
               <a
-                href="#"
+                href="/"
                 className="hover:text-brand-primary transition-colors"
               >
                 Terms of Service
               </a>
               <a
-                href="#"
+                href="/"
                 className="hover:text-brand-primary transition-colors"
               >
                 Cookies Settings

@@ -28,8 +28,8 @@ export const restaurantConfig: RestaurantConfig = {
   announcementText: "Ordering is temporarily disabled",
 
   contact: {
-    phone: "021 111 442 542",
-    email: "feedback@ghalib.com.pk",
+    phone: "03149784156",
+    email: "syedkhubaibshah@icloud.com",
     address:
       "Rooftop @ Habitt Building On Main, Tipu Sultan Rd, off Shahrah-e-Faisal Road, Karachi",
   },

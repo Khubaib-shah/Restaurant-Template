@@ -8,37 +8,37 @@
 
 :root {
   /* Brand */
-  --primary: #1A3C2E;
-  --accent: #E63946;
+  --primary: #1a3c2e;
+  --accent: #e63946;
 
   /* Background */
-  --background-page: #F5F0E8;
-  --background-card: #FFFFFF;
-  --background-header: #1A3C2E;
-  --background-category-banner: #F5F0E8;
+  --background-page: #f5f0e8;
+  --background-card: #ffffff;
+  --background-header: #1a3c2e;
+  --background-category-banner: #f5f0e8;
 
   /* Text */
-  --text-primary: #1A1A1A;
-  --text-secondary: #6B7280;
-  --text-muted: #9CA3AF;
-  --text-inverse: #FFFFFF;
-  --text-price: #1A1A1A;
-  --text-original-price: #9CA3AF;
+  --text-primary: #1a1a1a;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+  --text-inverse: #ffffff;
+  --text-price: #1a1a1a;
+  --text-original-price: #9ca3af;
 
   /* Badge */
-  --badge-new-arrival: #16A34A;
-  --badge-best-seller: #CA8A04;
-  --badge-trending: #EA580C;
-  --badge-popular: #CA8A04;
-  --badge-hot-selling: #DC2626;
-  --badge-most-favourite: #D97706;
-  --badge-special-flavors: #0891B2;
-  --badge-chefs-special: #0F766E;
-  --badge-chefs-recommendation: #16A34A;
+  --badge-new-arrival: #16a34a;
+  --badge-best-seller: #ca8a04;
+  --badge-trending: #ea580c;
+  --badge-popular: #ca8a04;
+  --badge-hot-selling: #dc2626;
+  --badge-most-favourite: #d97706;
+  --badge-special-flavors: #0891b2;
+  --badge-chefs-special: #0f766e;
+  --badge-chefs-recommendation: #16a34a;
 
   /* Cart */
-  --cart-savings-background: #F0FDF4;
-  --cart-savings-text: #16A34A;
+  --cart-savings-background: #f0fdf4;
+  --cart-savings-text: #16a34a;
 }
 
 /* ==========================================
@@ -46,7 +46,6 @@
    ========================================== */
 
 @theme {
-
   /* Brand */
   --color-brand-primary: var(--primary);
   --color-brand-accent: var(--accent);
@@ -106,6 +105,11 @@ body {
   color: var(--text-primary);
 }
 
+a,
+button {
+  cursor: pointer;
+}
+
 .modal-overlay {
   background: rgb(0 0 0 / 50%);
   backdrop-filter: blur(2px);
@@ -134,10 +138,12 @@ body {
   width: 60px;
   height: 200%;
 
-  background: linear-gradient(90deg,
-      transparent,
-      rgb(255 255 255 / 45%),
-      transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(255 255 255 / 45%),
+    transparent
+  );
 
   transform: rotate(45deg);
   animation: flash-shimmer 4s infinite ease-in-out;
