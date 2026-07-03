@@ -2971,9 +2971,15 @@ export const iceCreamItems = [
 
 export const pizzaCategories = [
   {
+    id: "cat-deals",
+    name: "Deals",
+    imageUrl:
+      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80",
+    isAvailable: true,
+  },
+  {
     id: "cat-signature-pizzas",
     name: "Signature Pizzas",
-    description: "Our chef's handcrafted specialty pizzas.",
     imageUrl:
       "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
@@ -2981,7 +2987,6 @@ export const pizzaCategories = [
   {
     id: "cat-classic-pizzas",
     name: "Classic Pizzas",
-    description: "Traditional pizza favorites for every craving.",
     imageUrl:
       "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
@@ -2989,7 +2994,6 @@ export const pizzaCategories = [
   {
     id: "cat-stuffed-crust",
     name: "Stuffed Crust",
-    description: "Loaded crusts filled with delicious cheese.",
     imageUrl:
       "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
@@ -2997,7 +3001,6 @@ export const pizzaCategories = [
   {
     id: "cat-sides",
     name: "Sides",
-    description: "Perfect starters and sides to complement your meal.",
     imageUrl:
       "https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
@@ -3005,7 +3008,6 @@ export const pizzaCategories = [
   {
     id: "cat-pasta",
     name: "Pasta",
-    description: "Creamy and flavorful Italian-style pasta dishes.",
     imageUrl:
       "https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
@@ -3013,7 +3015,6 @@ export const pizzaCategories = [
   {
     id: "cat-wings",
     name: "Wings",
-    description: "Juicy chicken wings tossed in signature sauces.",
     imageUrl:
       "https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
@@ -3021,7 +3022,6 @@ export const pizzaCategories = [
   {
     id: "cat-salads",
     name: "Salads",
-    description: "Fresh and healthy salads made daily.",
     imageUrl:
       "https://images.unsplash.com/photo-1546793665-c74683f339c1?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
@@ -3029,7 +3029,6 @@ export const pizzaCategories = [
   {
     id: "cat-desserts",
     name: "Desserts",
-    description: "Sweet treats to finish your meal.",
     imageUrl:
       "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
@@ -3037,17 +3036,8 @@ export const pizzaCategories = [
   {
     id: "cat-drinks",
     name: "Drinks",
-    description: "Refreshing beverages to pair with your order.",
     imageUrl:
       "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&auto=format&fit=crop&q=80",
-    isAvailable: true,
-  },
-  {
-    id: "cat-deals",
-    name: "Deals",
-    description: "Best value meals for individuals and families.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
   },
 ];
@@ -3060,10 +3050,11 @@ export const pizzaItems = [
     description:
       "Grilled chicken, mushrooms, mozzarella and truffle sauce on a hand-tossed crust.",
     imageUrl:
-      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80",
+      "https://i.pinimg.com/736x/fd/ee/18/fdee189f5d9d0d46ec626c9fb8d2932e.jpg?w=600&auto=format&fit=crop&q=80",
     basePrice: 1590,
     discountedPrice: 1390,
     hasVariants: true,
+    badge: "HOT_SELLING",
     pricePrefix: "From",
     variants: [
       {
@@ -3150,8 +3141,9 @@ export const pizzaItems = [
     description:
       "A rich blend of mozzarella, cheddar, parmesan and feta cheeses.",
     imageUrl:
-      "https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?w=600&auto=format&fit=crop&q=80",
+      "https://i.pinimg.com/736x/27/05/2c/27052c60bd2bbf3382a565960bb4b14b.jpg?w=600&auto=format&fit=crop&q=80",
     basePrice: 1540,
+    badge: "BEST_SELLER",
     discountedPrice: 1340,
     hasVariants: true,
     pricePrefix: "From",
@@ -3185,6 +3177,8 @@ export const pizzaItems = [
     discountedPrice: 1190,
     hasVariants: true,
     pricePrefix: "From",
+
+    badge: "CHEFS_RECOMMENDATION",
     variants: [
       {
         id: "var-pepperoni-size",
@@ -3328,10 +3322,11 @@ export const pizzaItems = [
     name: "Garlic Stuffed Crust Pizza",
     description: "Cheese-filled crust seasoned with garlic butter and herbs.",
     imageUrl:
-      "https://images.unsplash.com/photo-1601924582970-9238bcb495d9?w=600&auto=format&fit=crop&q=80",
+      "https://i.pinimg.com/1200x/da/fe/99/dafe997b7f1a7ec3f418d3e649dbefea.jpg?w=600&auto=format&fit=crop&q=80",
     basePrice: 1740,
     discountedPrice: 1540,
     hasVariants: true,
+    badge: "TRENDING",
     pricePrefix: "From",
     variants: [
       {
@@ -3430,7 +3425,7 @@ export const pizzaItems = [
     name: "Garlic Bread",
     description: "Freshly baked bread brushed with garlic butter and herbs.",
     imageUrl:
-      "https://images.unsplash.com/photo-1573140247632-f8fd74997d5c?w=600&auto=format&fit=crop&q=80",
+      "https://i.pinimg.com/vwebpf/1200x/a0/59/41/a05941e4b18e57d5ced7b013cb6e2384.webp?w=600&auto=format&fit=crop&q=80",
     basePrice: 390,
     discountedPrice: 290,
     hasVariants: true,
@@ -3473,10 +3468,11 @@ export const pizzaItems = [
     name: "Loaded Fries",
     description: "Crispy fries topped with cheese sauce, jalapeños and mayo.",
     imageUrl:
-      "https://images.unsplash.com/photo-1606755962773-d324e0a13086?w=600&auto=format&fit=crop&q=80",
+      "https://i.pinimg.com/736x/73/9f/e2/739fe23e40119b217e73b62462da1403.jpg?w=600&auto=format&fit=crop&q=80",
     basePrice: 520,
     discountedPrice: 420,
     hasVariants: true,
+    badge: "SPECIAL_FLAVORS",
     pricePrefix: "",
     variants: [
       {
@@ -3516,7 +3512,7 @@ export const pizzaItems = [
     description:
       "Creamy Alfredo sauce with grilled chicken and parmesan cheese.",
     imageUrl:
-      "https://images.unsplash.com/photo-1645112411341-6c4fd9c6f0e1?w=600&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1702827762413-5e65a63cf700?w=600&auto=format&fit=crop&q=80",
     basePrice: 790,
     discountedPrice: 690,
     hasVariants: true,
@@ -3961,7 +3957,7 @@ export const pizzaItems = [
     name: "Sprite",
     description: "Lemon-lime sparkling soft drink.",
     imageUrl:
-      "https://images.unsplash.com/photo-1625772299848-391b4a0f7c7a?w=600&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1690988109041-458628590a9e?w=600&auto=format&fit=crop&q=80",
     basePrice: 120,
     discountedPrice: 90,
     hasVariants: true,
@@ -3989,7 +3985,7 @@ export const pizzaItems = [
     name: "Fanta",
     description: "Orange flavored sparkling drink.",
     imageUrl:
-      "https://images.unsplash.com/photo-1604908813063-2a5b0b1c5a0d?w=600&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1624517452488-04869289c4ca?w=600&auto=format&fit=crop&q=80",
     basePrice: 120,
     discountedPrice: 90,
     hasVariants: true,
@@ -4046,7 +4042,7 @@ export const pizzaItems = [
     name: "Solo Meal Deal",
     description: "1 medium pizza + 1 drink + 1 side.",
     imageUrl:
-      "https://images.unsplash.com/photo-1548365328-9f547c4b3b8c?w=600&auto=format&fit=crop&q=80",
+      "https://i.pinimg.com/1200x/21/1b/e4/211be462f855bc8e2137fafaad69c5e2.jpg?w=600&auto=format&fit=crop&q=80",
     basePrice: 1290,
     discountedPrice: 1090,
     hasVariants: false,
@@ -4062,7 +4058,7 @@ export const pizzaItems = [
     name: "Couple Deal",
     description: "1 large pizza + 2 drinks + 1 side + dessert.",
     imageUrl:
-      "https://images.unsplash.com/photo-1604382355076-af4b0eb60143?w=600&auto=format&fit=crop&q=80",
+      "https://i.pinimg.com/1200x/c0/e3/73/c0e373e5f19e982532701f96e57c4fab.jpg?w=600&auto=format&fit=crop&q=80",
     basePrice: 2190,
     discountedPrice: 1890,
     hasVariants: false,
@@ -4078,7 +4074,7 @@ export const pizzaItems = [
     name: "Family Feast",
     description: "2 large pizzas + 2 sides + 4 drinks.",
     imageUrl:
-      "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80",
+      "https://i.pinimg.com/736x/02/77/2a/02772aa378d66f932e247d48a4c36b7a.jpg?w=600&auto=format&fit=crop&q=80",
     basePrice: 3490,
     discountedPrice: 2990,
     hasVariants: false,
@@ -4094,7 +4090,7 @@ export const pizzaItems = [
     name: "Party Box",
     description: "3 large pizzas + 2 sides + 6 drinks + dessert combo.",
     imageUrl:
-      "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&auto=format&fit=crop&q=80",
+      "https://i.pinimg.com/1200x/e7/98/47/e798471e47f4ea367e116c3c325d7cf2.jpg?w=600&auto=format&fit=crop&q=80",
     basePrice: 4990,
     discountedPrice: 4290,
     hasVariants: false,
