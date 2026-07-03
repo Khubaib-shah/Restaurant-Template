@@ -19,11 +19,18 @@ export const PopularItems: React.FC<PopularItemsProps> = ({
   // Extract items with special badges (Best Sellers, Chef's Special, Hot Selling)
   const popularItems = items.filter(
     (item) =>
-      item.badge === "BEST_SELLER" ||
+      item.badge === "MOST_FAVOURITE" ||
       item.badge === "CHEFS_SPECIAL" ||
+      item.badge === "CHEFS_RECOMMENDATION" ||
+      item.badge === "BEST_SELLER" ||
+      item.badge === "TRENDING" ||
+      item.badge === "NEW_ARRIVAL" ||
+      item.badge === "POPULAR" ||
+      item.badge === "SPECIAL_FLAVORS" ||
       item.badge === "HOT_SELLING",
   );
 
+  console.log(popularItems);
   if (popularItems.length === 0) return null;
 
   const scroll = (direction: "left" | "right") => {
@@ -38,7 +45,7 @@ export const PopularItems: React.FC<PopularItemsProps> = ({
   return (
     <div
       id="popular-items-section"
-      className="container mx-auto max-w-[1220px] select-none"
+      className="container px-2 sm:px-4 md:px-6 mx-auto max-w-[1220px] select-none"
     >
       <div className="flex items-center justify-between mb-4 md:mb-6 gap-2 p-2 sm:p-4">
         <div className="space-y-1 min-w-0">

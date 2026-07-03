@@ -115,7 +115,7 @@ export const demoConfig: RestaurantConfig = {
       },
 
       categoryBackground:
-        "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1783083860/Purple_Welcome_Blackboard_Banner_ufmuxw.png",
+        "https://res.cloudinary.com/dvyhnxnpq/image/upload/c_scale,w_2000/v1783083860/Purple_Welcome_Blackboard_Banner_ufmuxw.png",
     },
 
     cardStyle: "list",

@@ -226,7 +226,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="bg-background-card w-full max-w-[920px] h-[90vh] md:h-[560px] max-h-[640px] rounded-3xl shadow-2xl flex flex-col md:flex-row pointer-events-auto overflow-hidden text-text-primary"
+              className="bg-background-card w-full max-w-[920px] h-[90dvh] md:h-[560px] rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden pointer-events-auto text-text-primary"
             >
               {/* Left Side: Product Hero Image & Info Overlay */}
               <div className="relative w-full md:w-1/2 h-[220px] md:h-full shrink-0 overflow-hidden bg-brand-primary/5 border-b md:border-b-0 md:border-r border-brand-primary/10">
@@ -264,7 +264,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({
               </div>
 
               {/* Right Side: Price, Options, Instructions & Custom Stepper/Buttons */}
-              <div className="flex-1 flex flex-col justify-between h-full bg-background-card min-w-0">
+              <div className="flex-1 flex flex-col min-h-0 min-w-0 bg-background-card">
                 {/* Top Bar with Pricing and Action Buttons */}
                 <div className="p-5 pb-3.5 border-b border-brand-primary/10 flex items-center justify-between shrink-0">
                   <div className="flex items-baseline gap-2">
@@ -313,7 +313,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({
                 </div>
 
                 {/* Scrollable Content Body (Variant groups & Notes) */}
-                <div className="p-5 overflow-y-auto space-y-5 flex-1 min-h-0 text-sm leading-relaxed scrollbar-thin">
+                <div className="flex-1 min-h-0 overflow-y-auto p-5 space-y-5 overscroll-contain text-sm leading-relaxed scrollbar-thin">
                   {/* Variant choices */}
                   {item.variants && item.variants.length > 0 && (
                     <div className="space-y-5">
@@ -436,7 +436,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({
                 </div>
 
                 {/* Bottom Footer Actions (Custom stepper & Add to Order button) */}
-                <div className="px-5 py-4 border-t border-brand-primary/10 bg-brand-primary/5/30 flex items-center justify-between gap-3.5 shrink-0">
+                <div className="sticky bottom-0 z-20 px-5 py-4 border-t bg-background-card shadow-[0_-8px_20px_rgba(0,0,0,0.05)] border-brand-primary/10 bg-brand-primary/5/30 flex items-center justify-between gap-3.5 shrink-0">
                   {/* Quantity Stepper */}
                   <div className="flex items-center bg-gray-100/70 border border-gray-200 rounded-xl p-1 w-[115px] justify-between h-[46px] shrink-0">
                     <button

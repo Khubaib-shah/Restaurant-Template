@@ -291,7 +291,7 @@ export const CheckoutView: React.FC = () => {
           <ShoppingBag size={24} />
         </div>
         <div>
-          <h3 className="text-base font-bold text-gray-800">
+          <h3 className="text-base font-bold text-text-secondary">
             Your Cart is Empty
           </h3>
           <p className="text-xs text-text-secondary max-w-[240px] leading-relaxed mx-auto mt-1">
@@ -318,7 +318,7 @@ export const CheckoutView: React.FC = () => {
   return (
     <div
       id="checkout-view-wrapper"
-      className="w-full max-w-[1200px] mx-auto px-4 py-6 md:py-8 select-none"
+      className="w-full max-w-[1200px] mx-auto px-2 py-6 sm:px-4 md:py-8 select-none"
     >
       {/* 1. Header Area */}
       <div className="flex flex-col gap-4">
@@ -336,7 +336,7 @@ export const CheckoutView: React.FC = () => {
               <span className="text-xs md:text-sm text-gray-600 font-medium">
                 This is a
               </span>
-              <span className="bg-brand-primary text-text-inverse text-[10px] md:text-[11px] font-extrabold px-3 py-0.5 rounded-full uppercase tracking-wider">
+              <span className="bg-brand-primary text-text-inverse text-[10px] md:text-[11px] font-medium px-3 py-0.5 rounded-full uppercase">
                 Delivery Order
               </span>
             </div>
@@ -654,7 +654,7 @@ export const CheckoutView: React.FC = () => {
                     M/C
                   </span>
                 </div>
-                <span className="text-[11px] sm:text-xs font-bold text-gray-800 text-center leading-none mt-1">
+                <span className="text-[11px] sm:text-xs font-bold text-text-secondary text-center leading-none mt-1">
                   Online Payment
                 </span>
               </div>
@@ -722,7 +722,7 @@ export const CheckoutView: React.FC = () => {
                           <span className="text-xs md:text-[13px] font-black text-text-primary shrink-0">
                             {item.quantity} x
                           </span>
-                          <span className="text-xs md:text-[13px] font-bold text-gray-800 truncate max-w-[180px]">
+                          <span className="text-xs md:text-[13px] font-bold text-text-secondary truncate max-w-[180px]">
                             {item.name}
                           </span>
                         </div>
@@ -792,7 +792,7 @@ export const CheckoutView: React.FC = () => {
                   <span className="flex items-center gap-2 font-medium">
                     <FileText size={14} className="text-text-secondary" /> Total
                   </span>
-                  <span className="font-extrabold text-gray-800">
+                  <span className="font-extrabold text-text-secondary">
                     {formatPrice(subtotal)}
                   </span>
                 </div>
@@ -803,7 +803,7 @@ export const CheckoutView: React.FC = () => {
                     <Percent size={14} className="text-text-secondary" /> Tax (
                     {config.taxPercent}%)
                   </span>
-                  <span className="font-extrabold text-gray-800">
+                  <span className="font-extrabold text-text-secondary">
                     {formatPrice(tax)}
                   </span>
                 </div>
@@ -814,7 +814,7 @@ export const CheckoutView: React.FC = () => {
                     <Truck size={14} className="text-text-secondary" /> Delivery
                     Fee
                   </span>
-                  <span className="font-extrabold text-gray-800">
+                  <span className="font-extrabold text-text-secondary">
                     {formatPrice(deliveryFee)}
                   </span>
                 </div>
@@ -862,7 +862,7 @@ export const CheckoutView: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full h-12 md:h-13 bg-brand-primary hover:bg-brand-primary/80 active:scale-[0.99] disabled:opacity-75 disabled:pointer-events-none text-text-inverse flex items-center justify-center gap-2 rounded-xl font-bold text-sm tracking-wide transition-all shadow-lg shadow-[#052E16]/10 cursor-pointer"
+                    className="w-full h-12 md:h-13 bg-brand-primary hover:bg-brand-primary/80 active:scale-[0.99] disabled:opacity-75 disabled:pointer-events-none text-text-inverse flex items-center justify-center gap-2 rounded-xl font-bold text-sm tracking-wide transition-all shadow-lg shadow-brand-primary/10 cursor-pointer"
                   >
                     {isSubmitting ? (
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -922,7 +922,7 @@ export const CheckoutView: React.FC = () => {
                 type="submit"
                 form="checkout-form"
                 disabled={isSubmitting}
-                className="w-full sm:flex-1 h-11 bg-[#052E16] hover:bg-[#032110] active:scale-[0.99] disabled:opacity-75 disabled:pointer-events-none text-text-inverse flex items-center justify-center gap-2 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#052E16]/10 cursor-pointer order-1 sm:order-2"
+                className="w-full sm:flex-1 h-11 bg-brand-primary hover:bg-brand-primary/80 active:scale-[0.99] disabled:opacity-75 disabled:pointer-events-none text-text-inverse flex items-center justify-center gap-2 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-brand-primary/10 cursor-pointer order-1 sm:order-2"
               >
                 {isSubmitting ? (
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -961,14 +961,14 @@ export const CheckoutView: React.FC = () => {
               </div>
 
               {/* Header Title */}
-              <h2 className="text-xl md:text-2xl font-bold md:font-black text-text-inverse text-center tracking-tight leading-snug">
+              <h2 className="text-xl md:text-2xl font-bold md:font-black text-text-primary text-center tracking-tight leading-snug">
                 Order Placed Successfully! 🎉
               </h2>
 
               {/* Description */}
               <p className="text-center text-text-secondary text-xs sm:text-sm mt-2 leading-relaxed px-2 font-medium">
-                Thank you for ordering from Ghalib Restaurant. We are preparing
-                your delicious meals right now.
+                Thank you for ordering from {config.name}. We are preparing your
+                delicious meals right now.
               </p>
 
               {/* ID & Date Reference Row */}
@@ -978,7 +978,7 @@ export const CheckoutView: React.FC = () => {
                     <FileText size={13} className="text-text-secondary" /> Order
                     ID
                   </span>
-                  <span className="font-semibold md:font-extrabold text-gray-800 tracking-wide uppercase">
+                  <span className="font-semibold md:font-extrabold text-text-primary tracking-wide uppercase">
                     {orderId}
                   </span>
                 </div>
@@ -988,7 +988,7 @@ export const CheckoutView: React.FC = () => {
                     <Clock size={13} className="text-text-secondary" /> Delivery
                     Estimated
                   </span>
-                  <span className="font-semibold md:font-extrabold text-brand-primary">
+                  <span className="font-semibold md:font-extrabold text-text-primary">
                     35 - 45 mins
                   </span>
                 </div>
@@ -998,16 +998,16 @@ export const CheckoutView: React.FC = () => {
                     <MapPin size={13} className="text-text-secondary" />{" "}
                     Neighborhood Area
                   </span>
-                  <span className="font-semibold md:font-extrabold text-gray-800 uppercase">
+                  <span className="font-semibold md:font-extrabold text-text-primary uppercase">
                     {currentLocation.area}
                   </span>
                 </div>
 
                 <div className="flex justify-between items-center text-xs pt-1.5 border-t border-gray-200/50">
-                  <span className="font-semibold md:font-extrabold text-gray-800">
+                  <span className="font-semibold md:font-extrabold text-text-primary text-sm sm:text-base">
                     Total Paid
                   </span>
-                  <span className="font-bold md:font-black text-brand-primary text-sm sm:text-base">
+                  <span className="font-bold md:font-black text-text-primary text-sm sm:text-base">
                     {formatPrice(total)}
                   </span>
                 </div>
@@ -1016,7 +1016,7 @@ export const CheckoutView: React.FC = () => {
               {/* Confirm Back button */}
               <button
                 onClick={handleBackToMenu}
-                className="w-full h-12 bg-[#052E16] hover:bg-[#032110] text-text-inverse flex items-center justify-center rounded-xl font-semibold md:font-bold text-sm tracking-wide transition-all cursor-pointer shadow-lg mt-6"
+                className="w-full h-12 bg-brand-primary hover:bg-brand-primary/80 text-text-inverse flex items-center justify-center rounded-xl font-semibold md:font-bold text-sm tracking-wide transition-all cursor-pointer shadow-lg mt-6"
               >
                 Back To Menu
               </button>

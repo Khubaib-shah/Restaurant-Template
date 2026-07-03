@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useRestaurant } from '../../context/RestaurantContext';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRestaurant } from "../../context/RestaurantContext";
+import { motion, AnimatePresence } from "motion/react";
 
 export const HeroBanner: React.FC = () => {
   const { config } = useRestaurant();
@@ -31,11 +31,11 @@ export const HeroBanner: React.FC = () => {
   return (
     <div
       id="hero-banner-container"
-      className="w-full bg-transparent px-4 mt-4 lg:px-6 lg:mt-6 select-none shrink-0"
+      className="w-full bg-transparent px-2 sm:px-4 lg:px-6 mt-4 mb-2 lg:mt-6 select-none shrink-0"
     >
       <div
         id="hero-banner-slider"
-        className="relative w-full h-[140px] md:h-[calc(100dvh-162px)] bg-gray-900 overflow-hidden rounded-2xl lg:rounded-[2rem] border-2 border-white shadow-lg lg:shadow-xl"
+        className="relative w-full h-[180px] md:h-[calc(100dvh-162px)] bg-gray-900 overflow-hidden rounded-2xl lg:rounded-[2rem] border-2 border-white shadow-lg lg:shadow-xl"
       >
         {/* Slides Slider with Framer Motion AnimatePresence */}
         <div className="absolute inset-0">
@@ -45,19 +45,19 @@ export const HeroBanner: React.FC = () => {
               custom={direction}
               variants={{
                 enter: (dir: number) => ({
-                  x: dir > 0 ? '100%' : '-100%',
+                  x: dir > 0 ? "100%" : "-100%",
                   opacity: 0,
                 }),
                 center: { x: 0, opacity: 1 },
                 exit: (dir: number) => ({
-                  x: dir > 0 ? '-100%' : '100%',
+                  x: dir > 0 ? "-100%" : "100%",
                   opacity: 0,
                 }),
               }}
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.45, ease: 'easeInOut' }}
+              transition={{ duration: 0.45, ease: "easeInOut" }}
               className="absolute inset-0 w-full h-full"
             >
               {/* Dark Dimming overlay */}
@@ -65,7 +65,7 @@ export const HeroBanner: React.FC = () => {
 
               <img
                 src={slides[current].imageUrl}
-                alt={slides[current].promoHeadline || 'Food Promotion'}
+                alt={slides[current].promoHeadline || "Food Promotion"}
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
               />
@@ -119,8 +119,11 @@ export const HeroBanner: React.FC = () => {
                 setDirection(idx > current ? 1 : -1);
                 setCurrent(idx);
               }}
-              className={`h-1 lg:h-2 rounded-full transition-all cursor-pointer ${idx === current ? 'w-3 lg:w-5 bg-background-card' : 'w-1 lg:w-2 bg-background-card/40'
-                }`}
+              className={`h-1 lg:h-2 rounded-full transition-all cursor-pointer ${
+                idx === current
+                  ? "w-3 lg:w-5 bg-background-card"
+                  : "w-1 lg:w-2 bg-background-card/40"
+              }`}
               aria-label={`Go to slide ${idx + 1}`}
             />
           ))}
@@ -136,8 +139,12 @@ export const HeroBanner: React.FC = () => {
           </span>
           <div className="flex gap-0.5 lg:gap-1 items-center">
             {/* Mock Visa vector */}
-            <span className="text-[8px] lg:text-[10px] font-extrabold italic text-blue-800 tracking-tighter">VISA</span>
-            <span className="text-[8px] lg:text-[10px] font-extrabold italic text-red-600 tracking-tighter">MC</span>
+            <span className="text-[8px] lg:text-[10px] font-extrabold italic text-blue-800 tracking-tighter">
+              VISA
+            </span>
+            <span className="text-[8px] lg:text-[10px] font-extrabold italic text-red-600 tracking-tighter">
+              MC
+            </span>
           </div>
         </div>
       </div>

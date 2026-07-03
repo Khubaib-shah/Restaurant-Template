@@ -13,7 +13,7 @@ export const PromoBanner = () => {
 
   return (
     <div
-      className="max-w-[1220px] container mx-auto  relative overflow-hidden rounded-xl my-4 border px-3 sm:px-5 py-3.5 shadow-sm"
+      className="max-w-[1220px] container mx-2 sm:mx-4 lg:mx-auto relative overflow-hidden rounded-xl my-4 border px-3 sm:px-5 py-3.5 shadow-sm"
       style={{
         background: colors.background.card,
         borderColor: `${colors.primary}25`,
@@ -83,7 +83,7 @@ export const PromoBanner = () => {
               ? "% OFF"
               : promo.type === "flat_amount"
                 ? "Rs OFF"
-                : "FREE DELIVERY"}
+                : "DELIVERY"}
           </span>
         </p>
       </div>

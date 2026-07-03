@@ -1,4 +1,4 @@
-  import { Category, MenuItem } from "../types/menu";
+import { Category, MenuItem } from "../types/menu";
 
 export const categories: Category[] = [
   {
@@ -1299,7 +1299,7 @@ export const menuItems: MenuItem[] = [
     discountedPrice: 360,
     hasVariants: false,
     badge: "POPULAR",
-    isAvailable: true,
+    isAvailable: false,
     isFeatured: false,
   },
   {
@@ -1814,17 +1814,22 @@ export const menuItems: MenuItem[] = [
 
 export const iceCreamCategories = [
   {
-    id: "cat-classic-scoops",
-    name: "Classic Scoops",
-    description: "Timeless ice cream flavors loved by everyone.",
+    id: "cat-special-combos",
+    name: "Special Combos",
     imageUrl:
       "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
   },
   {
+    id: "cat-classic-scoops",
+    name: "Classic Scoops",
+    imageUrl:
+      "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&auto=format&fit=crop&q=80",
+    isAvailable: false,
+  },
+  {
     id: "cat-premium-scoops",
     name: "Premium Scoops",
-    description: "Luxury flavors crafted with premium ingredients.",
     imageUrl:
       "https://images.unsplash.com/photo-1515037893149-de7f840978e2?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
@@ -1832,7 +1837,6 @@ export const iceCreamCategories = [
   {
     id: "cat-sundaes",
     name: "Sundaes",
-    description: "Ice cream creations topped with delicious sauces and treats.",
     imageUrl:
       "https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
@@ -1840,7 +1844,6 @@ export const iceCreamCategories = [
   {
     id: "cat-milkshakes",
     name: "Milkshakes",
-    description: "Creamy milkshakes blended to perfection.",
     imageUrl:
       "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
@@ -1848,15 +1851,13 @@ export const iceCreamCategories = [
   {
     id: "cat-waffles",
     name: "Waffles",
-    description: "Fresh Belgian waffles served with ice cream.",
     imageUrl:
       "https://images.unsplash.com/photo-1513442542250-854d436a73f2?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
   },
   {
-    id: "cat-ice-cream-cakes",
-    name: "Ice Cream Cakes",
-    description: "Celebrate with handcrafted ice cream cakes.",
+    id: "cat-ice-cakes",
+    name: "Ice Cakes",
     imageUrl:
       "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
@@ -1864,7 +1865,6 @@ export const iceCreamCategories = [
   {
     id: "cat-falooda",
     name: "Falooda",
-    description: "Traditional falooda served with premium ice cream.",
     imageUrl:
       "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
@@ -1872,7 +1872,6 @@ export const iceCreamCategories = [
   {
     id: "cat-smoothies",
     name: "Smoothies",
-    description: "Fresh fruit smoothies packed with flavor.",
     imageUrl:
       "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
@@ -1880,17 +1879,8 @@ export const iceCreamCategories = [
   {
     id: "cat-coffee",
     name: "Coffee",
-    description: "Hot and cold coffee beverages made from premium beans.",
     imageUrl:
       "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&auto=format&fit=crop&q=80",
-    isAvailable: true,
-  },
-  {
-    id: "cat-special-combos",
-    name: "Special Combos",
-    description: "Value-packed combos perfect for sharing.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
   },
 ];
@@ -1905,6 +1895,7 @@ export const iceCreamItems = [
       "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&auto=format&fit=crop&q=80",
     basePrice: 350,
     discountedPrice: 290,
+    badge: "TRENDING",
     hasVariants: true,
     pricePrefix: "From",
     variants: [
@@ -2006,10 +1997,11 @@ export const iceCreamItems = [
     name: "Mango Scoop",
     description: "Sweet mango ice cream bursting with tropical flavor.",
     imageUrl:
-      "https://images.unsplash.com/photo-1629385701021-fcd568a74388?w=600&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1689012133602-79f95fba010f?w=600&auto=format&fit=crop&q=80",
     basePrice: 370,
     discountedPrice: 320,
     hasVariants: true,
+    badge: "POPULAR",
     pricePrefix: "From",
     variants: [
       {
@@ -2078,6 +2070,7 @@ export const iceCreamItems = [
       "https://images.unsplash.com/photo-1515037893149-de7f840978e2?w=600&auto=format&fit=crop&q=80",
     basePrice: 510,
     discountedPrice: 450,
+    badge: "NEW_ARRIVAL",
     hasVariants: true,
     pricePrefix: "From",
     variants: [
@@ -2142,6 +2135,7 @@ export const iceCreamItems = [
       "https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=600&auto=format&fit=crop&q=80",
     basePrice: 520,
     discountedPrice: 455,
+    badge: "HOT_SELLING",
     hasVariants: true,
     pricePrefix: "From",
     variants: [
@@ -2288,7 +2282,7 @@ export const iceCreamItems = [
     description:
       "Premium ice cream topped with roasted almonds, cashews and caramel.",
     imageUrl:
-      "https://images.unsplash.com/photo-1464306076886-da185f6a9d05?w=600&auto=format&fit=crop&q=80",
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1783108661/download_bqg6xy.png?w=600&auto=format&fit=crop&q=80",
     basePrice: 760,
     discountedPrice: 690,
     hasVariants: true,
@@ -2355,7 +2349,7 @@ export const iceCreamItems = [
     name: "Vanilla Milkshake",
     description: "Classic vanilla shake made with creamy vanilla ice cream.",
     imageUrl:
-      "https://images.unsplash.com/photo-1553787499-6f913324e0c0?w=600&auto=format&fit=crop&q=80",
+      "https://plus.unsplash.com/premium_photo-1695927470038-35a215e794f0?w=600&auto=format&fit=crop&q=80",
     basePrice: 500,
     discountedPrice: 450,
     hasVariants: true,
@@ -2917,7 +2911,7 @@ export const iceCreamItems = [
     description:
       "4 premium scoops, 2 waffles and 4 toppings—perfect for sharing.",
     imageUrl:
-      "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&auto=format&fit=crop&q=80",
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1783108661/download_bqg6xy.png?w=600&auto=format&fit=crop&q=80",
     basePrice: 2990,
     discountedPrice: 2590,
     hasVariants: false,
@@ -2964,7 +2958,7 @@ export const iceCreamItems = [
     description:
       "8 scoops, 4 waffles, brownies and toppings for the ultimate celebration.",
     imageUrl:
-      "https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=600&auto=format&fit=crop&q=80",
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1783108449/download_xb77bl.png?w=600&auto=format&fit=crop&q=80",
     basePrice: 4990,
     discountedPrice: 4390,
     hasVariants: false,

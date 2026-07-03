@@ -177,7 +177,7 @@ const RestaurantAppContent: React.FC = () => {
             {/* 8. Main Body Grid: Category Items Lists */}
             <main
               id="main-content-layout"
-              className="flex-1 container max-w-[1220px] mx-auto select-none"
+              className="flex-1 container max-w-[1220px] mx-auto select-none px-2 sm:px-4 md:px-6 lg:px-8 py-6"
             >
               <div className="flex gap-8 items-start">
                 {/* Left: Food Section Blocks */}
