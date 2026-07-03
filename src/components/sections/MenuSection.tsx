@@ -29,16 +29,21 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
       <div className="mb-3 md:mb-6">
         {config.theme.assets.categoryBackground &&
         config.theme.assets.categoryBackground !== null ? (
-          <div className="relative flex flex-col items-center text-center space-y-2 py-2 md:py-4 select-none">
+          <div className="relative flex flex-col items-center text-center py-2 md:py-4 select-none">
             <img
               src={config.theme.assets.categoryBackground}
               alt={category.name}
-              className="object-contain mb-2"
+              className="object-contain"
               referrerPolicy="no-referrer"
             />
 
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-              <h2 className="text-2xl md:text-3xl font-black text-text-inverse uppercase tracking-wider">
+              <h2
+                className="font-bold text-text-inverse uppercase tracking-wider"
+                style={{
+                  fontSize: "clamp(1rem, 3vw, 2.5rem)",
+                }}
+              >
                 {category.name}
               </h2>
 
