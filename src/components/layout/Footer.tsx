@@ -79,27 +79,25 @@ export const Footer: React.FC = () => {
               Product
             </h3>
             <div className="flex flex-col gap-3 text-sm text-text-secondary">
-              {productLinks.map((link, index) => (
-                <>
-                  {link.label === "Search" ? (
-                    <a
-                      key={link.label + index}
-                      className="hover:text-brand-primary transition-colors"
-                      onClick={handleSearchFocus}
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <a
-                      key={link.label + index}
-                      href={link.href}
-                      className="hover:text-brand-primary transition-colors"
-                    >
-                      {link.label}
-                    </a>
-                  )}
-                </>
-              ))}
+              {productLinks.map((link) =>
+                link.label === "Search" ? (
+                  <a
+                    key={link.label}
+                    className="hover:text-brand-primary transition-colors"
+                    onClick={handleSearchFocus}
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="hover:text-brand-primary transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ),
+              )}
             </div>
           </div>
 

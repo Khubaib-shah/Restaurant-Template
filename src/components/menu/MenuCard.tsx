@@ -1,32 +1,42 @@
-import React from 'react';
-import { Minus, Plus, ShoppingCart, ArrowRight } from 'lucide-react';
-import { MenuItem } from '../../types/menu';
-import { useCart } from '../../context/CartContext';
-import { formatPrice } from '../../lib/price';
-import { ItemBadge } from './ItemBadge';
-import { ImagePlaceholder } from '../ui/ImagePlaceholder';
-import { motion } from 'motion/react';
-import { useRestaurant } from '../../context/RestaurantContext';
+import React from "react";
+import { Minus, Plus, ShoppingCart, ArrowRight } from "lucide-react";
+import { MenuItem } from "../../types/menu";
+import { useCart } from "../../context/CartContext";
+import { formatPrice } from "../../lib/price";
+import { ItemBadge } from "./ItemBadge";
+import { ImagePlaceholder } from "../ui/ImagePlaceholder";
+import { motion } from "motion/react";
+import { useRestaurant } from "../../context/RestaurantContext";
 
 interface MenuCardProps {
   item: MenuItem;
   onCustomizeClick?: (item: MenuItem) => void;
-  cardStyle?: 'default' | 'minimal' | 'list';
+  cardStyle?: "default" | "minimal" | "list";
 }
 
-export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, cardStyle: propCardStyle }) => {
+export const MenuCard: React.FC<MenuCardProps> = ({
+  item,
+  onCustomizeClick,
+  cardStyle: propCardStyle,
+}) => {
   const { state: cartState, addItem, updateQuantity } = useCart();
   const { config } = useRestaurant();
-  const cardStyle = propCardStyle || config.theme.cardStyle || 'default';
+  const cardStyle = propCardStyle || config.theme.cardStyle || "default";
 
   // Check if item is in cart
-  const cartItemsOfThisMenu = cartState.items.filter((i) => i.menuItemId === item.id);
-  const totalQuantity = cartItemsOfThisMenu.reduce((sum, i) => sum + i.quantity, 0);
+  const cartItemsOfThisMenu = cartState.items.filter(
+    (i) => i.menuItemId === item.id,
+  );
+  const totalQuantity = cartItemsOfThisMenu.reduce(
+    (sum, i) => sum + i.quantity,
+    0,
+  );
 
   // If non-variant item, we can grab the unique cart item
-  const nonVariantCartItem = !item.hasVariants && cartItemsOfThisMenu.length > 0
-    ? cartItemsOfThisMenu[0]
-    : null;
+  const nonVariantCartItem =
+    !item.hasVariants && cartItemsOfThisMenu.length > 0
+      ? cartItemsOfThisMenu[0]
+      : null;
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -75,13 +85,14 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
   };
 
   // 1. MINIMAL STYLE: No background, image with bottom title/price, plus circle overlay
-  if (cardStyle === 'minimal') {
+  if (cardStyle === "minimal") {
     return (
       <motion.div
         id={`menu-card-${item.id}`}
         onClick={handleCardClick}
-        className={`bg-transparent overflow-hidden relative cursor-pointer flex flex-col select-none transition-opacity duration-150 ${!item.isAvailable ? 'opacity-65 grayscale-[40%]' : ''
-          }`}
+        className={`bg-transparent overflow-hidden relative cursor-pointer flex flex-col select-none transition-opacity duration-150 ${
+          !item.isAvailable ? "opacity-65 grayscale-[40%]" : ""
+        }`}
       >
         {/* Image Block */}
         <div className="relative w-full aspect-square bg-brand-primary/5 overflow-hidden rounded-2xl border border-brand-primary/10">
@@ -90,24 +101,26 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
           {item.imageUrl ? (
             <>
               <div
-                className={`absolute inset-0 bg-gray-100 transition-opacity duration-300 z-0 ${imgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
-                  }`}
+                className={`absolute inset-0 bg-gray-100 transition-opacity duration-300 z-0 ${
+                  imgLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+                }`}
               />
               <img
                 src={item.imageUrl}
                 alt={item.name}
-                className={`w-full h-full object-cover select-none transition-all duration-500 hover:scale-105 ${imgLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-                  }`}
+                className={`w-full h-full object-cover select-none transition-all duration-500 hover:scale-105 ${
+                  imgLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                }`}
                 referrerPolicy="no-referrer"
                 loading="lazy"
                 onLoad={() => setImgLoaded(true)}
                 onError={(e) => {
                   setImgLoaded(true);
                   const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
+                  target.style.display = "none";
                   const parent = target.parentElement;
                   if (parent) {
-                    const placeholderDiv = document.createElement('div');
+                    const placeholderDiv = document.createElement("div");
                     placeholderDiv.className = "w-full h-full";
                     parent.appendChild(placeholderDiv);
                   }
@@ -207,21 +220,23 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
   }
 
   // 2. LIST STYLE: Horizontal layout with image on left, title/desc in center, plus/stepper on right
-  if (cardStyle === 'list') {
+  if (cardStyle === "list") {
     return (
       <motion.div
         id={`menu-card-${item.id}`}
         onClick={handleCardClick}
-        className={`bg-background-card rounded-xl border border-brand-primary/30 p-3 relative cursor-pointer flex items-center gap-3 select-none transition-shadow hover:shadow-md duration-150 ${!item.isAvailable ? 'opacity-65 grayscale-[40%]' : ''
-          }`}
+        className={`bg-background-card rounded-xl border border-brand-primary/30 p-3 relative cursor-pointer flex items-center gap-3 select-none transition-shadow hover:shadow-md duration-150 ${
+          !item.isAvailable ? "opacity-65 grayscale-[40%]" : ""
+        }`}
       >
         {/* Left: Compact Image */}
         <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-lg overflow-hidden bg-brand-primary/5 border border-brand-primary/10">
           {item.imageUrl ? (
             <>
               <div
-                className={`absolute inset-0 bg-gray-100 transition-opacity duration-300 z-0 ${imgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
-                  }`}
+                className={`absolute inset-0 bg-gray-100 transition-opacity duration-300 z-0 ${
+                  imgLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+                }`}
               />
               <img
                 src={item.imageUrl}
@@ -250,14 +265,22 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
           <div>
             {item.badge && (
               <div className="mb-1.5 flex flex-wrap">
-                <span className={`inline-block rounded px-2 py-0.5 text-[8px] font-black uppercase tracking-widest whitespace-nowrap shadow-sm ${item.badge === 'BEST_SELLER' ? 'bg-amber-100 text-amber-800 border border-amber-200/60' :
-                  item.badge === 'HOT_SELLING' ? 'bg-red-105 text-red-800 border border-red-200/60' :
-                    item.badge === 'NEW_ARRIVAL' ? 'bg-green-100 text-green-800 border border-green-200/60' :
-                      item.badge === 'TRENDING' ? 'bg-orange-100 text-orange-800 border border-orange-200/60' :
-                        item.badge === 'POPULAR' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200/60' :
-                          'bg-brand-primary/10 text-brand-primary border border-brand-primary/20'
-                  }`}>
-                  {item.badge.replace('_', ' ')}
+                <span
+                  className={`inline-block rounded px-2 py-0.5 text-[8px] font-black uppercase tracking-widest whitespace-nowrap shadow-sm ${
+                    item.badge === "BEST_SELLER"
+                      ? "bg-amber-100 text-amber-800 border border-amber-200/60"
+                      : item.badge === "HOT_SELLING"
+                        ? "bg-red-105 text-red-800 border border-red-200/60"
+                        : item.badge === "NEW_ARRIVAL"
+                          ? "bg-green-100 text-green-800 border border-green-200/60"
+                          : item.badge === "TRENDING"
+                            ? "bg-orange-100 text-orange-800 border border-orange-200/60"
+                            : item.badge === "POPULAR"
+                              ? "bg-yellow-100 text-yellow-800 border border-yellow-200/60"
+                              : "bg-brand-primary/10 text-brand-primary border border-brand-primary/20"
+                  }`}
+                >
+                  {item.badge.replace("_", " ")}
                 </span>
               </div>
             )}
@@ -266,7 +289,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
             </h3>
 
             {item.description && (
-              <p className="text-[11px] text-text-secondary line-clamp-2-fixed mt-0.5 leading-snug">
+              <p className="text-[11px] text-text-secondary line-clamp-2 mt-0.5 leading-snug">
                 {item.description}
               </p>
             )}
@@ -348,10 +371,15 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
   return (
     <motion.div
       id={`menu-card-${item.id}`}
-      whileHover={item.isAvailable ? { boxShadow: '0 4px 12px rgba(0,0,0,0.12)' } : undefined}
+      whileHover={
+        item.isAvailable
+          ? { boxShadow: "0 4px 12px rgba(0,0,0,0.12)" }
+          : undefined
+      }
       onClick={handleCardClick}
-      className={`bg-background-card rounded-xl border border-brand-primary overflow-hidden relative cursor-pointer flex flex-col justify-between shadow-card select-none transition-opacity duration-150 ${!item.isAvailable ? 'opacity-65 grayscale-[40%]' : ''
-        }`}
+      className={`bg-background-card rounded-xl border border-brand-primary overflow-hidden relative cursor-pointer flex flex-col justify-between shadow-card select-none transition-opacity duration-150 ${
+        !item.isAvailable ? "opacity-65 grayscale-[40%]" : ""
+      }`}
     >
       {/* Image Area */}
       <div className="relative w-full aspect-square bg-brand-primary/5 overflow-hidden">
@@ -361,24 +389,26 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
           <>
             {/* Non-pulsing placeholder while loading */}
             <div
-              className={`absolute inset-0 bg-gray-100 transition-opacity duration-300 z-0 ${imgLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
-                }`}
+              className={`absolute inset-0 bg-background-card/10 transition-opacity duration-300 z-0 ${
+                imgLoaded ? "opacity-0 pointer-events-none" : "opacity-100"
+              }`}
             />
             <img
               src={item.imageUrl}
               alt={item.name}
-              className={`w-full h-full object-cover select-none transition-all duration-500 hover:scale-105 ${imgLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-                }`}
+              className={`w-full h-full object-cover select-none transition-all duration-500 hover:scale-105 ${
+                imgLoaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
+              }`}
               referrerPolicy="no-referrer"
               loading="lazy"
               onLoad={() => setImgLoaded(true)}
               onError={(e) => {
                 setImgLoaded(true);
                 const target = e.target as HTMLImageElement;
-                target.style.display = 'none';
+                target.style.display = "none";
                 const parent = target.parentElement;
                 if (parent) {
-                  const placeholderDiv = document.createElement('div');
+                  const placeholderDiv = document.createElement("div");
                   placeholderDiv.className = "w-full h-full";
                   parent.appendChild(placeholderDiv);
                 }
@@ -403,7 +433,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
       <div className="p-3 flex-1 flex flex-col justify-between">
         <div className="space-y-1">
           {/* Name */}
-          <h3 className="text-xs md:text-[14px] font-bold text-text-primary leading-snug line-clamp-2">
+          <h3 className="text-xs md:text-[14px] font-semibold md:font-bold text-text-primary leading-snug line-clamp-2">
             {item.name}
           </h3>
 
@@ -416,7 +446,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
 
           {/* Description */}
           {item.description && (
-            <p className="hidden md:block text-xs text-text-secondary leading-normal line-clamp-2-fixed mt-1">
+            <p className="hidden md:line-clamp-2 text-xs text-text-secondary leading-normal mt-1">
               {item.description}
             </p>
           )}
@@ -459,7 +489,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
               }}
               className="w-full h-9 bg-brand-primary hover:bg-brand-primary-hover text-text-inverse text-[11px] font-bold uppercase tracking-widest rounded-lg flex items-center justify-center gap-1 transition-colors cursor-pointer"
             >
-              {totalQuantity > 0 ? `In Cart (${totalQuantity})` : 'Add to Cart'}
+              {totalQuantity > 0 ? `In Cart (${totalQuantity})` : "Add to Cart"}
             </button>
           ) : nonVariantCartItem ? (
             // Stepper style button for non-variant item already in cart
