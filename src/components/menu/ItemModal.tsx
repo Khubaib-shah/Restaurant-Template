@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { X, Minus, Plus, ArrowRight } from 'lucide-react';
-import { MenuItem, VariantGroup, VariantOption } from '../../types/menu';
-import { useCart } from '../../context/CartContext';
-import { formatPrice } from '../../lib/price';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState, useEffect, useRef } from "react";
+import { X, Minus, Plus, ArrowRight } from "lucide-react";
+import { MenuItem, VariantGroup, VariantOption } from "../../types/menu";
+import { useCart } from "../../context/CartContext";
+import { formatPrice } from "../../lib/price";
+import { motion, AnimatePresence } from "motion/react";
 
 interface ItemModalProps {
   item: MenuItem | null;
@@ -11,12 +11,20 @@ interface ItemModalProps {
   onClose: () => void;
 }
 
-export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) => {
+export const ItemModal: React.FC<ItemModalProps> = ({
+  item,
+  isOpen,
+  onClose,
+}) => {
   const { addItem } = useCart();
-  const [selections, setSelections] = useState<Record<string, VariantOption[]>>({});
+  const [selections, setSelections] = useState<Record<string, VariantOption[]>>(
+    {},
+  );
   const [quantity, setQuantity] = useState(1);
-  const [note, setNote] = useState('');
-  const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+  const [note, setNote] = useState("");
+  const [validationErrors, setValidationErrors] = useState<
+    Record<string, string>
+  >({});
   const modalRef = useRef<HTMLDivElement>(null);
   const [isCopied, setIsCopied] = useState(false);
 
@@ -24,7 +32,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
   useEffect(() => {
     if (item && isOpen) {
       setQuantity(1);
-      setNote('');
+      setNote("");
       setValidationErrors({});
 
       const initialSelections: Record<string, VariantOption[]> = {};
@@ -49,12 +57,12 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
   // Trap escape key to close modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (e.key === "Escape" && isOpen) {
         onClose();
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isOpen, onClose]);
 
   if (!item) return null;
@@ -64,11 +72,13 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
     e.stopPropagation();
     const shareUrl = `${window.location.origin}?item=${item.id}`;
     if (navigator.share) {
-      navigator.share({
-        title: item.name,
-        text: item.description,
-        url: shareUrl,
-      }).catch(() => { });
+      navigator
+        .share({
+          title: item.name,
+          text: item.description,
+          url: shareUrl,
+        })
+        .catch(() => {});
     } else {
       navigator.clipboard.writeText(shareUrl).then(() => {
         setIsCopied(true);
@@ -79,7 +89,9 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
 
   const handleOptionSelect = (group: VariantGroup, option: VariantOption) => {
     const currentGroupSelections = selections[group.id] || [];
-    const isAlreadySelected = currentGroupSelections.some((o) => o.id === option.id);
+    const isAlreadySelected = currentGroupSelections.some(
+      (o) => o.id === option.id,
+    );
 
     let newSelections: VariantOption[] = [];
 
@@ -89,7 +101,9 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
     } else {
       // Multi-select
       if (isAlreadySelected) {
-        newSelections = currentGroupSelections.filter((o) => o.id !== option.id);
+        newSelections = currentGroupSelections.filter(
+          (o) => o.id !== option.id,
+        );
       } else {
         if (currentGroupSelections.length < group.maxSelect) {
           newSelections = [...currentGroupSelections, option];
@@ -129,7 +143,8 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
     item.variants?.forEach((group) => {
       const selected = selections[group.id] || [];
       if (group.required && selected.length < group.minSelect) {
-        errors[group.id] = `Please select at least ${group.minSelect} option(s).`;
+        errors[group.id] =
+          `Please select at least ${group.minSelect} option(s).`;
         isValid = false;
       }
     });
@@ -144,30 +159,34 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
       const firstErrorKey = Object.keys(validationErrors)[0];
       const errorEl = document.getElementById(`group-err-${firstErrorKey}`);
       if (errorEl) {
-        errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        errorEl.scrollIntoView({ behavior: "smooth", block: "center" });
       }
       return;
     }
 
     // Prepare selections flat list
-    const selectionsList = Object.entries(selections).flatMap(([groupId, options]) => {
-      const group = item.variants?.find((g) => g.id === groupId);
-      return (options as VariantOption[]).map((opt) => ({
-        groupId,
-        groupName: group?.name || '',
-        optionId: opt.id,
-        optionName: opt.name,
-        additionalPrice: opt.additionalPrice,
-      }));
-    });
+    const selectionsList = Object.entries(selections).flatMap(
+      ([groupId, options]) => {
+        const group = item.variants?.find((g) => g.id === groupId);
+        return (options as VariantOption[]).map((opt) => ({
+          groupId,
+          groupName: group?.name || "",
+          optionId: opt.id,
+          optionName: opt.name,
+          additionalPrice: opt.additionalPrice,
+        }));
+      },
+    );
 
     // Generate unique cart item ID
     // Format: itemId_optionId1_optionId2...
     const sortedOptionIds = selectionsList
       .map((s) => s.optionId)
       .sort()
-      .join('_');
-    const cartItemId = sortedOptionIds ? `${item.id}_${sortedOptionIds}` : item.id;
+      .join("_");
+    const cartItemId = sortedOptionIds
+      ? `${item.id}_${sortedOptionIds}`
+      : item.id;
 
     addItem({
       id: cartItemId,
@@ -206,7 +225,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
               className="bg-background-card w-full max-w-[920px] h-[90vh] md:h-[560px] max-h-[640px] rounded-3xl shadow-2xl flex flex-col md:flex-row pointer-events-auto overflow-hidden text-text-primary"
             >
               {/* Left Side: Product Hero Image & Info Overlay */}
@@ -220,8 +239,12 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                   />
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center bg-brand-primary/5 text-text-secondary p-6 text-center">
-                    <span className="font-extrabold text-sm uppercase tracking-widest">{item.name}</span>
-                    <span className="text-xs mt-1 opacity-70">No Image Available</span>
+                    <span className="font-extrabold text-sm uppercase tracking-widest">
+                      {item.name}
+                    </span>
+                    <span className="text-xs mt-1 opacity-70">
+                      No Image Available
+                    </span>
                   </div>
                 )}
                 {/* Dark Gradient Overlay for optimal legibility */}
@@ -262,7 +285,13 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                       className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-800 flex items-center justify-center cursor-pointer transition-colors relative"
                       aria-label="Share Item"
                     >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                      >
                         <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3" />
                       </svg>
                       {isCopied && (
@@ -275,7 +304,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                     {/* Close Button */}
                     <button
                       onClick={onClose}
-                      className="w-9 h-9 rounded-full bg-[#032110] hover:bg-[#052E16] text-text-inverse flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                      className="w-9 h-9 rounded-full bg-brand-primary hover:bg-brand-primary/80 text-text-inverse flex items-center justify-center cursor-pointer transition-colors shadow-sm"
                       aria-label="Close"
                     >
                       <X size={16} />
@@ -296,8 +325,9 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                           <div
                             key={group.id}
                             id={`group-${group.id}`}
-                            className={`space-y-3 pb-5 border-b border-brand-primary/10 last:border-0 last:pb-0 ${isError ? 'animate-shake' : ''
-                              }`}
+                            className={`space-y-3 pb-5 border-b border-brand-primary/10 last:border-0 last:pb-0 ${
+                              isError ? "animate-shake" : ""
+                            }`}
                           >
                             <div className="flex items-baseline justify-between">
                               <div className="flex items-center gap-1.5">
@@ -312,7 +342,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                               </div>
                               <span className="text-[11px] text-text-secondary font-bold uppercase tracking-wider">
                                 {group.maxSelect === 1
-                                  ? 'Select 1'
+                                  ? "Select 1"
                                   : `Up to ${group.maxSelect}`}
                               </span>
                             </div>
@@ -320,24 +350,30 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                             {/* Options List */}
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                               {group.options.map((option) => {
-                                const isSelected = selectedOptions.some((o) => o.id === option.id);
+                                const isSelected = selectedOptions.some(
+                                  (o) => o.id === option.id,
+                                );
 
                                 return (
                                   <button
                                     key={option.id}
                                     id={`option-${option.id}`}
-                                    onClick={() => handleOptionSelect(group, option)}
-                                    className={`flex items-center justify-between p-2.5 rounded-xl border text-left transition-all cursor-pointer text-xs ${isSelected
-                                      ? 'border-brand-primary bg-brand-primary/5 text-brand-primary font-bold shadow-sm'
-                                      : 'border-brand-primary/10 hover:border-gray-200 bg-background-card text-gray-700'
-                                      }`}
+                                    onClick={() =>
+                                      handleOptionSelect(group, option)
+                                    }
+                                    className={`flex items-center justify-between p-2.5 rounded-xl border text-left transition-all cursor-pointer text-xs ${
+                                      isSelected
+                                        ? "border-brand-primary bg-brand-primary/5 text-brand-primary font-bold shadow-sm"
+                                        : "border-brand-primary/10 hover:border-gray-200 bg-background-card text-gray-700"
+                                    }`}
                                   >
                                     <div className="flex items-center gap-2">
                                       <div
-                                        className={`w-3.5 h-3.5 rounded-full flex items-center justify-center border ${isSelected
-                                          ? 'border-brand-primary'
-                                          : 'border-brand-primary/25'
-                                          }`}
+                                        className={`w-3.5 h-3.5 rounded-full flex items-center justify-center border ${
+                                          isSelected
+                                            ? "border-brand-primary"
+                                            : "border-brand-primary/25"
+                                        }`}
                                       >
                                         {isSelected && (
                                           <div className="w-1.5 h-1.5 rounded-full bg-brand-primary" />
@@ -372,15 +408,25 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
 
                   {/* Special Instructions */}
                   <div className="space-y-2">
-                    <label htmlFor="instructions-note" className="text-xs font-black text-text-secondary uppercase tracking-wider block">
+                    <label
+                      htmlFor="instructions-note"
+                      className="text-xs font-bold text-text-secondary uppercase tracking-wider block"
+                    >
                       Special Instructions
                     </label>
                     <textarea
                       id="instructions-note"
                       value={note}
-                      onChange={(e) => setNote(e.target.value.replace(/[^a-zA-Z0-9\s.,\-\/#?!()]/g, ''))}
+                      onChange={(e) =>
+                        setNote(
+                          e.target.value.replace(
+                            /[^a-zA-Z0-9\s.,\-\/#?!()]/g,
+                            "",
+                          ),
+                        )
+                      }
                       placeholder="Please enter instructions about this item"
-                      className="w-full h-24 p-3 text-xs md:text-sm border border-gray-150 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/20 bg-brand-primary/5/20"
+                      className="w-full h-24 p-3 text-xs md:text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/20 bg-brand-primary/5"
                       maxLength={500}
                     />
                     <div className="text-right text-[10px] text-text-secondary font-semibold uppercase">
@@ -405,8 +451,20 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                       {quantity === 1 ? (
                         <span className="text-red-500">
                           {/* Trash Can Icon */}
-                          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="15"
+                            height="15"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth="2.5"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            />
                           </svg>
                         </span>
                       ) : (
@@ -418,7 +476,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                     </span>
                     <button
                       onClick={() => setQuantity(quantity + 1)}
-                      className="w-8 h-8 flex items-center justify-center bg-[#052E16] hover:bg-[#032110] text-text-inverse rounded-full transition-colors cursor-pointer"
+                      className="w-8 h-8 flex items-center justify-center bg-brand-primary hover:bg-brand-primary/80 text-text-inverse rounded-full transition-colors cursor-pointer"
                       aria-label="Increase quantity"
                     >
                       <Plus size={13} strokeWidth={3} />
@@ -429,17 +487,28 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                   <button
                     id="add-customised-item-btn"
                     onClick={handleAddToCart}
-                    className="flex-1 h-[46px] bg-[#052E16] hover:bg-[#032110] text-text-inverse rounded-xl flex items-center justify-center px-3 gap-0.5 sm:gap-1 font-medium md:font-extrabold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all cursor-pointer select-none active:scale-[0.99] min-w-0"
+                    className="flex-1 h-[46px] bg-brand-primary hover:bg-brand-primary/80 text-text-inverse rounded-xl flex items-center justify-center px-3 gap-0.5 sm:gap-1 font-medium md:font-semibold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all cursor-pointer select-none active:scale-[0.99] min-w-0"
                   >
-                    <span className="whitespace-nowrap">{formatPrice(totalPrice)}</span>
-                    <span className="opacity-60 font-normal mx-0.5 sm:mx-1">|</span>
-                    <span className="whitespace-nowrap font-normal flex items-center">Add <span className="hidden md:inline-flex">to Cart </span> <motion.span
-                      animate={{ x: [0, 3, 0] }}
-                      transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
-                      className="shrink-0 text-text-inverse"
-                    >
-                      <ArrowRight size={13} strokeWidth={2.5} />
-                    </motion.span>
+                    <span className="whitespace-nowrap">
+                      {formatPrice(totalPrice)}
+                    </span>
+                    <span className="opacity-60 font-normal mx-0.5 sm:mx-1">
+                      |
+                    </span>
+                    <span className="whitespace-nowrap inline-flex items-center gap-1">
+                      Add
+                      <span className="hidden md:inline-flex">to Cart</span>
+                      <motion.span
+                        animate={{ x: [0, 3, 0] }}
+                        transition={{
+                          repeat: Infinity,
+                          duration: 1.2,
+                          ease: "easeInOut",
+                        }}
+                        className="shrink-0 text-text-inverse"
+                      >
+                        <ArrowRight size={13} strokeWidth={2.5} />
+                      </motion.span>
                     </span>
                   </button>
                 </div>

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   Trash2,
   MapPin,
@@ -17,36 +17,36 @@ import {
   Check,
   Calendar,
   Clock,
-  AlertCircle
-} from 'lucide-react';
-import { useCart } from '../../context/CartContext';
-import { useRestaurant } from '../../context/RestaurantContext';
-import { formatPrice } from '../../lib/price';
+  AlertCircle,
+} from "lucide-react";
+import { useCart } from "../../context/CartContext";
+import { useRestaurant } from "../../context/RestaurantContext";
+import { formatPrice } from "../../lib/price";
 
 // Helper function to format Pakistani mobile numbers dynamically
 const formatPakistaniPhoneNumber = (value: string): string => {
   // Remove all characters that are not digits or '+'
-  let cleaned = value.replace(/[^\d+]/g, '');
+  let cleaned = value.replace(/[^\d+]/g, "");
 
-  if (cleaned.startsWith('+')) {
-    cleaned = '+' + cleaned.substring(1).replace(/\+/g, '');
+  if (cleaned.startsWith("+")) {
+    cleaned = "+" + cleaned.substring(1).replace(/\+/g, "");
   } else {
-    cleaned = cleaned.replace(/\+/g, '');
+    cleaned = cleaned.replace(/\+/g, "");
   }
 
   // Check if it starts with '+' or '92'
-  if (cleaned.startsWith('+') || cleaned.startsWith('92')) {
-    let digitsOnly = cleaned.replace(/\+/g, '');
+  if (cleaned.startsWith("+") || cleaned.startsWith("92")) {
+    let digitsOnly = cleaned.replace(/\+/g, "");
 
-    if (digitsOnly.startsWith('92')) {
+    if (digitsOnly.startsWith("92")) {
       const rest = digitsOnly.substring(2);
       if (rest.length === 0) {
-        return '+92';
+        return "+92";
       }
 
       // Strip any leading 0 from the rest (e.g. +92 0314... -> +92 314...)
       let processedRest = rest;
-      if (processedRest.startsWith('0')) {
+      if (processedRest.startsWith("0")) {
         processedRest = processedRest.substring(1);
       }
 
@@ -57,20 +57,20 @@ const formatPakistaniPhoneNumber = (value: string): string => {
       }
     } else {
       // Starts with '+' but not '92' yet (or other digits)
-      if (cleaned.startsWith('+0')) {
-        cleaned = '+92' + cleaned.substring(2);
+      if (cleaned.startsWith("+0")) {
+        cleaned = "+92" + cleaned.substring(2);
         return formatPakistaniPhoneNumber(cleaned);
       }
       return cleaned.substring(0, 16);
     }
   } else {
     // Local format (03xx-xxxxxxx)
-    const digitsOnly = cleaned.replace(/\D/g, '');
+    const digitsOnly = cleaned.replace(/\D/g, "");
 
     // Auto prefix with '0' if they type '3' as the first digit
     let finalDigits = digitsOnly;
-    if (finalDigits.startsWith('3') && finalDigits.length > 0) {
-      finalDigits = '0' + finalDigits;
+    if (finalDigits.startsWith("3") && finalDigits.length > 0) {
+      finalDigits = "0" + finalDigits;
     }
 
     if (finalDigits.length <= 4) {
@@ -83,27 +83,27 @@ const formatPakistaniPhoneNumber = (value: string): string => {
 
 // Sanitizer to allow ONLY letters, spaces, dots, dashes, and single quotes in Name (no numbers or HTML/Script tags)
 const sanitizeNameInput = (val: string): string => {
-  return val.replace(/[^a-zA-Z\s.\-']/g, '');
+  return val.replace(/[^a-zA-Z\s.\-']/g, "");
 };
 
 // Sanitizer for delivery address (alphanumeric, spaces, commas, dots, dashes, slashes, hash, colons, semi-colons, parentheses, and newlines)
 const sanitizeAddressInput = (val: string): string => {
-  return val.replace(/[^a-zA-Z0-9\s.,\-\/#:;()]/g, '');
+  return val.replace(/[^a-zA-Z0-9\s.,\-\/#:;()]/g, "");
 };
 
 // Sanitizer for nearest landmark
 const sanitizeLandmarkInput = (val: string): string => {
-  return val.replace(/[^a-zA-Z0-9\s.,\-\/#]/g, '');
+  return val.replace(/[^a-zA-Z0-9\s.,\-\/#]/g, "");
 };
 
 // Sanitizer for email address (no spaces or unneeded special characters)
 const sanitizeEmailInput = (val: string): string => {
-  return val.replace(/[^a-zA-Z0-9@._\-+]/g, '');
+  return val.replace(/[^a-zA-Z0-9@._\-+]/g, "");
 };
 
 // Sanitizer for delivery instructions
 const sanitizeInstructionsInput = (val: string): string => {
-  return val.replace(/[^a-zA-Z0-9\s.,\-\/#?!()]/g, '');
+  return val.replace(/[^a-zA-Z0-9\s.,\-\/#?!()]/g, "");
 };
 
 export const CheckoutView: React.FC = () => {
@@ -116,7 +116,7 @@ export const CheckoutView: React.FC = () => {
     total,
     itemCount,
     clearCart,
-    setIsCheckoutActive
+    setIsCheckoutActive,
   } = useCart();
 
   const { config, currentLocation, setIsLocationModalOpen } = useRestaurant();
@@ -129,22 +129,22 @@ export const CheckoutView: React.FC = () => {
   const [isSectionTwoVisible, setIsSectionTwoVisible] = useState(false);
 
   // Form Fields State
-  const [title, setTitle] = useState('Mr.');
-  const [fullName, setFullName] = useState('');
-  const [mobileNumber, setMobileNumber] = useState('');
-  const [altMobileNumber, setAltMobileNumber] = useState('');
-  const [deliveryAddress, setDeliveryAddress] = useState('');
-  const [nearestLandmark, setNearestLandmark] = useState('');
-  const [emailAddress, setEmailAddress] = useState('');
-  const [deliveryInstructions, setDeliveryInstructions] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState<'cod' | 'online'>('cod');
-  const [changeRequest, setChangeRequest] = useState('');
+  const [title, setTitle] = useState("Mr.");
+  const [fullName, setFullName] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [altMobileNumber, setAltMobileNumber] = useState("");
+  const [deliveryAddress, setDeliveryAddress] = useState("");
+  const [nearestLandmark, setNearestLandmark] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+  const [deliveryInstructions, setDeliveryInstructions] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<"cod" | "online">("cod");
+  const [changeRequest, setChangeRequest] = useState("");
 
   // Validation & Submission States
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(false);
-  const [orderId, setOrderId] = useState('');
+  const [orderId, setOrderId] = useState("");
 
   // Cart list collapse/expand state for items
   const [isItemsExpanded, setIsItemsExpanded] = useState(false);
@@ -162,7 +162,7 @@ export const CheckoutView: React.FC = () => {
         root: null,
         // Trigger as soon as any part of the button container is visible
         threshold: 0,
-      }
+      },
     );
 
     observer.observe(element);
@@ -183,7 +183,7 @@ export const CheckoutView: React.FC = () => {
       {
         root: null,
         threshold: 0, // Fires as soon as any part of Section 2 enters
-      }
+      },
     );
 
     observer.observe(element);
@@ -196,51 +196,57 @@ export const CheckoutView: React.FC = () => {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     if (!fullName.trim()) {
-      newErrors.fullName = 'Full name is required';
+      newErrors.fullName = "Full name is required";
     } else if (fullName.trim().length < 2) {
-      newErrors.fullName = 'Full name must be at least 2 characters';
+      newErrors.fullName = "Full name must be at least 2 characters";
     }
 
     if (!mobileNumber.trim()) {
-      newErrors.mobileNumber = 'Mobile number is required';
+      newErrors.mobileNumber = "Mobile number is required";
     } else {
-      const digits = mobileNumber.replace(/[^\d]/g, '');
-      if (digits.startsWith('92')) {
+      const digits = mobileNumber.replace(/[^\d]/g, "");
+      if (digits.startsWith("92")) {
         if (digits.length !== 12) {
-          newErrors.mobileNumber = 'Please enter a valid international mobile number (e.g. +92 3xx-xxxxxxx)';
+          newErrors.mobileNumber =
+            "Please enter a valid international mobile number (e.g. +92 3xx-xxxxxxx)";
         }
-      } else if (digits.startsWith('0')) {
+      } else if (digits.startsWith("0")) {
         if (digits.length !== 11) {
-          newErrors.mobileNumber = 'Please enter a valid local mobile number (e.g. 03xx-xxxxxxx)';
+          newErrors.mobileNumber =
+            "Please enter a valid local mobile number (e.g. 03xx-xxxxxxx)";
         }
       } else {
-        newErrors.mobileNumber = 'Please enter a valid mobile number (starting with 03 or +92)';
+        newErrors.mobileNumber =
+          "Please enter a valid mobile number (starting with 03 or +92)";
       }
     }
 
     if (altMobileNumber.trim()) {
-      const altDigits = altMobileNumber.replace(/[^\d]/g, '');
-      if (altDigits.startsWith('92')) {
+      const altDigits = altMobileNumber.replace(/[^\d]/g, "");
+      if (altDigits.startsWith("92")) {
         if (altDigits.length !== 12) {
-          newErrors.altMobileNumber = 'Please enter a valid international alternate mobile number (e.g. +92 3xx-xxxxxxx)';
+          newErrors.altMobileNumber =
+            "Please enter a valid international alternate mobile number (e.g. +92 3xx-xxxxxxx)";
         }
-      } else if (altDigits.startsWith('0')) {
+      } else if (altDigits.startsWith("0")) {
         if (altDigits.length !== 11) {
-          newErrors.altMobileNumber = 'Please enter a valid local alternate mobile number (e.g. 03xx-xxxxxxx)';
+          newErrors.altMobileNumber =
+            "Please enter a valid local alternate mobile number (e.g. 03xx-xxxxxxx)";
         }
       } else {
-        newErrors.altMobileNumber = 'Please enter a valid alternate mobile number (starting with 03 or +92)';
+        newErrors.altMobileNumber =
+          "Please enter a valid alternate mobile number (starting with 03 or +92)";
       }
     }
 
     if (!deliveryAddress.trim()) {
-      newErrors.deliveryAddress = 'Delivery address is required';
+      newErrors.deliveryAddress = "Delivery address is required";
     }
 
     if (emailAddress.trim()) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(emailAddress.trim())) {
-        newErrors.emailAddress = 'Please enter a valid email address';
+        newErrors.emailAddress = "Please enter a valid email address";
       }
     }
 
@@ -255,7 +261,7 @@ export const CheckoutView: React.FC = () => {
       const firstErrorKey = Object.keys(errors)[0];
       const element = document.getElementById(`field-${firstErrorKey}`);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        element.scrollIntoView({ behavior: "smooth", block: "center" });
       }
       return;
     }
@@ -275,7 +281,7 @@ export const CheckoutView: React.FC = () => {
     setOrderSuccess(false);
     clearCart();
     setIsCheckoutActive(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (itemCount === 0 && !orderSuccess) {
@@ -285,9 +291,12 @@ export const CheckoutView: React.FC = () => {
           <ShoppingBag size={24} />
         </div>
         <div>
-          <h3 className="text-base font-bold text-gray-800">Your Cart is Empty</h3>
+          <h3 className="text-base font-bold text-gray-800">
+            Your Cart is Empty
+          </h3>
           <p className="text-xs text-text-secondary max-w-[240px] leading-relaxed mx-auto mt-1">
-            Add some delicious meals from Ghalib Restaurant before proceeding to checkout.
+            Add some delicious meals from Ghalib Restaurant before proceeding to
+            checkout.
           </p>
         </div>
         <button
@@ -301,15 +310,19 @@ export const CheckoutView: React.FC = () => {
   }
 
   // Determine items to display in preview (first 3, or all if expanded)
-  const visibleItems = isItemsExpanded ? cartState.items : cartState.items.slice(0, 3);
+  const visibleItems = isItemsExpanded
+    ? cartState.items
+    : cartState.items.slice(0, 3);
   const hiddenCount = cartState.items.length - 3;
 
   return (
-    <div id="checkout-view-wrapper" className="w-full max-w-[1200px] mx-auto px-4 py-6 md:py-8 select-none">
-
+    <div
+      id="checkout-view-wrapper"
+      className="w-full max-w-[1200px] mx-auto px-4 py-6 md:py-8 select-none"
+    >
       {/* 1. Header Area */}
       <div className="flex flex-col gap-4">
-        <h1 className="text-2xl md:text-3xl font-extrabold text-[#0D1F18] tracking-tight">
+        <h1 className="text-2xl md:text-3xl font-extrabold text-text-primary tracking-tight">
           Checkout
         </h1>
 
@@ -320,8 +333,10 @@ export const CheckoutView: React.FC = () => {
           </div>
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs md:text-sm text-gray-600 font-medium">This is a</span>
-              <span className="bg-[#052E16] text-text-inverse text-[10px] md:text-[11px] font-extrabold px-3 py-0.5 rounded-full uppercase tracking-wider">
+              <span className="text-xs md:text-sm text-gray-600 font-medium">
+                This is a
+              </span>
+              <span className="bg-brand-primary text-text-inverse text-[10px] md:text-[11px] font-extrabold px-3 py-0.5 rounded-full uppercase tracking-wider">
                 Delivery Order
               </span>
             </div>
@@ -333,14 +348,15 @@ export const CheckoutView: React.FC = () => {
       </div>
 
       {/* 2. Main Dual-Column Content */}
-      <form id="checkout-form" onSubmit={handleSubmitOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 mt-6">
-
+      <form
+        id="checkout-form"
+        onSubmit={handleSubmitOrder}
+        className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 mt-6"
+      >
         {/* Left Column: Form Details (8/12 width in desktop) */}
         <div className="lg:col-span-7 space-y-6">
-
           {/* Form Fields Card */}
           <div className="bg-background-card rounded-2xl border border-brand-primary/10 shadow-sm p-5 md:p-6 space-y-4 md:space-y-5">
-
             {/* Row 1: Title & Full Name */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="md:col-span-1">
@@ -354,24 +370,32 @@ export const CheckoutView: React.FC = () => {
                     className="h-11 bg-brand-primary hover:bg-brand-primary-hover border border-brand-primary/10 rounded-xl px-4 pr-10 w-full text-text-inverse text-sm font-extrabold flex items-center justify-between cursor-pointer transition-colors focus:outline-none focus:ring-2 focus:ring-brand-primary/20"
                   >
                     <span>{title}</span>
-                    <ChevronDown className={`text-inverse transition-transform duration-200 ${isTitleOpen ? 'rotate-180' : ''}`} size={16} strokeWidth={2.5} />
+                    <ChevronDown
+                      className={`text-inverse transition-transform duration-200 ${isTitleOpen ? "rotate-180" : ""}`}
+                      size={16}
+                      strokeWidth={2.5}
+                    />
                   </button>
                   {isTitleOpen && (
                     <>
                       {/* Invisible backdrop overlay to handle clicks outside */}
-                      <div className="fixed inset-0 z-40" onClick={() => setIsTitleOpen(false)} />
+                      <div
+                        className="fixed inset-0 z-40"
+                        onClick={() => setIsTitleOpen(false)}
+                      />
                       <div className="absolute top-12 left-0 right-0 bg-background-card border border-brand-primary/10 rounded-xl shadow-xl py-1 z-50 overflow-hidden">
-                        {['Mr.', 'Ms.', 'Mrs.'].map((val) => (
+                        {["Mr.", "Ms.", "Mrs."].map((val) => (
                           <div
                             key={val}
                             onClick={() => {
                               setTitle(val);
                               setIsTitleOpen(false);
                             }}
-                            className={`px-4 py-2.5 text-sm font-bold cursor-pointer transition-colors ${title === val
-                              ? 'bg-brand-primary text-text-inverse font-black'
-                              : 'text-gray-700 hover:bg-brand-primary/5 hover:text-text-primary'
-                              }`}
+                            className={`px-4 py-2.5 text-sm font-bold cursor-pointer transition-colors ${
+                              title === val
+                                ? "bg-brand-primary text-text-inverse font-black"
+                                : "text-gray-700 hover:bg-brand-primary/5 hover:text-text-primary"
+                            }`}
                           >
                             {val}
                           </div>
@@ -398,11 +422,11 @@ export const CheckoutView: React.FC = () => {
                     const sanitized = sanitizeNameInput(e.target.value);
                     setFullName(sanitized);
                     if (errors.fullName) {
-                      setErrors(prev => ({ ...prev, fullName: '' }));
+                      setErrors((prev) => ({ ...prev, fullName: "" }));
                     }
                   }}
                   placeholder="Full Name"
-                  className={`h-11 border ${errors.fullName ? 'border-red-400 bg-red-50/20' : 'border-gray-200'} rounded-xl px-4 w-full text-sm font-semibold focus:outline-none focus:border-brand-primary`}
+                  className={`h-11 border ${errors.fullName ? "border-red-400 bg-red-50/20" : "border-gray-200"} rounded-xl px-4 w-full text-sm font-semibold focus:outline-none focus:border-brand-primary`}
                 />
                 {errors.fullName && (
                   <p className="text-[10px] font-bold text-red-500 mt-1 flex items-center gap-1">
@@ -427,14 +451,16 @@ export const CheckoutView: React.FC = () => {
                   type="text"
                   value={mobileNumber}
                   onChange={(e) => {
-                    const formatted = formatPakistaniPhoneNumber(e.target.value);
+                    const formatted = formatPakistaniPhoneNumber(
+                      e.target.value,
+                    );
                     setMobileNumber(formatted);
                     if (errors.mobileNumber) {
-                      setErrors(prev => ({ ...prev, mobileNumber: '' }));
+                      setErrors((prev) => ({ ...prev, mobileNumber: "" }));
                     }
                   }}
                   placeholder="03xx-xxxxxxx"
-                  className={`h-11 border ${errors.mobileNumber ? 'border-red-400 bg-red-50/20' : 'border-gray-200'} rounded-xl px-4 w-full text-sm font-semibold focus:outline-none focus:border-brand-primary`}
+                  className={`h-11 border ${errors.mobileNumber ? "border-red-400 bg-red-50/20" : "border-gray-200"} rounded-xl px-4 w-full text-sm font-semibold focus:outline-none focus:border-brand-primary`}
                 />
                 {errors.mobileNumber && (
                   <p className="text-[10px] font-bold text-red-500 mt-1 flex items-center gap-1">
@@ -451,14 +477,16 @@ export const CheckoutView: React.FC = () => {
                   type="text"
                   value={altMobileNumber}
                   onChange={(e) => {
-                    const formatted = formatPakistaniPhoneNumber(e.target.value);
+                    const formatted = formatPakistaniPhoneNumber(
+                      e.target.value,
+                    );
                     setAltMobileNumber(formatted);
                     if (errors.altMobileNumber) {
-                      setErrors(prev => ({ ...prev, altMobileNumber: '' }));
+                      setErrors((prev) => ({ ...prev, altMobileNumber: "" }));
                     }
                   }}
                   placeholder="03xx-xxxxxxx or +92 3xx-xxxxxxx"
-                  className={`h-11 border ${errors.altMobileNumber ? 'border-red-400 bg-red-50/20' : 'border-gray-200'} rounded-xl px-4 w-full text-sm font-semibold focus:outline-none focus:border-brand-primary`}
+                  className={`h-11 border ${errors.altMobileNumber ? "border-red-400 bg-red-50/20" : "border-gray-200"} rounded-xl px-4 w-full text-sm font-semibold focus:outline-none focus:border-brand-primary`}
                 />
                 {errors.altMobileNumber && (
                   <p className="text-[10px] font-bold text-red-500 mt-1 flex items-center gap-1">
@@ -469,7 +497,10 @@ export const CheckoutView: React.FC = () => {
             </div>
 
             {/* Row 3: Delivery Address Block (Custom box with Area linked) */}
-            <div id="field-deliveryAddress" className="border border-gray-150 rounded-2xl p-4 bg-background-card space-y-3">
+            <div
+              id="field-deliveryAddress"
+              className="border border-gray-150 rounded-2xl p-4 bg-background-card space-y-3"
+            >
               <div className="flex justify-between items-center">
                 <label className="text-xs font-bold text-gray-700">
                   Delivery Address
@@ -484,11 +515,11 @@ export const CheckoutView: React.FC = () => {
                   const sanitized = sanitizeAddressInput(e.target.value);
                   setDeliveryAddress(sanitized);
                   if (errors.deliveryAddress) {
-                    setErrors(prev => ({ ...prev, deliveryAddress: '' }));
+                    setErrors((prev) => ({ ...prev, deliveryAddress: "" }));
                   }
                 }}
                 placeholder="Enter your complete address"
-                className={`border ${errors.deliveryAddress ? 'border-red-400 bg-red-50/20' : 'border-gray-150'} rounded-xl p-3 w-full text-sm font-semibold focus:outline-none focus:border-brand-primary resize-none h-18`}
+                className={`border ${errors.deliveryAddress ? "border-red-400 bg-red-50/20" : "border-gray-150"} rounded-xl p-3 w-full text-sm font-semibold focus:outline-none focus:border-brand-primary resize-none h-18`}
               />
               {errors.deliveryAddress && (
                 <p className="text-[10px] font-bold text-red-500 flex items-center gap-1">
@@ -498,7 +529,9 @@ export const CheckoutView: React.FC = () => {
 
               {/* Area Quick Selector link */}
               <div className="bg-brand-primary/5 border border-brand-primary/10 rounded-lg p-2.5 flex items-center justify-between text-xs">
-                <span className="text-text-secondary font-medium">Selected Neighborhood Area</span>
+                <span className="text-text-secondary font-medium">
+                  Selected Neighborhood Area
+                </span>
                 <button
                   type="button"
                   onClick={() => setIsLocationModalOpen(true)}
@@ -518,7 +551,9 @@ export const CheckoutView: React.FC = () => {
                 <input
                   type="text"
                   value={nearestLandmark}
-                  onChange={(e) => setNearestLandmark(sanitizeLandmarkInput(e.target.value))}
+                  onChange={(e) =>
+                    setNearestLandmark(sanitizeLandmarkInput(e.target.value))
+                  }
                   placeholder="any famous place nearby"
                   className="h-11 border border-gray-200 rounded-xl px-4 w-full text-sm font-semibold focus:outline-none focus:border-brand-primary"
                 />
@@ -535,11 +570,11 @@ export const CheckoutView: React.FC = () => {
                     const sanitized = sanitizeEmailInput(e.target.value);
                     setEmailAddress(sanitized);
                     if (errors.emailAddress) {
-                      setErrors(prev => ({ ...prev, emailAddress: '' }));
+                      setErrors((prev) => ({ ...prev, emailAddress: "" }));
                     }
                   }}
                   placeholder="Enter your email"
-                  className={`h-11 border ${errors.emailAddress ? 'border-red-400 bg-red-50/20' : 'border-gray-200'} rounded-xl px-4 w-full text-sm font-semibold focus:outline-none focus:border-brand-primary`}
+                  className={`h-11 border ${errors.emailAddress ? "border-red-400 bg-red-50/20" : "border-gray-200"} rounded-xl px-4 w-full text-sm font-semibold focus:outline-none focus:border-brand-primary`}
                 />
                 {errors.emailAddress && (
                   <p className="text-[10px] font-bold text-red-500 mt-1 flex items-center gap-1">
@@ -557,102 +592,108 @@ export const CheckoutView: React.FC = () => {
               <input
                 type="text"
                 value={deliveryInstructions}
-                onChange={(e) => setDeliveryInstructions(sanitizeInstructionsInput(e.target.value))}
+                onChange={(e) =>
+                  setDeliveryInstructions(
+                    sanitizeInstructionsInput(e.target.value),
+                  )
+                }
                 placeholder="Delivery Instructions"
                 className="h-11 border border-gray-200 rounded-xl px-4 w-full text-sm font-semibold focus:outline-none focus:border-brand-primary"
               />
             </div>
-
           </div>
 
           {/* Payment Information Card */}
           <div className="space-y-3">
-            <h2 className="text-xs md:text-sm font-extrabold text-[#0D1F18] tracking-wide uppercase">
+            <h2 className="text-xs md:text-sm font-extrabold text-text-primary tracking-wide uppercase">
               Payment Information
             </h2>
 
             <div className="grid grid-cols-2 gap-3.5">
-
               {/* Cash On Delivery Radio Card */}
               <div
-                onClick={() => setPaymentMethod('cod')}
-                className={`border rounded-xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer select-none relative transition-all bg-background-card ${paymentMethod === 'cod'
-                  ? 'border-brand-primary bg-brand-primary/5 ring-1 ring-brand-primary'
-                  : 'border-gray-200 hover:border-brand-primary/25'
-                  }`}
+                onClick={() => setPaymentMethod("cod")}
+                className={`border rounded-xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer select-none relative transition-all bg-background-card ${
+                  paymentMethod === "cod"
+                    ? "border-brand-primary bg-brand-primary/5 ring-1 ring-brand-primary"
+                    : "border-brand-primary/5 hover:border-brand-primary/25"
+                }`}
               >
-                {paymentMethod === 'cod' && (
+                {paymentMethod === "cod" && (
                   <div className="absolute top-2.5 right-2.5 w-4 h-4 bg-brand-primary text-text-inverse rounded-full flex items-center justify-center">
                     <Check size={10} strokeWidth={3} />
                   </div>
                 )}
-                <div className="w-8 h-8 rounded-full bg-[#10B981]/10 text-[#10B981] flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 rounded-full bg-brand-primary/10 text-brand-primary flex items-center justify-center shrink-0">
                   <Check className="w-5 h-5" strokeWidth={2.5} />
                 </div>
-                <span className="text-[11px] sm:text-xs font-bold text-gray-800 text-center leading-none">
+                <span className="text-[11px] sm:text-xs font-bold text-text-primary text-center leading-none">
                   Cash on Delivery
                 </span>
               </div>
 
               {/* Online Payment Radio Card */}
               <div
-                onClick={() => setPaymentMethod('online')}
-                className={`border rounded-xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer select-none relative transition-all bg-background-card ${paymentMethod === 'online'
-                  ? 'border-brand-primary bg-brand-primary/5 ring-1 ring-brand-primary'
-                  : 'border-gray-200 hover:border-brand-primary/25'
-                  }`}
+                onClick={() => setPaymentMethod("online")}
+                className={`border rounded-xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer select-none relative transition-all bg-background-card ${
+                  paymentMethod === "online"
+                    ? "border-brand-primary bg-brand-primary/5 ring-1 ring-brand-primary"
+                    : "border-gray-200 hover:border-brand-primary/25"
+                }`}
               >
-                {paymentMethod === 'online' && (
+                {paymentMethod === "online" && (
                   <div className="absolute top-2.5 right-2.5 w-4 h-4 bg-brand-primary text-text-inverse rounded-full flex items-center justify-center">
                     <Check size={10} strokeWidth={3} />
                   </div>
                 )}
                 <div className="flex gap-1">
-                  <span className="text-[9px] font-black text-blue-800 bg-blue-100 px-1 py-0.5 rounded leading-none">VISA</span>
-                  <span className="text-[9px] font-black text-red-600 bg-red-100 px-1 py-0.5 rounded leading-none font-sans">M/C</span>
+                  <span className="text-[9px] font-black text-blue-800 bg-blue-100 px-1 py-0.5 rounded leading-none">
+                    VISA
+                  </span>
+                  <span className="text-[9px] font-black text-red-600 bg-red-100 px-1 py-0.5 rounded leading-none font-sans">
+                    M/C
+                  </span>
                 </div>
                 <span className="text-[11px] sm:text-xs font-bold text-gray-800 text-center leading-none mt-1">
                   Online Payment
                 </span>
               </div>
-
             </div>
           </div>
 
           {/* Change Request Card */}
           <div className="space-y-3">
-            <h2 className="text-xs md:text-sm font-extrabold text-[#0D1F18] tracking-wide uppercase">
+            <h2 className="text-xs md:text-sm font-extrabold text-text-primary tracking-wide uppercase">
               Change Request
             </h2>
 
             <div className="flex items-center">
-              <div className="h-11 bg-brand-primary/5 border border-r-0 border-gray-200 text-text-secondary text-xs font-bold px-4 flex items-center rounded-l-xl select-none">
+              <div className="h-11 bg-brand-primary/5 border border-r-0 border-brand-primary text-text-secondary text-xs font-bold px-4 flex items-center rounded-l-xl select-none">
                 Rs.
               </div>
               <input
                 type="text"
                 value={changeRequest}
-                onChange={(e) => setChangeRequest(e.target.value.replace(/\D/g, ''))}
+                onChange={(e) =>
+                  setChangeRequest(e.target.value.replace(/\D/g, ""))
+                }
                 placeholder="500"
-                className="h-11 border border-gray-200 text-sm font-bold text-gray-800 px-4 w-full focus:outline-none focus:border-brand-primary rounded-r-xl"
+                className="h-11 border border-brand-primary text-sm font-bold text-text-primary px-4 w-full focus:outline-none focus:border-brand-primary rounded-r-xl"
               />
             </div>
           </div>
-
         </div>
 
         {/* Right Column: Order Summary (5/12 width in desktop, sticky) */}
         <div ref={sectionTwoRef} className="lg:col-span-5 space-y-6">
           <div className="lg:sticky lg:top-24 space-y-5">
-
             {/* Header Column */}
-            <h2 className="hidden lg:block text-xs md:text-sm font-extrabold text-[#0D1F18] tracking-wide uppercase leading-none mb-0.5">
+            <h2 className="hidden lg:block text-xs md:text-sm font-extrabold text-text-primary tracking-wide uppercase leading-none mb-0.5">
               Order Summary
             </h2>
 
             {/* Summary Items Box */}
             <div className="bg-background-card rounded-2xl border border-brand-primary/10 shadow-sm p-4 md:p-5 space-y-4">
-
               {/* Items List */}
               <div className="space-y-3.5">
                 {visibleItems.map((item) => {
@@ -660,7 +701,6 @@ export const CheckoutView: React.FC = () => {
 
                   return (
                     <div key={item.id} className="flex items-start gap-3">
-
                       {/* Image Preview Thumbnail */}
                       <div className="w-12 h-12 md:w-14 md:h-14 bg-brand-primary/5 rounded-xl overflow-hidden shrink-0 border border-brand-primary/10 relative">
                         {item.imageUrl ? (
@@ -688,24 +728,28 @@ export const CheckoutView: React.FC = () => {
                         </div>
 
                         {/* Variant choices badge if they exist */}
-                        {item.variantSelections && item.variantSelections.length > 0 && (
-                          <div className="mt-1 flex flex-wrap gap-1">
-                            {item.variantSelections.map((sel) => (
-                              <span
-                                key={sel.optionId}
-                                className="inline-block bg-brand-primary/5 text-[9px] font-bold text-text-secondary px-1.5 py-0.5 rounded border border-brand-primary/10 uppercase"
-                              >
-                                {sel.optionName}
-                              </span>
-                            ))}
-                          </div>
-                        )}
+                        {item.variantSelections &&
+                          item.variantSelections.length > 0 && (
+                            <div className="mt-1 flex flex-wrap gap-1">
+                              {item.variantSelections.map((sel) => (
+                                <span
+                                  key={sel.optionId}
+                                  className="inline-block bg-brand-primary/5 text-[9px] font-bold text-text-secondary px-1.5 py-0.5 rounded border border-brand-primary/10 uppercase"
+                                >
+                                  {sel.optionName}
+                                </span>
+                              ))}
+                            </div>
+                          )}
 
                         {/* Prices row */}
                         <div className="flex items-baseline gap-1.5 mt-1.5">
                           {hasDiscount && (
                             <span className="text-[10px] text-text-secondary line-through font-semibold">
-                              From {formatPrice(item.originalUnitPrice * item.quantity)}
+                              From{" "}
+                              {formatPrice(
+                                item.originalUnitPrice * item.quantity,
+                              )}
                             </span>
                           )}
                           <span className="text-xs font-extrabold text-brand-primary">
@@ -713,7 +757,6 @@ export const CheckoutView: React.FC = () => {
                           </span>
                         </div>
                       </div>
-
                     </div>
                   );
                 })}
@@ -726,8 +769,16 @@ export const CheckoutView: React.FC = () => {
                   onClick={() => setIsItemsExpanded(!isItemsExpanded)}
                   className="w-full pt-1 text-center text-xs font-bold text-brand-primary hover:opacity-85 flex items-center justify-center gap-1 cursor-pointer"
                 >
-                  <span>{isItemsExpanded ? 'View Less' : `View More (${hiddenCount} more)`}</span>
-                  {isItemsExpanded ? <ChevronUp size={12} strokeWidth={2.5} /> : <ChevronDown size={12} strokeWidth={2.5} />}
+                  <span>
+                    {isItemsExpanded
+                      ? "View Less"
+                      : `View More (${hiddenCount} more)`}
+                  </span>
+                  {isItemsExpanded ? (
+                    <ChevronUp size={12} strokeWidth={2.5} />
+                  ) : (
+                    <ChevronDown size={12} strokeWidth={2.5} />
+                  )}
                 </button>
               )}
 
@@ -736,7 +787,6 @@ export const CheckoutView: React.FC = () => {
 
               {/* Math breakdown rows */}
               <div className="bg-[#F8FBF9] border border-brand-primary/10 rounded-2xl p-4 space-y-3 text-xs text-gray-600">
-
                 {/* Total */}
                 <div className="flex justify-between items-center">
                   <span className="flex items-center gap-2 font-medium">
@@ -750,7 +800,8 @@ export const CheckoutView: React.FC = () => {
                 {/* Tax */}
                 <div className="flex justify-between items-center">
                   <span className="flex items-center gap-2 font-medium">
-                    <Percent size={14} className="text-text-secondary" /> Tax ({config.taxPercent}%)
+                    <Percent size={14} className="text-text-secondary" /> Tax (
+                    {config.taxPercent}%)
                   </span>
                   <span className="font-extrabold text-gray-800">
                     {formatPrice(tax)}
@@ -760,7 +811,8 @@ export const CheckoutView: React.FC = () => {
                 {/* Delivery Fee */}
                 <div className="flex justify-between items-center">
                   <span className="flex items-center gap-2 font-medium">
-                    <Truck size={14} className="text-text-secondary" /> Delivery Fee
+                    <Truck size={14} className="text-text-secondary" /> Delivery
+                    Fee
                   </span>
                   <span className="font-extrabold text-gray-800">
                     {formatPrice(deliveryFee)}
@@ -784,18 +836,22 @@ export const CheckoutView: React.FC = () => {
 
                 {/* Grand Total */}
                 <div className="flex justify-between items-center text-text-primary pt-0.5">
-                  <span className="text-xs sm:text-sm font-extrabold">Grand Total</span>
+                  <span className="text-xs sm:text-sm font-extrabold">
+                    Grand Total
+                  </span>
                   <span className="text-base sm:text-lg font-black text-brand-primary">
                     {formatPrice(total)}
                   </span>
                 </div>
-
               </div>
 
               {/* Promo savings badge notification if discount > 0 */}
               {discount > 0 && (
-                <div className="bg-[#EAFDF3] border border-[#C2F7D6] text-[#0D5C34] text-[11px] sm:text-xs font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2">
-                  <Sparkles size={13} className="text-[#0D5C34] fill-[#0D5C34]/10 shrink-0" />
+                <div className="bg-[#EAFDF3] border border-[#C2F7D6] text-text-primary text-[11px] sm:text-xs font-semibold md:font-bold py-2.5 px-3 rounded-xl flex items-center justify-center gap-2">
+                  <Sparkles
+                    size={13}
+                    className="text-text-primary fill-brand-primary/10 shrink-0"
+                  />
                   <span>Yay! You saved {formatPrice(discount)}</span>
                 </div>
               )}
@@ -806,7 +862,7 @@ export const CheckoutView: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full h-12 md:h-13 bg-[#052E16] hover:bg-[#032110] active:scale-[0.99] disabled:opacity-75 disabled:pointer-events-none text-text-inverse flex items-center justify-center gap-2 rounded-xl font-bold text-sm tracking-wide transition-all shadow-lg shadow-[#052E16]/10 cursor-pointer"
+                    className="w-full h-12 md:h-13 bg-brand-primary hover:bg-brand-primary/80 active:scale-[0.99] disabled:opacity-75 disabled:pointer-events-none text-text-inverse flex items-center justify-center gap-2 rounded-xl font-bold text-sm tracking-wide transition-all shadow-lg shadow-[#052E16]/10 cursor-pointer"
                   >
                     {isSubmitting ? (
                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -825,7 +881,7 @@ export const CheckoutView: React.FC = () => {
                     type="button"
                     onClick={() => {
                       setIsCheckoutActive(false);
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                      window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
                     className="text-xs font-bold text-text-secondary hover:text-gray-700 flex items-center gap-1 transition-all cursor-pointer hover:-translate-x-0.5 transform duration-150"
                   >
@@ -833,12 +889,9 @@ export const CheckoutView: React.FC = () => {
                   </button>
                 </div>
               </div>
-
             </div>
-
           </div>
         </div>
-
       </form>
 
       {/* 2.5 Dynamic Sticky Bottom Action Bar (visible when Section 2 is visible but the static actions at its bottom are NOT visible) */}
@@ -848,17 +901,16 @@ export const CheckoutView: React.FC = () => {
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
-            transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+            transition={{ type: "spring", damping: 28, stiffness: 300 }}
             className="fixed bottom-0 left-0 right-0 bg-background-card/95 backdrop-blur-md border-t border-gray-150 py-3.5 px-4 shadow-[0_-8px_24px_rgba(0,0,0,0.06)] z-[90] flex flex-col items-center justify-center gap-2 lg:hidden"
           >
             <div className="w-full max-w-md flex flex-col sm:flex-row items-center gap-2.5">
-
               {/* Continue to add more items Link */}
               <button
                 type="button"
                 onClick={() => {
                   setIsCheckoutActive(false);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
                 className="text-xs font-bold text-text-secondary hover:text-gray-700 flex items-center gap-1 transition-all cursor-pointer hover:-translate-x-0.5 transform duration-150 py-2 shrink-0 order-2 sm:order-1"
               >
@@ -881,7 +933,6 @@ export const CheckoutView: React.FC = () => {
                   </>
                 )}
               </button>
-
             </div>
           </motion.div>
         )}
@@ -900,31 +951,32 @@ export const CheckoutView: React.FC = () => {
               initial={{ scale: 0.94, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.94, y: 20 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+              transition={{ type: "spring", damping: 25, stiffness: 350 }}
               onClick={(e) => e.stopPropagation()}
               className="bg-background-card rounded-[2rem] p-6 md:p-8 max-w-[480px] w-full shadow-2xl border border-brand-primary/10 flex flex-col items-center select-none"
             >
-
               {/* Success Badge */}
               <div className="w-16 h-16 rounded-full bg-[#EAFDF3] border-2 border-[#C2F7D6] flex items-center justify-center text-[#10B981] mb-5">
                 <Check size={32} strokeWidth={3} />
               </div>
 
               {/* Header Title */}
-              <h2 className="text-xl md:text-2xl font-bold md:font-black text-[#0D1F18] text-center tracking-tight leading-snug">
+              <h2 className="text-xl md:text-2xl font-bold md:font-black text-text-inverse text-center tracking-tight leading-snug">
                 Order Placed Successfully! 🎉
               </h2>
 
               {/* Description */}
               <p className="text-center text-text-secondary text-xs sm:text-sm mt-2 leading-relaxed px-2 font-medium">
-                Thank you for ordering from Ghalib Restaurant. We are preparing your delicious meals right now.
+                Thank you for ordering from Ghalib Restaurant. We are preparing
+                your delicious meals right now.
               </p>
 
               {/* ID & Date Reference Row */}
               <div className="bg-[#F8FBF9] border border-brand-primary/10 rounded-2xl p-4 w-full mt-5 space-y-2.5">
                 <div className="flex justify-between items-center text-xs">
                   <span className="text-text-secondary font-medium flex items-center gap-1.5">
-                    <FileText size={13} className="text-text-secondary" /> Order ID
+                    <FileText size={13} className="text-text-secondary" /> Order
+                    ID
                   </span>
                   <span className="font-semibold md:font-extrabold text-gray-800 tracking-wide uppercase">
                     {orderId}
@@ -933,7 +985,8 @@ export const CheckoutView: React.FC = () => {
 
                 <div className="flex justify-between items-center text-xs">
                   <span className="text-text-secondary font-medium flex items-center gap-1.5">
-                    <Clock size={13} className="text-text-secondary" /> Delivery Estimated
+                    <Clock size={13} className="text-text-secondary" /> Delivery
+                    Estimated
                   </span>
                   <span className="font-semibold md:font-extrabold text-brand-primary">
                     35 - 45 mins
@@ -942,7 +995,8 @@ export const CheckoutView: React.FC = () => {
 
                 <div className="flex justify-between items-center text-xs">
                   <span className="text-text-secondary font-medium flex items-center gap-1.5">
-                    <MapPin size={13} className="text-text-secondary" /> Neighborhood Area
+                    <MapPin size={13} className="text-text-secondary" />{" "}
+                    Neighborhood Area
                   </span>
                   <span className="font-semibold md:font-extrabold text-gray-800 uppercase">
                     {currentLocation.area}
@@ -950,7 +1004,9 @@ export const CheckoutView: React.FC = () => {
                 </div>
 
                 <div className="flex justify-between items-center text-xs pt-1.5 border-t border-gray-200/50">
-                  <span className="font-semibold md:font-extrabold text-gray-800">Total Paid</span>
+                  <span className="font-semibold md:font-extrabold text-gray-800">
+                    Total Paid
+                  </span>
                   <span className="font-bold md:font-black text-brand-primary text-sm sm:text-base">
                     {formatPrice(total)}
                   </span>
@@ -964,12 +1020,10 @@ export const CheckoutView: React.FC = () => {
               >
                 Back To Menu
               </button>
-
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
-
     </div>
   );
 };

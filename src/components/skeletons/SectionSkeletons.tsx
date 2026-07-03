@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 // 1. Header Skeleton
 export const HeaderSkeleton: React.FC = () => {
@@ -74,7 +74,7 @@ export const HeroBannerSkeleton: React.FC = () => {
 export const CategoryNavSkeleton: React.FC = () => {
   return (
     <div className="sticky top-0 bg-gray-100 h-12 w-full z-90 border-b border-gray-200 shadow-sm select-none overflow-hidden">
-      <div className="h-full max-w-[1280px] mx-auto flex items-center px-4 overflow-x-auto no-scrollbar">
+      <div className="h-full max-w-[1220px] mx-auto flex items-center px-4 overflow-x-auto no-scrollbar">
         <div className="flex gap-4 md:gap-6">
           <div className="w-16 h-4 rounded bg-gray-300 animate-pulse" />
           <div className="w-20 h-4 rounded bg-gray-300 animate-pulse" />
@@ -141,7 +141,7 @@ export const MenuCardSkeleton: React.FC = () => {
 // 7. Popular Items (Horizontal Carousel) Skeleton
 export const PopularItemsSkeleton: React.FC = () => {
   return (
-    <div className="w-full max-w-[1280px] mx-auto px-4 md:px-8 py-8 select-none">
+    <div className="w-full max-w-[1220px] mx-auto px-4 md:px-8 py-8 select-none">
       <div className="flex items-center justify-between mb-6">
         <div className="space-y-2">
           <div className="w-48 h-6 rounded bg-gray-200 animate-pulse" />
@@ -179,7 +179,7 @@ export const MenuGridSkeleton: React.FC = () => {
 // 9. Menu Section Skeleton (Title + Grid)
 export const MenuSectionSkeleton: React.FC = () => {
   return (
-    <div className="w-full max-w-[1280px] mx-auto px-4 py-8 select-none">
+    <div className="w-full max-w-[1220px] mx-auto px-4 py-8 select-none">
       {/* Category Header Title Centered */}
       <div className="mb-6 space-y-2 flex flex-col items-center">
         <div className="w-48 h-7 rounded bg-gray-200 animate-pulse" />
@@ -206,7 +206,7 @@ export const CompleteAppSkeleton: React.FC = () => {
       <PromoBannerSkeleton />
       <PopularItemsSkeleton />
 
-      <main className="flex-1 max-w-[1280px] w-full mx-auto px-4 md:px-8 py-4">
+      <main className="flex-1 max-w-[1220px] w-full mx-auto px-4 md:px-8 py-4">
         <MenuSectionSkeleton />
       </main>
     </div>

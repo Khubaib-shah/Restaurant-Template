@@ -1,51 +1,92 @@
-import React from 'react';
-import { useRestaurant } from '../../context/RestaurantContext';
-import { Tag } from 'lucide-react';
-import { motion } from 'motion/react';
+import React from "react";
+import { BadgePercent } from "lucide-react";
+import { motion } from "motion/react";
+import { useRestaurant } from "../../context/RestaurantContext";
 
-export const PromoBanner: React.FC = () => {
+export const PromoBanner = () => {
   const { config } = useRestaurant();
   const promo = config.activePromo;
 
   if (!promo) return null;
 
+  const { colors } = config.theme;
+
   return (
     <div
-      id="promo-banner-strip"
-      className="max-w-[480px] mx-auto bg-gradient-to-r from-orange-500 via-orange-200 to-white border border-orange-100 rounded-xl p-2.5 my-2.5 flex items-center justify-between gap-3 shadow-md select-none overflow-hidden relative"
+      className="max-w-[1220px] container mx-auto  relative overflow-hidden rounded-xl my-4 border px-3 sm:px-5 py-3.5 shadow-sm"
+      style={{
+        background: colors.background.card,
+        borderColor: `${colors.primary}25`,
+      }}
     >
-      <div className="flex items-center gap-2.5">
-        {/* Ticket/Tag Icon on the left (instead of percentage) */}
-        <div className="w-8.5 h-8.5 rounded-full bg-background-card/20 backdrop-blur-sm border border-white/30 flex items-center justify-center text-text-inverse shrink-0 shadow-sm">
-          <Tag size={16} strokeWidth={2.5} className="text-inverse" />
-        </div>
+      {/* Background Glow */}
+      <div
+        className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full blur-2xl animate-pulse"
+        style={{
+          backgroundColor: colors.accent,
+          opacity: 0.35,
+          animationDuration: "2.8s",
+        }}
+      />
 
-        {/* Text and Value Details */}
-        <div className="flex items-center gap-2 text-sm font-bold">
-          <span className="text-inverse font-extrabold tracking-wide uppercase text-[11px] sm:text-xs">Flat</span>
+      <div
+        className="pointer-events-none absolute -left-8 -bottom-8 h-24 w-24 rounded-full blur-2xl animate-pulse"
+        style={{
+          backgroundColor: colors.primary,
+          opacity: 0.2,
+          animationDuration: "3.2s",
+          animationDelay: "500ms",
+        }}
+      />
 
-          {/* Yellow Badge with value - Bouncing Animation */}
-          <motion.div
+      <div className="relative z-10">
+        <p
+          className="flex items-center gap-2 text-sm sm:text-base md:text-xl font-semibold tracking-wide"
+          style={{ color: colors.text.primary }}
+        >
+          <BadgePercent
+            size={30}
+            style={{
+              color: colors.primary,
+            }}
+          />
+
+          <span className="text-base sm:text-xl md:text-2xl font-extrabold capitalize">
+            {promo.type === "flat_percent"
+              ? "Flat"
+              : promo.type === "flat_amount"
+                ? "Save"
+                : "Free"}
+          </span>
+
+          <motion.span
             animate={{ y: [0, -5, 0] }}
             transition={{
               repeat: Infinity,
-              duration: 1.2,
-              ease: "easeInOut"
+              duration: 2,
             }}
-            className="w-7.5 h-7.5 rounded-full bg-yellow-400 text-text-primary font-black text-xs sm:text-sm shadow-md flex items-center justify-center shrink-0"
+            className="inline-flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-full text-base sm:text-xl md:text-2xl font-extrabold shadow-lg"
+            style={{
+              background: `linear-gradient(180deg, ${colors.accent}, ${colors.primary})`,
+              color: colors.text.inverse,
+            }}
           >
-            {promo.value}
-          </motion.div>
+            {promo.type === "flat_amount"
+              ? promo.value
+              : promo.type === "flat_percent"
+                ? `${promo.value}`
+                : "🚚"}
+          </motion.span>
 
-          <span className="text-gray-800 font-semibold md:font-black text-[11px] sm:text-xs tracking-tight">
-            % Off on entire order!
+          <span className="font-bold">
+            {promo.type === "flat_percent"
+              ? "% OFF"
+              : promo.type === "flat_amount"
+                ? "Rs OFF"
+                : "FREE DELIVERY"}
           </span>
-        </div>
+        </p>
       </div>
-
-      {/* Elegant ticket edge indicator on the right */}
-      <div className="absolute -right-1 top-1/2 -translate-y-1/2 w-2 h-4 bg-brand-primary/5 rounded-l-full border border-gray-200/40" />
     </div>
   );
 };
-

@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { RestaurantConfig } from "../types/restaurant";
-import { restaurantConfig } from "../config/restaurant.config";
 import { toKebabCase } from "../lib/toKebabCase";
 import { localStorage } from "../lib/localStorage";
+import { restaurantConfig } from "../lib/getRestaurantSlug";
 
 interface RestaurantContextType {
   config: RestaurantConfig;

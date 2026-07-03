@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { X, Menu, ChevronRight } from 'lucide-react';
-import { Category } from '../../types/menu';
+import React, { useRef, useEffect, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { X, Menu, ChevronRight } from "lucide-react";
+import { Category } from "../../types/menu";
 
 interface CategoryNavProps {
   categories: Category[];
@@ -10,7 +10,7 @@ interface CategoryNavProps {
 
 export const CategoryNav: React.FC<CategoryNavProps> = ({
   categories,
-  activeCategorySlug
+  activeCategorySlug,
 }) => {
   const navContainerRef = useRef<HTMLDivElement>(null);
   const activeTabRef = useRef<HTMLButtonElement>(null);
@@ -26,11 +26,11 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
       const tabLeft = tab.offsetLeft;
       const tabWidth = tab.offsetWidth;
 
-      const scrollPosition = tabLeft - (containerWidth / 2) + (tabWidth / 2);
+      const scrollPosition = tabLeft - containerWidth / 2 + tabWidth / 2;
 
       container.scrollTo({
         left: scrollPosition,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   }, [activeCategorySlug]);
@@ -41,15 +41,18 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
       // Header 64px + CategoryNav 48px + 12px margin buffer
       const yOffset = -60;
       const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
 
   const handleNextCategory = () => {
     if (categories.length === 0) return;
-    const currentIndex = categories.findIndex((category) => category.slug === activeCategorySlug);
+    const currentIndex = categories.findIndex(
+      (category) => category.slug === activeCategorySlug,
+    );
     // Find the next index, wrapping around to the start if on the last category
-    const nextIndex = currentIndex !== -1 ? (currentIndex + 1) % categories.length : 0;
+    const nextIndex =
+      currentIndex !== -1 ? (currentIndex + 1) % categories.length : 0;
     const nextCategory = categories[nextIndex];
     if (nextCategory) {
       handleTabClick(nextCategory.slug);
@@ -59,9 +62,9 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
   return (
     <div
       id="category-nav-wrapper"
-      className={`sticky w-full transition-all duration-200 ${isBottomSheetOpen ? 'z-[160]' : 'z-50'}`}
+      className={`sticky w-full transition-all duration-200 ${isBottomSheetOpen ? "z-[160]" : "z-50"}`}
       style={{
-        top: '0px'
+        top: "0px",
       }}
     >
       <nav
@@ -93,8 +96,11 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
                   ref={isActive ? activeTabRef : null}
                   id={`nav-tab-${category.slug}`}
                   onClick={() => handleTabClick(category.slug)}
-                  className={`relative px-4 md:px-5 h-full flex items-center justify-center text-[10px] sm:text-xs md:text-[13px] uppercase md:font-semibold tracking-wider text-text-inverse transition-all cursor-pointer hover:bg-background-card/10 ${isActive ? 'text-inverse font-semibold' : 'text-text-muted'
-                    }`}
+                  className={`relative px-4 md:px-5 h-full flex items-center justify-center text-[10px] sm:text-xs md:text-[13px] uppercase md:font-semibold tracking-wider text-text-inverse transition-all cursor-pointer hover:bg-background-card/10 ${
+                    isActive
+                      ? "text-text-inverse font-semibold"
+                      : "text-text-inverse/80 hover:text-text-inverse"
+                  }`}
                 >
                   {category.name}
                   {isActive && (
@@ -102,7 +108,11 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
                       layoutId="activeTabUnderline"
                       id="active-tab-indicator"
                       className="absolute bottom-0 left-0 right-0 h-[3px] bg-background-card rounded-t-sm"
-                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 380,
+                        damping: 30,
+                      }}
                     />
                   )}
                 </button>
@@ -140,10 +150,10 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
 
             {/* Bottom Sheet Panel Container */}
             <motion.div
-              initial={{ y: '100%' }}
+              initial={{ y: "100%" }}
               animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 220 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 220 }}
               id="category-bottom-sheet-panel"
               className="fixed bottom-0 left-0 right-0 bg-background-card rounded-t-[28px] shadow-[0_-10px_40px_rgba(0,0,0,0.18)] z-[180] pb-8 pt-4 px-2 select-none max-h-[80vh] md:max-h-[60vh] flex flex-col border-t border-brand-primary/10"
             >
@@ -175,10 +185,11 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
                           handleTabClick(category.slug);
                           setIsBottomSheetOpen(false);
                         }}
-                        className={`w-full py-3.5 px-5 rounded-xl text-[10px] sm:text-xs md:text-sm transition-all border text-left cursor-pointer flex items-center justify-between ${isActive
-                          ? 'bg-brand-primary text-text-inverse border-brand-primary shadow-lg shadow-brand-primary/25 font-semibold'
-                          : 'bg-brand-primary/5 text-gray-700 hover:bg-gray-100 border-gray-200/60'
-                          }`}
+                        className={`w-full py-3.5 px-5 rounded-xl text-[10px] sm:text-xs md:text-sm transition-all border text-left cursor-pointer flex items-center justify-between ${
+                          isActive
+                            ? "bg-brand-primary text-text-inverse border-brand-primary shadow-lg shadow-brand-primary/25 font-semibold"
+                            : "bg-brand-primary/5 text-gray-700 hover:bg-gray-100 border-gray-200/60"
+                        }`}
                       >
                         <span>{category.name}</span>
                         {isActive && (
@@ -196,4 +207,3 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
     </div>
   );
 };
-

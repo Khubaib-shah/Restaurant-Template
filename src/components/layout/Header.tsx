@@ -1,7 +1,7 @@
-import React from 'react';
-import { MapPin, Phone, ShoppingCart, ChevronDown } from 'lucide-react';
-import { useRestaurant } from '../../context/RestaurantContext';
-import { useCart } from '../../context/CartContext';
+import React from "react";
+import { MapPin, Phone, ShoppingCart, ChevronDown } from "lucide-react";
+import { useRestaurant } from "../../context/RestaurantContext";
+import { useCart } from "../../context/CartContext";
 
 export const Header: React.FC = () => {
   const { config, currentLocation, setIsLocationModalOpen } = useRestaurant();
@@ -11,7 +11,7 @@ export const Header: React.FC = () => {
     e.preventDefault();
     setIsCheckoutActive(false);
     setIsCartOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -99,12 +99,15 @@ export const Header: React.FC = () => {
                 <MapPin size={16} />
               </div>
               <div>
-                <p className="text-[10px] font-bold tracking-widest text-text-muted uppercase leading-none mb-1">
+                <p className="text-[10px] font-bold tracking-widest text-text-inverse/90 uppercase leading-none mb-1">
                   DELIVERY
                 </p>
                 <div className="flex items-center gap-1.5 text-sm font-semibold  text-text-inverse">
                   <span>{currentLocation.area}</span>
-                  <ChevronDown size={14} className="text-text-muted group-hover:translate-y-0.5 transition-transform" />
+                  <ChevronDown
+                    size={14}
+                    className="text-text-inverse group-hover:translate-y-0.5 transition-transform"
+                  />
                 </div>
               </div>
             </button>
@@ -151,7 +154,10 @@ export const Header: React.FC = () => {
             onClick={() => setIsCartOpen(true)}
             aria-label="Open Cart"
           >
-            <ShoppingCart size={22} className="group-hover:scale-105 transition-transform" />
+            <ShoppingCart
+              size={22}
+              className="group-hover:scale-105 transition-transform"
+            />
             {itemCount > 0 && (
               <div
                 id="header-cart-badge"

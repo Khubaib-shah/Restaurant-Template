@@ -30,7 +30,7 @@ export const Footer: React.FC = () => {
 
   return (
     <footer className="border-t border-brand-primary/10 bg-background-card text-text-secondary">
-      <section className="max-w-7xl mx-auto px-6 py-16">
+      <section className="max-w-[1220px] mx-auto px-6 py-16">
         <div className="grid gap-14 grid-cols-2 lg:grid-cols-12 items-center justify-center">
           <div className="space-y-6 col-span-2 md:col-span-6">
             <div className="flex items-center gap-4">
@@ -59,14 +59,14 @@ export const Footer: React.FC = () => {
             <div className="flex items-center gap-3">
               <a
                 href={config.social.facebook || "#"}
-                className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary transition-all duration-300 hover:bg-brand-primary hover:text-inverse hover:-translate-y-1 hover:shadow-lg"
+                className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary transition-all duration-300 hover:bg-brand-primary hover:text-text-inverse hover:-translate-y-1 hover:shadow-lg"
                 aria-label="Facebook"
               >
                 <Facebook size={18} />
               </a>
               <a
                 href={config.social.instagram || "#"}
-                className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary transition-all duration-300 hover:bg-brand-primary hover:text-inverse hover:-translate-y-1 hover:shadow-lg"
+                className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary transition-all duration-300 hover:bg-brand-primary hover:text-text-inverse hover:-translate-y-1 hover:shadow-lg"
                 aria-label="Instagram"
               >
                 <Instagram size={18} />

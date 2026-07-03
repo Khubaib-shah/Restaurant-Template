@@ -19,10 +19,8 @@ import { SearchBar } from "./components/sections/SearchBar";
 import { PromoBanner } from "./components/sections/PromoBanner";
 import { PopularItems } from "./components/sections/PopularItems";
 import { MenuSection } from "./components/sections/MenuSection";
-import { CategoryDivider } from "./components/sections/CategoryDivider";
 
 // Import cart components
-import { CartSidebar } from "./components/cart/CartSidebar";
 import { CartDrawer } from "./components/cart/CartDrawer";
 
 // Import modals
@@ -30,7 +28,7 @@ import { LocationModal } from "./components/modals/LocationModal";
 import { ItemModal } from "./components/menu/ItemModal";
 import { CheckoutView } from "./components/cart/CheckoutView";
 
-import { Search, ShoppingBag } from "lucide-react";
+import { Search } from "lucide-react";
 
 const RestaurantAppContent: React.FC = () => {
   const { config, setIsLocationModalOpen } = useRestaurant();
@@ -174,7 +172,7 @@ const RestaurantAppContent: React.FC = () => {
             {/* 8. Main Body Grid: Category Items Lists */}
             <main
               id="main-content-layout"
-              className="flex-1 max-w-[1280px] w-full mx-auto px-2 sm:px-4 md:px-8 py-4 select-none"
+              className="flex-1 container max-w-[1220px] mx-auto select-none"
             >
               <div className="flex gap-8 items-start">
                 {/* Left: Food Section Blocks */}

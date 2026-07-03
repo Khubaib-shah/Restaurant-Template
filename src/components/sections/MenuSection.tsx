@@ -17,13 +17,10 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
   const { config } = useRestaurant();
   if (items.length === 0) return null;
 
-  const isStarters =
-    category.id === "cat-starters" || category.slug === "starters";
-
   return (
     <section
       id={category.slug}
-      className="w-full max-w-[1280px] mx-auto px-2 sm:px-4 md:px-8 py-3 md:py-8 scroll-mt-[80px]"
+      className=" container mx-auto py-3 md:py-8 scroll-mt-[80px]"
     >
       {/* Category Header Title Info */}
       <div className="mb-3 md:mb-6">
