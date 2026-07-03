@@ -6,8 +6,10 @@ import { CartItem } from './CartItem';
 import { PopularWithOrder } from './PopularWithOrder';
 import { PricingBreakdown } from './PricingBreakdown';
 import { motion, AnimatePresence } from 'motion/react';
+import { useRestaurant } from '@/src/context/RestaurantContext';
 
 export const CartDrawer: React.FC = () => {
+  const { config } = useRestaurant()
   const { isCartOpen, setIsCartOpen, state: cartState, itemCount, total, clearCart, setIsCheckoutActive } = useCart();
   const [showSuccessOverlay, setShowSuccessOverlay] = useState(false);
 
@@ -24,17 +26,17 @@ export const CartDrawer: React.FC = () => {
   const getEstimatedDeliveryString = () => {
     const deliveryDate = new Date();
     deliveryDate.setMinutes(deliveryDate.getMinutes() + 40);
-    
+
     const options: Intl.DateTimeFormatOptions = { month: 'long', day: 'numeric', year: 'numeric' };
     const datePart = deliveryDate.toLocaleDateString('en-US', options);
-    
+
     const hours = deliveryDate.getHours();
     const minutes = deliveryDate.getMinutes();
     const ampm = hours >= 12 ? 'PM' : 'AM';
     const displayHours = hours % 12 || 12;
     const displayMinutes = minutes < 10 ? `0${minutes}` : minutes;
     const timePart = `${displayHours}:${displayMinutes} ${ampm}`;
-    
+
     return { datePart, timePart };
   };
 
@@ -60,20 +62,20 @@ export const CartDrawer: React.FC = () => {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="bg-white w-full h-full shadow-2xl flex flex-col pointer-events-auto overflow-hidden text-gray-900 relative"
+              className="bg-background-card w-full h-full shadow-2xl flex flex-col pointer-events-auto overflow-hidden text-text-primary relative"
             >
               {/* Header */}
-              <div className="px-5 py-4 bg-brand-primary text-white flex items-center justify-between shrink-0">
+              <div className="px-5 py-4 bg-brand-primary  text-text-inverse flex items-center justify-between shrink-0">
                 <div className="flex items-center gap-2">
                   <ShoppingBag size={18} />
                   <h3 className="text-sm font-extrabold uppercase tracking-wider">Your Cart</h3>
-                  <span className="bg-white/20 text-white text-[10px] font-extrabold px-2 py-0.5 rounded-full">
+                  <span className="bg-background-card/20  text-text-inverse text-[10px] font-extrabold px-2 py-0.5 rounded-full">
                     {itemCount} Items
                   </span>
                 </div>
                 <button
                   onClick={handleClose}
-                  className="p-1.5 hover:bg-white/10 rounded-full text-white/80 hover:text-white transition-colors cursor-pointer"
+                  className="p-1.5 hover:bg-background-card/10 rounded-full  text-text-inverse/80 hover: text-text-inverse transition-colors cursor-pointer"
                   aria-label="Close"
                 >
                   <X size={20} />
@@ -85,18 +87,18 @@ export const CartDrawer: React.FC = () => {
                 {itemCount === 0 ? (
                   /* Empty State */
                   <div className="py-20 px-6 text-center space-y-4 flex flex-col items-center justify-center h-full">
-                    <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center text-gray-300 border border-gray-100">
+                    <div className="w-16 h-16 rounded-full divide-brand-primary/5 flex items-center justify-center text-text-muted border border-brand-primary/15">
                       <ShoppingBag size={28} />
                     </div>
                     <div className="space-y-1">
-                      <p className="text-[14px] font-bold text-gray-800">Your cart is empty</p>
-                      <p className="text-xs text-gray-400 max-w-[200px] leading-relaxed mx-auto">
-                        Add delicious items from Ghalib menu to get started
+                      <p className="text-[14px] font-bold text-text-primary">Your cart is empty</p>
+                      <p className="text-xs text-text-muted max-w-[200px] leading-relaxed mx-auto">
+                        Add delicious items from {config.name} to get started
                       </p>
                     </div>
                     <button
                       onClick={handleClose}
-                      className="px-6 py-2 bg-brand-primary text-white text-xs font-bold uppercase tracking-wider rounded-lg"
+                      className="px-6 py-2 bg-brand-primary  text-text-inverse text-xs font-bold uppercase tracking-wider rounded-lg"
                     >
                       Browse Menu
                     </button>
@@ -105,7 +107,7 @@ export const CartDrawer: React.FC = () => {
                   /* Cart contents */
                   <div className="space-y-1">
                     {/* Items lines */}
-                    <div className="divide-y divide-gray-50 shrink-0">
+                    <div className="divide-y divide-brand-primary/5 shrink-0">
                       {cartState.items.map((item) => (
                         <CartItem key={item.id} item={item} />
                       ))}
@@ -115,7 +117,7 @@ export const CartDrawer: React.FC = () => {
                     <div className="p-4 shrink-0">
                       <button
                         onClick={handleClose}
-                        className="w-full h-11 border-2 border-dashed border-gray-300 hover:border-brand-primary rounded-lg text-[13px] font-bold text-gray-500 hover:text-brand-primary flex items-center justify-center gap-1.5 transition-all cursor-pointer hover:bg-brand-primary/5 active:scale-[0.99]"
+                        className="w-full h-11 border-2 border-dashed border-brand-primary/25 hover:border-brand-primary rounded-lg text-[13px] font-bold text-text-secondary hover:text-brand-primary flex items-center justify-center gap-1.5 transition-all cursor-pointer hover:bg-brand-primary/5 active:scale-[0.99]"
                       >
                         <span>+</span> Add more items
                       </button>
@@ -132,31 +134,31 @@ export const CartDrawer: React.FC = () => {
 
               {/* Sticky bottom Action pill */}
               {itemCount > 0 && (
-                <div className="border-t border-gray-100 p-4 bg-white shrink-0 shadow-lg">
+                <div className="border-t border-brand-primary/15 p-4 bg-background-card shrink-0 shadow-lg">
                   <button
                     onClick={handleCheckout}
                     id="mobile-drawer-checkout-btn"
-                    className="w-full h-[52px] bg-brand-primary hover:bg-brand-primary-hover text-white flex items-center justify-between px-5 font-bold cursor-pointer active:scale-[0.99] transition-all rounded-xl animate-flash"
+                    className="w-full h-[52px] bg-brand-primary hover:bg-brand-primary-hover  text-text-inverse flex items-center justify-between px-5 font-bold cursor-pointer active:scale-[0.99] transition-all rounded-xl animate-flash"
                   >
                     <div className="flex flex-col items-start text-left select-none">
-                      <span className="text-[10px] font-medium text-white/70 tracking-wider">Grand Total</span>
-                      <span className="text-[14px] font-bold text-white leading-tight">{formatPrice(total)}</span>
+                      <span className="text-[10px] font-medium  text-text-inverse/70 tracking-wider">Grand Total</span>
+                      <span className="text-[14px] font-bold  text-text-inverse leading-tight">{formatPrice(total)}</span>
                     </div>
-                    
-                    <div className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-white">
+
+                    <div className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider  text-text-inverse">
                       <span>Checkout</span>
                       <ArrowRight size={15} strokeWidth={2.5} />
                     </div>
                   </button>
-                  
+
                   {/* Delivery Info Message */}
-                  <div className="text-center text-[11px] text-gray-500 font-medium mt-3 select-none leading-tight">
+                  <div className="text-center text-[11px] text-text-secondary font-medium mt-3 select-none leading-tight">
                     Your order will be delivered approximately in 45 minutes on
                   </div>
 
-                  <div className="flex items-center justify-center gap-1.5 mt-1.5 text-xs text-[#4B5E6D] font-semibold select-none">
+                  <div className="flex items-center justify-center gap-1.5 mt-1.5 text-xs text-brand-primary font-semibold select-none">
                     <span>{getEstimatedDeliveryString().datePart} at</span>
-                    <span className="bg-[#EAF2EE] text-[#0D1F18] px-2.5 py-0.5 rounded-full font-extrabold text-[11px] border border-[#D2E2DC]">
+                    <span className="bg-brand-primary/10 text-brand-primary px-2.5 py-0.5 rounded-full font-extrabold text-[11px] border border-brand-primary/15">
                       {getEstimatedDeliveryString().timePart}
                     </span>
                   </div>
@@ -173,20 +175,20 @@ export const CartDrawer: React.FC = () => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 220 }}
-              className="bg-white w-[420px] h-full shadow-2xl flex flex-col pointer-events-auto overflow-hidden text-gray-900 relative border-l border-gray-100"
+              className="bg-background-card w-[420px] h-full shadow-2xl flex flex-col pointer-events-auto overflow-hidden text-text-primary relative border-l border-brand-primary/15"
             >
               {/* Header */}
-              <div className="px-6 py-5 flex items-center justify-between shrink-0 bg-brand-primary text-white">
+              <div className="px-6 py-5 flex items-center justify-between shrink-0 bg-brand-primary  text-text-inverse">
                 <div className="flex items-center gap-2.5">
                   <ShoppingBag size={20} />
                   <h3 className="text-sm font-extrabold uppercase tracking-widest">Your Cart</h3>
-                  <span className="bg-white text-brand-primary text-[11px] font-black px-2.5 py-0.5 rounded-full shadow-sm">
+                  <span className="bg-background-card text-brand-primary text-[11px] font-black px-2.5 py-0.5 rounded-full shadow-sm">
                     {itemCount}
                   </span>
                 </div>
                 <button
                   onClick={handleClose}
-                  className="p-1.5 hover:bg-white/10 rounded-full text-white/80 hover:text-white transition-colors cursor-pointer"
+                  className="p-1.5 hover:bg-background-card/10 rounded-full  text-text-inverse/80 hover: text-text-inverse transition-colors cursor-pointer"
                   aria-label="Close"
                 >
                   <X size={20} />
@@ -198,18 +200,18 @@ export const CartDrawer: React.FC = () => {
                 {itemCount === 0 ? (
                   /* Empty State */
                   <div className="py-24 px-6 text-center space-y-4 flex flex-col items-center justify-center h-full">
-                    <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center text-gray-300 border border-gray-100">
+                    <div className="w-16 h-16 rounded-full divide-brand-primary/5 flex items-center justify-center text-text-muted border border-brand-primary/15">
                       <ShoppingBag size={28} />
                     </div>
                     <div className="space-y-1">
-                      <p className="text-[15px] font-bold text-gray-800">Your cart is empty</p>
-                      <p className="text-xs text-gray-400 max-w-[200px] leading-relaxed mx-auto">
-                        Add delicious items from Ghalib menu to get started
+                      <p className="text-[15px] font-bold text-text-primary">Your cart is empty</p>
+                      <p className="text-xs text-text-muted max-w-[200px] leading-relaxed mx-auto">
+                        Add delicious items from {config.name} to get started
                       </p>
                     </div>
                     <button
                       onClick={handleClose}
-                      className="px-6 py-2 bg-brand-primary text-white text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-brand-primary-hover transition-colors cursor-pointer animate-fade-in"
+                      className="px-6 py-2 bg-brand-primary  text-text-inverse text-xs font-bold uppercase tracking-wider rounded-lg hover:bg-brand-primary-hover transition-colors cursor-pointer animate-fade-in"
                     >
                       Browse Menu
                     </button>
@@ -218,7 +220,7 @@ export const CartDrawer: React.FC = () => {
                   /* Cart contents */
                   <div className="space-y-1">
                     {/* Items lines */}
-                    <div className="divide-y divide-gray-50 shrink-0">
+                    <div className="divide-y divide-brand-primary/5 shrink-0">
                       {cartState.items.map((item) => (
                         <CartItem key={item.id} item={item} />
                       ))}
@@ -228,7 +230,7 @@ export const CartDrawer: React.FC = () => {
                     <div className="p-4 shrink-0">
                       <button
                         onClick={handleClose}
-                        className="w-full h-11 border-2 border-dashed border-gray-300 hover:border-brand-primary rounded-lg text-[13px] font-bold text-gray-500 hover:text-brand-primary flex items-center justify-center gap-1.5 transition-all cursor-pointer hover:bg-brand-primary/5 active:scale-[0.99]"
+                        className="w-full h-11 border-2 border-dashed border-brand-primary/25 hover:border-brand-primary rounded-lg text-[13px] font-bold text-text-secondary hover:text-brand-primary flex items-center justify-center gap-1.5 transition-all cursor-pointer hover:bg-brand-primary/5 active:scale-[0.99]"
                       >
                         <span>+</span> Add more items
                       </button>
@@ -245,31 +247,31 @@ export const CartDrawer: React.FC = () => {
 
               {/* Sticky bottom Action panel */}
               {itemCount > 0 && (
-                <div className="border-t border-gray-100 p-5 bg-white shrink-0 shadow-lg">
+                <div className="border-t border-brand-primary/15 p-5 bg-background-card shrink-0 shadow-lg">
                   <button
                     onClick={handleCheckout}
                     id="desktop-drawer-checkout-btn"
-                    className="w-full h-[52px] bg-brand-primary hover:bg-brand-primary-hover text-white flex items-center justify-between px-5 font-bold cursor-pointer active:scale-[0.99] transition-all rounded-xl shadow-md shadow-brand-primary/10 animate-flash"
+                    className="w-full h-[52px] bg-brand-primary hover:bg-brand-primary-hover  text-text-inverse flex items-center justify-between px-5 font-bold cursor-pointer active:scale-[0.99] transition-all rounded-xl shadow-md shadow-brand-primary/25 animate-flash"
                   >
                     <div className="flex flex-col items-start text-left select-none">
-                      <span className="text-[10px] font-medium text-white/70 tracking-wider">Grand Total</span>
-                      <span className="text-[14px] font-bold text-white leading-tight">{formatPrice(total)}</span>
+                      <span className="text-[10px] font-medium  text-text-inverse/70 tracking-wider">Grand Total</span>
+                      <span className="text-[14px] font-bold  text-text-inverse leading-tight">{formatPrice(total)}</span>
                     </div>
-                    
-                    <div className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-white">
+
+                    <div className="flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider  text-text-inverse">
                       <span>Checkout</span>
                       <ArrowRight size={15} strokeWidth={2.5} />
                     </div>
                   </button>
 
                   {/* Delivery Info Message */}
-                  <div className="text-center text-[11px] text-gray-500 font-medium mt-3 select-none leading-tight">
+                  <div className="text-center text-[11px] text-text-secondary font-medium mt-3 select-none leading-tight">
                     Your order will be delivered approximately in 45 minutes on
                   </div>
 
-                  <div className="flex items-center justify-center gap-1.5 mt-1.5 text-xs text-[#4B5E6D] font-semibold select-none">
+                  <div className="flex items-center justify-center gap-1.5 mt-1.5 text-xs text-brand-primary font-semibold select-none">
                     <span>{getEstimatedDeliveryString().datePart} at</span>
-                    <span className="bg-[#EAF2EE] text-[#0D1F18] px-2.5 py-0.5 rounded-full font-extrabold text-[11px] border border-[#D2E2DC]">
+                    <span className="bg-brand-primary/10 text-brand-primary px-2.5 py-0.5 rounded-full font-extrabold text-[11px] border border-brand-primary/15">
                       {getEstimatedDeliveryString().timePart}
                     </span>
                   </div>
@@ -285,25 +287,25 @@ export const CartDrawer: React.FC = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-brand-primary z-[200] p-6 flex flex-col items-center justify-center text-center text-white select-none"
+                className="fixed inset-0 bg-brand-primary z-[200] p-6 flex flex-col items-center justify-center text-center  text-text-inverse select-none"
               >
                 {/* Animated checkmark */}
                 <motion.div
                   initial={{ scale: 0.5, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
-                  className="w-16 h-16 rounded-full bg-white text-brand-primary flex items-center justify-center shadow-lg mb-6"
+                  className="w-16 h-16 rounded-full bg-background-card text-brand-primary flex items-center justify-center shadow-lg mb-6"
                 >
                   <span className="text-3xl font-extrabold mt-[-2px]">✓</span>
                 </motion.div>
 
                 <h4 className="text-lg font-extrabold uppercase tracking-wide mb-2">Order Placed!</h4>
 
-                <p className="text-xs text-gray-300 max-w-[240px] leading-relaxed">
-                  Your order is successfully received and is being prepared by Ghalib chefs. Estimated delivery is 45 minutes.
+                <p className="text-xs text-text-muted max-w-[240px] leading-relaxed">
+                  Your order is successfully received and is being prepared by {config.name}. Estimated delivery is 45 minutes.
                 </p>
 
-                <div className="w-16 h-1 bg-white/20 rounded-full overflow-hidden mt-8">
+                <div className="w-16 h-1 bg-background-card/20 rounded-full overflow-hidden mt-8">
                   <motion.div
                     initial={{ left: '-100%', width: '0%' }}
                     animate={{ width: '100%' }}

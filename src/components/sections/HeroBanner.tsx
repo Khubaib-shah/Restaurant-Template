@@ -62,7 +62,7 @@ export const HeroBanner: React.FC = () => {
             >
               {/* Dark Dimming overlay */}
               <div className="absolute inset-0 bg-black/45 z-10" />
-              
+
               <img
                 src={slides[current].imageUrl}
                 alt={slides[current].promoHeadline || 'Food Promotion'}
@@ -71,14 +71,14 @@ export const HeroBanner: React.FC = () => {
               />
 
               {/* Slider Text Overlay Content (Centered) */}
-              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center text-white px-6">
+              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center  text-text-inverse px-6">
                 {slides[current].promoLabel && (
                   <span className="text-[7px] md:text-sm font-extrabold tracking-[0.25em] text-gray-200 uppercase drop-shadow-md leading-none mb-1.5 md:mb-3">
                     {slides[current].promoLabel}
                   </span>
                 )}
                 {slides[current].promoHeadline && (
-                  <h1 className="text-lg md:text-6xl font-extrabold tracking-tight leading-none text-white drop-shadow-lg mb-1.5 md:mb-3">
+                  <h1 className="text-lg md:text-6xl font-extrabold tracking-tight leading-none  text-text-inverse drop-shadow-lg mb-1.5 md:mb-3">
                     {slides[current].promoHeadline}
                   </h1>
                 )}
@@ -95,7 +95,7 @@ export const HeroBanner: React.FC = () => {
         {/* Navigation Controls */}
         <button
           onClick={handlePrev}
-          className="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-30 w-7 h-7 lg:w-10 lg:h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-90 flex items-center justify-center text-white cursor-pointer backdrop-blur-sm transition-all border border-white/15"
+          className="absolute left-2 lg:left-4 top-1/2 -translate-y-1/2 z-30 w-7 h-7 lg:w-10 lg:h-10 rounded-full bg-background-card/10 hover:bg-background-card/20 active:scale-90 flex items-center justify-center  text-text-inverse cursor-pointer backdrop-blur-sm transition-all border border-white/15"
           aria-label="Previous slide"
         >
           <ChevronLeft size={14} className="lg:hidden" />
@@ -103,7 +103,7 @@ export const HeroBanner: React.FC = () => {
         </button>
         <button
           onClick={handleNext}
-          className="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-30 w-7 h-7 lg:w-10 lg:h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-90 flex items-center justify-center text-white cursor-pointer backdrop-blur-sm transition-all border border-white/15"
+          className="absolute right-2 lg:right-4 top-1/2 -translate-y-1/2 z-30 w-7 h-7 lg:w-10 lg:h-10 rounded-full bg-background-card/10 hover:bg-background-card/20 active:scale-90 flex items-center justify-center  text-text-inverse cursor-pointer backdrop-blur-sm transition-all border border-white/15"
           aria-label="Next slide"
         >
           <ChevronRight size={14} className="lg:hidden" />
@@ -119,9 +119,8 @@ export const HeroBanner: React.FC = () => {
                 setDirection(idx > current ? 1 : -1);
                 setCurrent(idx);
               }}
-              className={`h-1 lg:h-2 rounded-full transition-all cursor-pointer ${
-                idx === current ? 'w-3 lg:w-5 bg-white' : 'w-1 lg:w-2 bg-white/40'
-              }`}
+              className={`h-1 lg:h-2 rounded-full transition-all cursor-pointer ${idx === current ? 'w-3 lg:w-5 bg-background-card' : 'w-1 lg:w-2 bg-background-card/40'
+                }`}
               aria-label={`Go to slide ${idx + 1}`}
             />
           ))}
@@ -130,9 +129,9 @@ export const HeroBanner: React.FC = () => {
         {/* Secure Payments Badge (Bottom Right) */}
         <div
           id="secure-payments-badge"
-          className="absolute bottom-2 right-2 lg:bottom-4 lg:right-4 z-30 bg-white/95 border border-gray-100 rounded-md lg:rounded-lg py-0.5 px-1.5 lg:py-1 lg:px-2.5 flex items-center gap-1 lg:gap-1.5 shadow-md backdrop-blur-sm select-none"
+          className="absolute bottom-2 right-2 lg:bottom-4 lg:right-4 z-30 bg-background-card/95 border border-brand-primary/15 rounded-md lg:rounded-lg py-0.5 px-1.5 lg:py-1 lg:px-2.5 flex items-center gap-1 lg:gap-1.5 shadow-md backdrop-blur-sm select-none"
         >
-          <span className="text-[5px] md:text-[9px] md:font-extrabold tracking-wide text-gray-500 uppercase">
+          <span className="text-[5px] md:text-[9px] md:font-extrabold tracking-wide text-text-secondary uppercase">
             SECURE PAYMENTS
           </span>
           <div className="flex gap-0.5 lg:gap-1 items-center">

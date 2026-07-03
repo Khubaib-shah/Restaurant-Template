@@ -31,7 +31,7 @@ export const PopularWithOrder: React.FC = () => {
     if (scrollEl) {
       checkScrollButtons();
       scrollEl.addEventListener('scroll', checkScrollButtons);
-      
+
       const resizeObserver = new ResizeObserver(() => {
         checkScrollButtons();
       });
@@ -72,13 +72,13 @@ export const PopularWithOrder: React.FC = () => {
   if (upsellItems.length === 0) return null;
 
   return (
-    <div id="upsell-container" className="py-4 border-t border-b border-gray-100 bg-gray-50/20 select-none">
+    <div id="upsell-container" className="py-4 border-t border-b border-brand-primary/15 divide-brand-primary/5/20 select-none">
       <div className="flex items-center justify-between px-4 mb-3">
-        <h4 className="text-sm font-bold text-gray-900 flex items-center gap-1.5 uppercase tracking-wide">
+        <h4 className="text-sm font-bold text-text-primary flex items-center gap-1.5 uppercase tracking-wide">
           <span className="text-base">🍳</span>
           Popular with your order
         </h4>
-        
+
         {/* Scroll Controls with Dynamic Size and Smooth Animations */}
         <div className="flex items-center gap-2 h-11">
           <motion.button
@@ -88,16 +88,15 @@ export const PopularWithOrder: React.FC = () => {
               height: canScrollLeft ? 40 : 30,
             }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className={`rounded-full flex items-center justify-center transition-colors duration-300 select-none ${
-              canScrollLeft
-                ? 'bg-brand-primary text-white hover:bg-[#032110] active:scale-95 cursor-pointer shadow-md shadow-brand-primary/10'
-                : 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-60'
-            }`}
+            className={`rounded-full flex items-center justify-center transition-colors duration-300 select-none ${canScrollLeft
+              ? 'bg-brand-primary  text-text-inverse hover:bg-[#032110] active:scale-95 cursor-pointer shadow-md shadow-brand-primary/25'
+              : 'bg-gray-100 text-text-muted cursor-not-allowed opacity-60'
+              }`}
             aria-label="Scroll left"
           >
             <ChevronLeft size={canScrollLeft ? 18 : 14} className="transition-all duration-300" />
           </motion.button>
-          
+
           <motion.button
             onClick={() => canScrollRight && scroll('right')}
             animate={{
@@ -105,11 +104,10 @@ export const PopularWithOrder: React.FC = () => {
               height: canScrollRight ? 40 : 30,
             }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className={`rounded-full flex items-center justify-center transition-colors duration-300 select-none ${
-              canScrollRight
-                ? 'bg-brand-primary text-white hover:bg-[#032110] active:scale-95 cursor-pointer shadow-md shadow-brand-primary/10'
-                : 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-60'
-            }`}
+            className={`rounded-full flex items-center justify-center transition-colors duration-300 select-none ${canScrollRight
+              ? 'bg-brand-primary  text-text-inverse hover:bg-[#032110] active:scale-95 cursor-pointer shadow-md shadow-brand-primary/25'
+              : 'bg-gray-100 text-text-muted cursor-not-allowed opacity-60'
+              }`}
             aria-label="Scroll right"
           >
             <ChevronRight size={canScrollRight ? 18 : 14} className="transition-all duration-300" />
@@ -124,15 +122,15 @@ export const PopularWithOrder: React.FC = () => {
       >
         {upsellItems.map((item) => {
           const isInCart = cartState.items.some((i) => i.menuItemId === item.id);
-          
+
           return (
             <div
               key={item.id}
               id={`upsell-card-${item.id}`}
-              className="w-[124px] shrink-0 bg-white border border-gray-100 rounded-lg p-2 flex flex-col justify-between shadow-sm relative group"
+              className="w-[124px] shrink-0 bg-background-card border border-brand-primary/15 rounded-lg p-2 flex flex-col justify-between shadow-sm relative group"
             >
               {/* Image box */}
-              <div className="relative w-full aspect-square bg-gray-50 rounded-md overflow-hidden shrink-0">
+              <div className="relative w-full aspect-square divide-brand-primary/5 rounded-md overflow-hidden shrink-0">
                 {item.imageUrl ? (
                   <img
                     src={item.imageUrl}
@@ -147,11 +145,10 @@ export const PopularWithOrder: React.FC = () => {
                 {/* Absolut Add Button */}
                 <button
                   onClick={() => handleAddUpsell(item.id)}
-                  className={`absolute bottom-1 right-1 w-7 h-7 rounded-full flex items-center justify-center shadow transition-all duration-150 cursor-pointer active:scale-90 ${
-                    isInCart
-                      ? 'bg-green-600 text-white'
-                      : 'bg-brand-primary text-white hover:bg-brand-primary-hover'
-                  }`}
+                  className={`absolute bottom-1 right-1 w-7 h-7 rounded-full flex items-center justify-center shadow transition-all duration-150 cursor-pointer active:scale-90 ${isInCart
+                    ? 'bg-green-600  text-text-inverse'
+                    : 'bg-brand-primary  text-text-inverse hover:bg-brand-primary-hover'
+                    }`}
                   aria-label="Quick add"
                 >
                   <span className="font-extrabold text-sm mt-[-1px]">{isInCart ? '✓' : '+'}</span>
@@ -162,16 +159,16 @@ export const PopularWithOrder: React.FC = () => {
               <div className="mt-2 space-y-0.5 min-w-0">
                 {/* Pricing line */}
                 <div className="flex flex-wrap items-baseline gap-1">
-                  <span className="text-xs font-extrabold text-gray-900">
+                  <span className="text-xs font-extrabold text-text-primary">
                     {formatPrice(item.discountedPrice)}
                   </span>
                   {item.basePrice > item.discountedPrice && (
-                    <span className="text-[10px] text-gray-400 line-through">
+                    <span className="text-[10px] text-text-muted line-through">
                       {formatPrice(item.basePrice)}
                     </span>
                   )}
                 </div>
-                
+
                 {/* Name */}
                 <h5 className="text-[11px] font-semibold text-gray-700 leading-tight truncate">
                   {item.name}

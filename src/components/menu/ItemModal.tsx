@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, Minus, Plus, ShoppingBag } from 'lucide-react';
+import { X, Minus, Plus, ArrowRight } from 'lucide-react';
 import { MenuItem, VariantGroup, VariantOption } from '../../types/menu';
 import { useCart } from '../../context/CartContext';
 import { formatPrice } from '../../lib/price';
@@ -207,10 +207,10 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="bg-white w-full max-w-[920px] h-[90vh] md:h-[560px] max-h-[640px] rounded-3xl shadow-2xl flex flex-col md:flex-row pointer-events-auto overflow-hidden text-gray-900"
+              className="bg-background-card w-full max-w-[920px] h-[90vh] md:h-[560px] max-h-[640px] rounded-3xl shadow-2xl flex flex-col md:flex-row pointer-events-auto overflow-hidden text-text-primary"
             >
               {/* Left Side: Product Hero Image & Info Overlay */}
-              <div className="relative w-full md:w-1/2 h-[220px] md:h-full shrink-0 overflow-hidden bg-brand-primary/5 border-b md:border-b-0 md:border-r border-gray-100">
+              <div className="relative w-full md:w-1/2 h-[220px] md:h-full shrink-0 overflow-hidden bg-brand-primary/5 border-b md:border-b-0 md:border-r border-brand-primary/10">
                 {item.imageUrl ? (
                   <img
                     src={item.imageUrl}
@@ -219,7 +219,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                     referrerPolicy="no-referrer"
                   />
                 ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center bg-gray-50 text-gray-400 p-6 text-center">
+                  <div className="w-full h-full flex flex-col items-center justify-center bg-brand-primary/5 text-text-secondary p-6 text-center">
                     <span className="font-extrabold text-sm uppercase tracking-widest">{item.name}</span>
                     <span className="text-xs mt-1 opacity-70">No Image Available</span>
                   </div>
@@ -228,12 +228,12 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none" />
 
                 {/* Text overlay */}
-                <div className="absolute bottom-5 left-5 right-5 text-white pointer-events-none">
-                  <h2 className="text-xl md:text-2xl font-medium md:font-bold leading-tight tracking-tight mb-1.5 drop-shadow">
+                <div className="absolute bottom-5 left-5 right-5 text-text-inverse pointer-events-none">
+                  <h2 className="text-xl md:text-2xl font-black leading-tight tracking-tight mb-1.5 drop-shadow">
                     {item.name}
                   </h2>
                   {item.description && (
-                    <p className="text-[11px] md:text-xs text-gray-200/90 leading-relaxed line-clamp-3 drop-shadow">
+                    <p className="text-[11px] md:text-xs text-gray-200/90 leading-relaxed md:font-medium drop-shadow">
                       {item.description}
                     </p>
                   )}
@@ -241,15 +241,15 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
               </div>
 
               {/* Right Side: Price, Options, Instructions & Custom Stepper/Buttons */}
-              <div className="flex-1 flex flex-col justify-between h-full bg-white min-w-0">
+              <div className="flex-1 flex flex-col justify-between h-full bg-background-card min-w-0">
                 {/* Top Bar with Pricing and Action Buttons */}
-                <div className="p-5 pb-3.5 border-b border-gray-100 flex items-center justify-between shrink-0">
+                <div className="p-5 pb-3.5 border-b border-brand-primary/10 flex items-center justify-between shrink-0">
                   <div className="flex items-baseline gap-2">
-                    <span className="text-xl md:text-2xl font-black text-gray-950">
+                    <span className="text-xl md:text-2xl font-black text-text-primary">
                       {formatPrice(unitPrice)}
                     </span>
                     {item.basePrice > item.discountedPrice && (
-                      <span className="text-xs md:text-sm text-gray-400 line-through font-bold">
+                      <span className="text-xs md:text-sm text-text-secondary line-through font-bold">
                         {formatPrice(originalUnitPrice)}
                       </span>
                     )}
@@ -266,7 +266,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                         <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3" />
                       </svg>
                       {isCopied && (
-                        <span className="absolute -top-9 right-0 bg-gray-900 text-white text-[10px] py-1 px-2.5 rounded-lg whitespace-nowrap shadow-md">
+                        <span className="absolute -top-9 right-0 bg-gray-900 text-text-inverse text-[10px] py-1 px-2.5 rounded-lg whitespace-nowrap shadow-md">
                           Link Copied!
                         </span>
                       )}
@@ -275,7 +275,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                     {/* Close Button */}
                     <button
                       onClick={onClose}
-                      className="w-9 h-9 rounded-full bg-[#032110] hover:bg-[#052E16] text-white flex items-center justify-center cursor-pointer transition-colors shadow-sm"
+                      className="w-9 h-9 rounded-full bg-[#032110] hover:bg-[#052E16] text-text-inverse flex items-center justify-center cursor-pointer transition-colors shadow-sm"
                       aria-label="Close"
                     >
                       <X size={16} />
@@ -296,12 +296,12 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                           <div
                             key={group.id}
                             id={`group-${group.id}`}
-                            className={`space-y-3 pb-5 border-b border-gray-100 last:border-0 last:pb-0 ${isError ? 'animate-shake' : ''
+                            className={`space-y-3 pb-5 border-b border-brand-primary/10 last:border-0 last:pb-0 ${isError ? 'animate-shake' : ''
                               }`}
                           >
                             <div className="flex items-baseline justify-between">
                               <div className="flex items-center gap-1.5">
-                                <h3 className="font-extrabold text-[13px] text-gray-950 uppercase tracking-wide">
+                                <h3 className="font-extrabold text-[13px] text-text-primary uppercase tracking-wide">
                                   {group.name}
                                 </h3>
                                 {group.required && (
@@ -310,7 +310,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                                   </span>
                                 )}
                               </div>
-                              <span className="text-[11px] text-gray-400 font-bold uppercase tracking-wider">
+                              <span className="text-[11px] text-text-secondary font-bold uppercase tracking-wider">
                                 {group.maxSelect === 1
                                   ? 'Select 1'
                                   : `Up to ${group.maxSelect}`}
@@ -329,14 +329,14 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                                     onClick={() => handleOptionSelect(group, option)}
                                     className={`flex items-center justify-between p-2.5 rounded-xl border text-left transition-all cursor-pointer text-xs ${isSelected
                                       ? 'border-brand-primary bg-brand-primary/5 text-brand-primary font-bold shadow-sm'
-                                      : 'border-gray-100 hover:border-gray-200 bg-white text-gray-700'
+                                      : 'border-brand-primary/10 hover:border-gray-200 bg-background-card text-gray-700'
                                       }`}
                                   >
                                     <div className="flex items-center gap-2">
                                       <div
                                         className={`w-3.5 h-3.5 rounded-full flex items-center justify-center border ${isSelected
                                           ? 'border-brand-primary'
-                                          : 'border-gray-300'
+                                          : 'border-brand-primary/25'
                                           }`}
                                       >
                                         {isSelected && (
@@ -372,25 +372,25 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
 
                   {/* Special Instructions */}
                   <div className="space-y-2">
-                    <label htmlFor="instructions-note" className="text-xs font-medium md:font-bold text-gray-500 uppercase tracking-wider block">
+                    <label htmlFor="instructions-note" className="text-xs font-black text-text-secondary uppercase tracking-wider block">
                       Special Instructions
                     </label>
                     <textarea
                       id="instructions-note"
                       value={note}
-                      onChange={(e) => setNote(e.target.value)}
+                      onChange={(e) => setNote(e.target.value.replace(/[^a-zA-Z0-9\s.,\-\/#?!()]/g, ''))}
                       placeholder="Please enter instructions about this item"
-                      className="w-full h-24 p-3 text-xs md:text-sm border border-gray-150 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/20 bg-gray-50/20"
+                      className="w-full h-24 p-3 text-xs md:text-sm border border-gray-150 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-primary/20 bg-brand-primary/5/20"
                       maxLength={500}
                     />
-                    <div className="text-right text-[10px] text-gray-400 font-semibold uppercase">
+                    <div className="text-right text-[10px] text-text-secondary font-semibold uppercase">
                       {note.length} / 500 characters
                     </div>
                   </div>
                 </div>
 
                 {/* Bottom Footer Actions (Custom stepper & Add to Order button) */}
-                <div className="px-5 py-4 border-t border-gray-100 bg-gray-50/30 flex items-center justify-between gap-3.5 shrink-0">
+                <div className="px-5 py-4 border-t border-brand-primary/10 bg-brand-primary/5/30 flex items-center justify-between gap-3.5 shrink-0">
                   {/* Quantity Stepper */}
                   <div className="flex items-center bg-gray-100/70 border border-gray-200 rounded-xl p-1 w-[115px] justify-between h-[46px] shrink-0">
                     <button
@@ -399,7 +399,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                           setQuantity(quantity - 1);
                         }
                       }}
-                      className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors cursor-pointer text-gray-500 hover:text-gray-700"
+                      className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors cursor-pointer text-text-secondary hover:text-gray-700"
                       aria-label="Reduce quantity"
                     >
                       {quantity === 1 ? (
@@ -413,12 +413,12 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                         <Minus size={13} strokeWidth={3} />
                       )}
                     </button>
-                    <span className="font-extrabold text-sm select-none text-gray-950">
+                    <span className="font-extrabold text-sm select-none text-text-primary">
                       {quantity}
                     </span>
                     <button
                       onClick={() => setQuantity(quantity + 1)}
-                      className="w-8 h-8 flex items-center justify-center bg-[#052E16] hover:bg-[#032110] text-white rounded-full transition-colors cursor-pointer"
+                      className="w-8 h-8 flex items-center justify-center bg-[#052E16] hover:bg-[#032110] text-text-inverse rounded-full transition-colors cursor-pointer"
                       aria-label="Increase quantity"
                     >
                       <Plus size={13} strokeWidth={3} />
@@ -429,11 +429,18 @@ export const ItemModal: React.FC<ItemModalProps> = ({ item, isOpen, onClose }) =
                   <button
                     id="add-customised-item-btn"
                     onClick={handleAddToCart}
-                    className="flex-1 h-[46px] bg-[#052E16] hover:bg-[#032110] text-white rounded-xl flex items-center justify-center px-3 gap-0.5 sm:gap-1 font-medium text-xs sm:text-sm shadow-md hover:shadow-lg transition-all cursor-pointer select-none active:scale-[0.99] min-w-0"
+                    className="flex-1 h-[46px] bg-[#052E16] hover:bg-[#032110] text-text-inverse rounded-xl flex items-center justify-center px-3 gap-0.5 sm:gap-1 font-medium md:font-extrabold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all cursor-pointer select-none active:scale-[0.99] min-w-0"
                   >
                     <span className="whitespace-nowrap">{formatPrice(totalPrice)}</span>
                     <span className="opacity-60 font-normal mx-0.5 sm:mx-1">|</span>
-                    <span className="whitespace-nowrap">Add to Cart &rarr;</span>
+                    <span className="whitespace-nowrap font-normal flex items-center">Add <span className="hidden md:inline-flex">to Cart </span> <motion.span
+                      animate={{ x: [0, 3, 0] }}
+                      transition={{ repeat: Infinity, duration: 1.2, ease: "easeInOut" }}
+                      className="shrink-0 text-text-inverse"
+                    >
+                      <ArrowRight size={13} strokeWidth={2.5} />
+                    </motion.span>
+                    </span>
                   </button>
                 </div>
               </div>

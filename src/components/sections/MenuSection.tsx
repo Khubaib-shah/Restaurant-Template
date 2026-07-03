@@ -1,13 +1,10 @@
 import React from 'react';
 import { Category, MenuItem } from '../../types/menu';
 import { MenuGrid } from '../menu/MenuGrid';
-import { useRestaurant } from '@/src/context/RestaurantContext';
-
 
 interface MenuSectionProps {
   category: Category;
   items: MenuItem[];
-
   onCustomizeClick?: (item: MenuItem) => void;
 }
 
@@ -16,9 +13,9 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
   items,
   onCustomizeClick
 }) => {
-  const { config } = useRestaurant();
   if (items.length === 0) return null;
 
+  const isStarters = category.id === 'cat-starters' || category.slug === 'starters';
 
   return (
     <section
@@ -27,30 +24,18 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
     >
       {/* Category Header Title Info */}
       <div className="mb-3 md:mb-6">
-        {config.theme.assets.categoryBackground && config.theme.assets.categoryBackground !== null ? (
-          <div className="relative flex flex-col items-center text-center space-y-2 py-2 md:py-4 select-none">
+        {isStarters ? (
+          <div className="flex flex-col items-center text-center space-y-2 py-2 md:py-4 select-none">
             <img
-              src={config.theme.assets.categoryBackground}
+              src="https://res.cloudinary.com/dvyhnxnpq/image/upload/v1782763294/1713771799-_0009_Starters_tsh1ns.webp"
               alt="Starters Category"
-              className="object-contain mb-2"
+              className="max-h-[64px] md:max-h-[72px] object-contain mb-2"
               referrerPolicy="no-referrer"
             />
-
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center">
-              <h2 className="text-2xl md:text-3xl font-black text-white uppercase tracking-wider">
-                {category.name}
-              </h2>
-
-              {category.description && (
-                <p className="text-xs sm:text-sm md:text-lg  text-gray-700 font-semibold md:font-bold leading-relaxed max-w-xl mx-auto">
-                  {category.description}
-                </p>
-              )}
-            </div>
           </div>
         ) : (
           <div className="flex flex-col items-center text-center space-y-2 py-2 md:py-4 select-none">
-            <h2 className="text-2xl md:text-3xl font-black text-gray-900 uppercase tracking-wider">
+            <h2 className="text-2xl md:text-3xl font-black text-text-primary uppercase tracking-wider">
               {category.name}
             </h2>
             {category.description && (
@@ -64,6 +49,6 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
 
       {/* Grid of Food cards */}
       <MenuGrid items={items} onCustomizeClick={onCustomizeClick} cardStyle={category.cardStyle} />
-    </section >
+    </section>
   );
 };

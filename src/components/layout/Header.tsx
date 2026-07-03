@@ -17,7 +17,7 @@ export const Header: React.FC = () => {
   return (
     <header
       id="main-header"
-      className="relative bg-brand-primary text-white h-12 lg:h-16 flex items-center justify-between px-4 md:px-8 z-[100] shadow-header"
+      className="relative bg-brand-primary  text-text-inverse h-12 lg:h-16 flex items-center justify-between px-4 md:px-8 z-[100] shadow-header"
     >
       {/* MOBILE LAYOUT */}
       <div className="flex lg:hidden items-center justify-between w-full h-full relative">
@@ -26,7 +26,7 @@ export const Header: React.FC = () => {
           <button
             id="mobile-location-trigger"
             onClick={() => setIsLocationModalOpen(true)}
-            className="w-8 h-8 rounded-full bg-white text-gray-800 flex items-center justify-center shadow-md active:scale-95 transition-all cursor-pointer hover:bg-gray-50"
+            className="w-8 h-8 rounded-full bg-background-card text-text-primary flex items-center justify-center shadow-md active:scale-95 transition-all cursor-pointer hover:divide-brand-primary/5"
             aria-label="Select Location"
           >
             <MapPin size={14} className="text-gray-700" />
@@ -40,7 +40,7 @@ export const Header: React.FC = () => {
             className="block cursor-pointer focus:outline-none"
             aria-label="Go to Home"
           >
-            <div className="w-16 h-16 rounded-full bg-white shadow-xl border border-gray-100 flex items-center justify-center p-1.5">
+            <div className="w-16 h-16 rounded-full bg-background-card shadow-xl border border-brand-primary/15 flex items-center justify-center p-1.5">
               <img
                 id="header-logo-img-mobile"
                 src={config.logo}
@@ -58,7 +58,7 @@ export const Header: React.FC = () => {
           <a
             id="mobile-phone-trigger"
             href={`tel:${config.contact.phone}`}
-            className="w-8 h-8 rounded-full bg-white text-gray-800 flex items-center justify-center shadow-md active:scale-95 transition-all hover:bg-gray-50"
+            className="w-8 h-8 rounded-full bg-background-card text-text-primary flex items-center justify-center shadow-md active:scale-95 transition-all hover:divide-brand-primary/5"
             aria-label="Call Restaurant"
           >
             <Phone size={14} className="text-gray-700" />
@@ -68,14 +68,14 @@ export const Header: React.FC = () => {
           <button
             id="mobile-cart-trigger"
             onClick={() => setIsCartOpen(true)}
-            className="relative w-8 h-8 rounded-full bg-white text-gray-800 flex items-center justify-center shadow-md active:scale-95 transition-all cursor-pointer hover:bg-gray-50"
+            className="relative w-8 h-8 rounded-full bg-background-card text-text-primary flex items-center justify-center shadow-md active:scale-95 transition-all cursor-pointer hover:divide-brand-primary/5"
             aria-label="Open Cart"
           >
             <ShoppingCart size={14} className="text-gray-700" />
             {itemCount > 0 && (
               <div
                 id="mobile-cart-badge"
-                className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-brand-primary text-white border border-white flex items-center justify-center text-[8px] font-black shadow-sm"
+                className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-brand-primary  text-text-inverse border border-white flex items-center justify-center text-[8px] font-black shadow-sm"
               >
                 {itemCount}
               </div>
@@ -95,16 +95,16 @@ export const Header: React.FC = () => {
               className="flex items-center gap-2 hover:opacity-80 text-left transition-opacity cursor-pointer group"
               onClick={() => setIsLocationModalOpen(true)}
             >
-              <div className="bg-white/10 p-1.5 rounded-full text-white">
+              <div className="bg-background-card/10 p-1.5 rounded-full  text-text-inverse">
                 <MapPin size={16} />
               </div>
               <div>
-                <p className="text-[10px] font-bold tracking-widest text-gray-300 uppercase leading-none mb-1">
+                <p className="text-[10px] font-bold tracking-widest text-text-muted uppercase leading-none mb-1">
                   DELIVERY
                 </p>
-                <div className="flex items-center gap-1.5 text-sm font-semibold text-white">
+                <div className="flex items-center gap-1.5 text-sm font-semibold  text-text-inverse">
                   <span>{currentLocation.area}</span>
-                  <ChevronDown size={14} className="text-gray-300 group-hover:translate-y-0.5 transition-transform" />
+                  <ChevronDown size={14} className="text-text-muted group-hover:translate-y-0.5 transition-transform" />
                 </div>
               </div>
             </button>
@@ -116,7 +116,7 @@ export const Header: React.FC = () => {
             href={`tel:${config.contact.phone}`}
             className="flex items-center gap-2 text-sm font-medium hover:text-gray-200 transition-colors"
           >
-            <div className="bg-white/10 p-1.5 rounded-full text-white">
+            <div className="bg-background-card/10 p-1.5 rounded-full  text-text-inverse">
               <Phone size={14} />
             </div>
             <span>{config.contact.phone}</span>
@@ -130,7 +130,7 @@ export const Header: React.FC = () => {
             className="block cursor-pointer focus:outline-none"
             aria-label="Go to Home"
           >
-            <div className="w-24 h-24 rounded-full bg-white shadow-xl border border-gray-100 flex items-center justify-center p-2.5">
+            <div className="w-24 h-24 rounded-full bg-background-card shadow-xl border border-brand-primary/15 flex items-center justify-center p-2.5">
               <img
                 id="header-logo-img"
                 src={config.logo}
@@ -147,7 +147,7 @@ export const Header: React.FC = () => {
           {/* Cart Icon Button */}
           <button
             id="header-cart-trigger"
-            className="relative p-2 bg-white/10 hover:bg-white/15 rounded-full transition-colors cursor-pointer group"
+            className="relative p-2 bg-background-card/10 hover:bg-background-card/15 rounded-full transition-colors cursor-pointer group"
             onClick={() => setIsCartOpen(true)}
             aria-label="Open Cart"
           >
@@ -155,7 +155,7 @@ export const Header: React.FC = () => {
             {itemCount > 0 && (
               <div
                 id="header-cart-badge"
-                className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-white text-brand-primary flex items-center justify-center text-xs font-extrabold shadow-sm animate-pulse"
+                className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-background-card text-brand-primary flex items-center justify-center text-xs font-extrabold shadow-sm animate-pulse"
               >
                 {itemCount}
               </div>

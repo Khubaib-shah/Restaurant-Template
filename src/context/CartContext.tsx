@@ -25,7 +25,7 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-const LOCAL_STORAGE_KEY = 'ghalib_cart_state';
+const LOCAL_STORAGE_KEY = 'restaurant_cart_state';
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { config } = useRestaurant();
@@ -72,13 +72,13 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   // --- Derived Calculations (Matching reference math perfectly) ---
-  
+
   // subtotal is computed on the originalUnitPrice (basePrice equivalent)
   const subtotal = state.items.reduce((sum, item) => sum + item.originalUnitPrice * item.quantity, 0);
 
   // savings from item discounts: originalUnitPrice - unitPrice
   const itemDiscounts = state.items.reduce((sum, item) => sum + (item.originalUnitPrice - item.unitPrice) * item.quantity, 0);
-  
+
   const discount = itemDiscounts + state.promoDiscount;
 
   // tax computed on original subtotal (as per screenshot: 15% of 1250 is 187.5 -> rounded to 188)

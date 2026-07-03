@@ -33,8 +33,20 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
 
     if (!item.isAvailable) return;
 
-    if (onCustomizeClick) {
-      onCustomizeClick(item);
+    if (item.hasVariants) {
+      if (onCustomizeClick) {
+        onCustomizeClick(item);
+      }
+    } else {
+      addItem({
+        id: item.id,
+        menuItemId: item.id,
+        name: item.name,
+        imageUrl: item.imageUrl,
+        quantity: 1,
+        unitPrice: item.discountedPrice,
+        originalUnitPrice: item.basePrice,
+      });
     }
   };
 
@@ -72,7 +84,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
           }`}
       >
         {/* Image Block */}
-        <div className="relative w-full aspect-square bg-gray-50 overflow-hidden rounded-2xl border border-gray-100">
+        <div className="relative w-full aspect-square bg-brand-primary/5 overflow-hidden rounded-2xl border border-brand-primary/10">
           {item.badge && <ItemBadge type={item.badge} />}
 
           {item.imageUrl ? (
@@ -109,7 +121,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
           {/* Unavailable overlay */}
           {!item.isAvailable && (
             <div className="absolute inset-0 bg-black/35 flex items-center justify-center">
-              <span className="bg-black/70 text-white font-extrabold text-[9px] tracking-widest px-2.5 py-1 rounded-md uppercase">
+              <span className="bg-black/70 text-text-inverse font-extrabold text-[9px] tracking-widest px-2.5 py-1 rounded-md uppercase">
                 Unavailable
               </span>
             </div>
@@ -124,13 +136,13 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
                     e.stopPropagation();
                     if (onCustomizeClick) onCustomizeClick(item);
                   }}
-                  className="w-9 h-9 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-md hover:bg-brand-primary-hover active:scale-95 transition-all cursor-pointer"
+                  className="w-9 h-9 rounded-full bg-brand-primary text-text-inverse flex items-center justify-center shadow-md hover:bg-brand-primary-hover active:scale-95 transition-all cursor-pointer"
                   aria-label="Customize"
                 >
                   <Plus size={18} strokeWidth={2.5} />
                 </button>
               ) : nonVariantCartItem ? (
-                <div className="flex items-center justify-between h-8 bg-brand-primary rounded-full text-white shadow-md px-1.5 gap-1.5">
+                <div className="flex items-center justify-between h-8 bg-brand-primary rounded-full text-text-inverse shadow-md px-1.5 gap-1.5">
                   <button
                     onClick={handleDecrement}
                     className="w-5 h-5 rounded-full flex items-center justify-center hover:bg-black/10 transition-colors cursor-pointer"
@@ -152,7 +164,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
               ) : (
                 <button
                   onClick={handleAddToCart}
-                  className="w-9 h-9 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-md hover:bg-brand-primary-hover active:scale-95 transition-all cursor-pointer"
+                  className="w-9 h-9 rounded-full bg-brand-primary text-text-inverse flex items-center justify-center shadow-md hover:bg-brand-primary-hover active:scale-95 transition-all cursor-pointer"
                   aria-label="Add to cart"
                 >
                   <Plus size={18} strokeWidth={2.5} />
@@ -164,7 +176,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
 
         {/* Text Details Area below image */}
         <div className="pt-2 pb-1 px-1">
-          <h3 className="text-xs md:text-sm font-bold text-gray-950 leading-snug line-clamp-2">
+          <h3 className="text-xs md:text-sm font-bold text-text-primary leading-snug line-clamp-2">
             {item.name}
           </h3>
 
@@ -174,15 +186,20 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
             </p>
           )}
 
-          <div className="flex items-center gap-1.5 mt-1">
+          <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 mt-1">
+            {item.pricePrefix && (
+              <span className="text-[9px] md:text-[10px] text-text-secondary font-bold uppercase tracking-wider whitespace-nowrap">
+                {item.pricePrefix}
+              </span>
+            )}
+            <span className="text-xs md:text-sm font-black text-brand-primary whitespace-nowrap">
+              {formatPrice(item.discountedPrice)}
+            </span>
             {item.basePrice > item.discountedPrice && (
-              <span className="text-[11px] text-gray-400 line-through font-semibold">
+              <span className="text-[10px] md:text-[11px] text-text-secondary line-through font-semibold whitespace-nowrap">
                 {formatPrice(item.basePrice)}
               </span>
             )}
-            <span className="text-xs md:text-sm font-black text-brand-primary">
-              {formatPrice(item.discountedPrice)}
-            </span>
           </div>
         </div>
       </motion.div>
@@ -195,11 +212,11 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
       <motion.div
         id={`menu-card-${item.id}`}
         onClick={handleCardClick}
-        className={`bg-white rounded-xl border border-brand-primary/30 p-3 relative cursor-pointer flex items-center gap-3 select-none transition-shadow hover:shadow-md duration-150 ${!item.isAvailable ? 'opacity-65 grayscale-[40%]' : ''
+        className={`bg-background-card rounded-xl border border-brand-primary/30 p-3 relative cursor-pointer flex items-center gap-3 select-none transition-shadow hover:shadow-md duration-150 ${!item.isAvailable ? 'opacity-65 grayscale-[40%]' : ''
           }`}
       >
         {/* Left: Compact Image */}
-        <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-lg overflow-hidden bg-gray-50 border border-gray-100">
+        <div className="relative w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-lg overflow-hidden bg-brand-primary/5 border border-brand-primary/10">
           {item.imageUrl ? (
             <>
               <div
@@ -221,7 +238,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
 
           {!item.isAvailable && (
             <div className="absolute inset-0 bg-black/35 flex items-center justify-center">
-              <span className="bg-black/70 text-white font-extrabold text-[8px] tracking-wider px-1 py-0.5 rounded uppercase">
+              <span className="bg-black/70 text-text-inverse font-extrabold text-[8px] tracking-wider px-1 py-0.5 rounded uppercase">
                 Empty
               </span>
             </div>
@@ -234,22 +251,22 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
             {item.badge && (
               <div className="mb-1.5 flex flex-wrap">
                 <span className={`inline-block rounded px-2 py-0.5 text-[8px] font-black uppercase tracking-widest whitespace-nowrap shadow-sm ${item.badge === 'BEST_SELLER' ? 'bg-amber-100 text-amber-800 border border-amber-200/60' :
-                    item.badge === 'HOT_SELLING' ? 'bg-red-105 text-red-800 border border-red-200/60' :
-                      item.badge === 'NEW_ARRIVAL' ? 'bg-green-100 text-green-800 border border-green-200/60' :
-                        item.badge === 'TRENDING' ? 'bg-orange-100 text-orange-800 border border-orange-200/60' :
-                          item.badge === 'POPULAR' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200/60' :
-                            'bg-brand-primary/10 text-brand-primary border border-brand-primary/20'
+                  item.badge === 'HOT_SELLING' ? 'bg-red-105 text-red-800 border border-red-200/60' :
+                    item.badge === 'NEW_ARRIVAL' ? 'bg-green-100 text-green-800 border border-green-200/60' :
+                      item.badge === 'TRENDING' ? 'bg-orange-100 text-orange-800 border border-orange-200/60' :
+                        item.badge === 'POPULAR' ? 'bg-yellow-100 text-yellow-800 border border-yellow-200/60' :
+                          'bg-brand-primary/10 text-brand-primary border border-brand-primary/20'
                   }`}>
                   {item.badge.replace('_', ' ')}
                 </span>
               </div>
             )}
-            <h3 className="text-xs sm:text-sm font-bold text-gray-950 leading-tight line-clamp-1">
+            <h3 className="text-xs sm:text-sm font-bold text-text-primary leading-tight line-clamp-1">
               {item.name}
             </h3>
 
             {item.description && (
-              <p className="text-[11px] text-gray-500 line-clamp-1 mt-0.5 leading-snug">
+              <p className="text-[11px] text-text-secondary line-clamp-2-fixed mt-0.5 leading-snug">
                 {item.description}
               </p>
             )}
@@ -261,15 +278,20 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
             )}
           </div>
 
-          <div className="flex items-center gap-1.5 mt-1.5">
+          <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 mt-1.5">
+            {item.pricePrefix && (
+              <span className="text-[9px] sm:text-[10px] text-text-secondary font-bold uppercase tracking-wider whitespace-nowrap">
+                {item.pricePrefix}
+              </span>
+            )}
+            <span className="text-xs sm:text-sm font-black text-brand-primary whitespace-nowrap">
+              {formatPrice(item.discountedPrice)}
+            </span>
             {item.basePrice > item.discountedPrice && (
-              <span className="text-[10px] sm:text-[11px] text-gray-400 line-through font-semibold">
+              <span className="text-[9px] sm:text-[10px] text-text-secondary line-through font-semibold whitespace-nowrap">
                 {formatPrice(item.basePrice)}
               </span>
             )}
-            <span className="text-xs sm:text-sm font-black text-brand-primary">
-              {formatPrice(item.discountedPrice)}
-            </span>
           </div>
         </div>
 
@@ -282,13 +304,13 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
                   e.stopPropagation();
                   if (onCustomizeClick) onCustomizeClick(item);
                 }}
-                className="w-9 h-9 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-md hover:bg-brand-primary-hover active:scale-95 transition-all cursor-pointer"
+                className="w-9 h-9 rounded-full bg-brand-primary  text-text-inverse flex items-center justify-center shadow-md hover:bg-brand-primary-hover active:scale-95 transition-all cursor-pointer"
                 aria-label="Customize"
               >
                 <Plus size={18} strokeWidth={2.5} />
               </button>
             ) : nonVariantCartItem ? (
-              <div className="flex flex-col items-center justify-between h-20 w-8 bg-brand-primary rounded-full text-white shadow-md py-1.5">
+              <div className="flex flex-col items-center justify-between h-20 w-8 bg-brand-primary rounded-full text-text-inverse shadow-md py-1.5">
                 <button
                   onClick={handleIncrement}
                   className="w-6 h-6 rounded-full flex items-center justify-center hover:bg-black/10 transition-colors cursor-pointer"
@@ -310,7 +332,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
             ) : (
               <button
                 onClick={handleAddToCart}
-                className="w-9 h-9 rounded-full bg-brand-primary text-white flex items-center justify-center shadow-md hover:bg-brand-primary-hover active:scale-95 transition-all cursor-pointer"
+                className="w-9 h-9 rounded-full bg-brand-primary  text-text-inverse flex items-center justify-center shadow-md hover:bg-brand-primary-hover active:scale-95 transition-all cursor-pointer"
                 aria-label="Add to cart"
               >
                 <Plus size={18} strokeWidth={2.5} />
@@ -328,11 +350,11 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
       id={`menu-card-${item.id}`}
       whileHover={item.isAvailable ? { boxShadow: '0 4px 12px rgba(0,0,0,0.12)' } : undefined}
       onClick={handleCardClick}
-      className={`bg-white rounded-xl border border-brand-primary overflow-hidden relative cursor-pointer flex flex-col justify-between shadow-card select-none transition-opacity duration-150 ${!item.isAvailable ? 'opacity-65 grayscale-[40%]' : ''
+      className={`bg-background-card rounded-xl border border-brand-primary overflow-hidden relative cursor-pointer flex flex-col justify-between shadow-card select-none transition-opacity duration-150 ${!item.isAvailable ? 'opacity-65 grayscale-[40%]' : ''
         }`}
     >
       {/* Image Area */}
-      <div className="relative w-full aspect-square bg-gray-50 overflow-hidden">
+      <div className="relative w-full aspect-square bg-brand-primary/5 overflow-hidden">
         {item.badge && <ItemBadge type={item.badge} />}
 
         {item.imageUrl ? (
@@ -370,7 +392,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
         {/* Unavailable overlay */}
         {!item.isAvailable && (
           <div className="absolute inset-0 bg-black/35 flex items-center justify-center">
-            <span className="bg-black/70 text-white font-extrabold text-[10px] tracking-widest px-3 py-1.5 rounded-md uppercase">
+            <span className="bg-black/70 text-text-inverse font-extrabold text-[10px] tracking-widest px-3 py-1.5 rounded-md uppercase">
               Unavailable
             </span>
           </div>
@@ -381,7 +403,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
       <div className="p-3 flex-1 flex flex-col justify-between">
         <div className="space-y-1">
           {/* Name */}
-          <h3 className="text-sm md:text-[14px] font-bold text-gray-900 leading-snug line-clamp-2">
+          <h3 className="text-xs md:text-[14px] font-bold text-text-primary leading-snug line-clamp-2">
             {item.name}
           </h3>
 
@@ -394,7 +416,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
 
           {/* Description */}
           {item.description && (
-            <p className="hidden md:block text-xs text-gray-500 leading-normal line-clamp-2 mt-1">
+            <p className="hidden md:block text-xs text-text-secondary leading-normal line-clamp-2-fixed mt-1">
               {item.description}
             </p>
           )}
@@ -403,19 +425,19 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
         {/* Price & Action Row */}
         <div className="mt-3.5 space-y-2">
           {/* Pricing */}
-          <div className="flex items-baseline gap-2">
+          <div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
             {item.pricePrefix && (
-              <span className="text-[10px] text-gray-400 font-bold uppercase mr-0.5">
+              <span className="text-[9px] sm:text-[10px] text-text-secondary font-bold uppercase tracking-wider whitespace-nowrap">
                 {item.pricePrefix}
               </span>
             )}
 
-            <span className="text-sm md:text-[15px] font-extrabold text-gray-900">
+            <span className="text-xs sm:text-sm md:text-[15px] font-extrabold text-text-primary whitespace-nowrap">
               {formatPrice(item.discountedPrice)}
             </span>
 
             {item.basePrice > item.discountedPrice && (
-              <span className="text-[11px] text-gray-400 line-through font-semibold">
+              <span className="text-[10px] sm:text-[11px] text-text-secondary line-through font-semibold whitespace-nowrap">
                 {formatPrice(item.basePrice)}
               </span>
             )}
@@ -425,7 +447,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
           {!item.isAvailable ? (
             <button
               disabled
-              className="w-full h-9 bg-gray-100 text-gray-400 text-[11px] font-bold uppercase tracking-wider rounded-lg cursor-not-allowed"
+              className="w-full h-9 bg-gray-100 text-text-secondary text-[11px] font-bold uppercase tracking-wider rounded-lg cursor-not-allowed"
             >
               Unavailable
             </button>
@@ -435,13 +457,13 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
                 e.stopPropagation();
                 if (onCustomizeClick) onCustomizeClick(item);
               }}
-              className="w-full h-9 bg-brand-primary hover:bg-brand-primary-hover text-white text-[11px] font-bold uppercase tracking-widest rounded-lg flex items-center justify-center gap-1 transition-colors cursor-pointer"
+              className="w-full h-9 bg-brand-primary hover:bg-brand-primary-hover text-text-inverse text-[11px] font-bold uppercase tracking-widest rounded-lg flex items-center justify-center gap-1 transition-colors cursor-pointer"
             >
               {totalQuantity > 0 ? `In Cart (${totalQuantity})` : 'Add to Cart'}
             </button>
           ) : nonVariantCartItem ? (
             // Stepper style button for non-variant item already in cart
-            <div className="flex items-center justify-between w-full h-9 bg-brand-primary rounded-lg overflow-hidden text-white">
+            <div className="flex items-center justify-between w-full h-9 bg-brand-primary rounded-lg overflow-hidden text-text-inverse">
               <button
                 onClick={handleDecrement}
                 className="w-10 h-full flex items-center justify-center hover:bg-brand-primary-hover active:bg-black/15 transition-colors cursor-pointer"
@@ -464,7 +486,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({ item, onCustomizeClick, card
             // Clean Add to Cart button
             <button
               onClick={handleAddToCart}
-              className="w-full h-9 bg-brand-primary hover:bg-brand-primary-hover text-white text-[11px] font-bold uppercase tracking-widest rounded-lg flex items-center justify-center gap-1 transition-colors active:scale-98 cursor-pointer"
+              className="w-full h-9 bg-brand-primary hover:bg-brand-primary-hover text-text-inverse text-[11px] font-medium md:font-bold uppercase tracking-widest rounded-lg flex items-center justify-center gap-1 transition-colors active:scale-98 cursor-pointer"
             >
               Add to Cart
             </button>

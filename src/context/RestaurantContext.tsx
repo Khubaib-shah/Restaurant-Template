@@ -9,6 +9,7 @@ interface RestaurantContextType {
     city: string;
     area: string;
   };
+  setCurrentLocation?: (city: string, area: string) => void
   setLocation: (city: string, area: string) => void;
   isLocationModalOpen: boolean;
   setIsLocationModalOpen: (open: boolean) => void;
@@ -18,7 +19,7 @@ const RestaurantContext = createContext<RestaurantContextType | undefined>(undef
 
 export const RestaurantProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [config] = useState<RestaurantConfig>(restaurantConfig);
-  const [currentLocation, setCurrentLocationState] = useState({
+  const [currentLocation, setCurrentLocation] = useState({
     city: restaurantConfig.location.city,
     area: restaurantConfig.location.area,
   });
@@ -66,7 +67,7 @@ export const RestaurantProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
 
   const setLocation = (city: string, area: string) => {
-    setCurrentLocationState({ city, area });
+    setCurrentLocation({ city, area });
   };
 
   return (

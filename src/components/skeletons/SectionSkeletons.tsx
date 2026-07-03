@@ -14,7 +14,7 @@ export const HeaderSkeleton: React.FC = () => {
             <div className="w-28 h-3.5 rounded bg-gray-300/80 animate-pulse" />
           </div>
         </div>
-        
+
         {/* Phone badge indicator */}
         <div className="hidden lg:flex items-center gap-2">
           <div className="w-8 h-8 rounded-full bg-gray-300/75 animate-pulse" />
@@ -24,7 +24,7 @@ export const HeaderSkeleton: React.FC = () => {
 
       {/* Center: Restaurant Logo pill */}
       <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
-        <div className="w-12 h-12 md:w-[52px] md:h-[52px] rounded-full bg-white shadow-md flex items-center justify-center p-0.5 animate-pulse">
+        <div className="w-12 h-12 md:w-[52px] md:h-[52px] rounded-full bg-background-card shadow-md flex items-center justify-center p-0.5 animate-pulse">
           <div className="w-full h-full rounded-full bg-gray-200/50" />
         </div>
       </div>
@@ -47,23 +47,23 @@ export const HeroBannerSkeleton: React.FC = () => {
     <div className="w-full bg-transparent lg:px-6 lg:mt-6 select-none shrink-0">
       <div className="relative w-full h-[220px] md:h-[calc(100dvh-162px)] lg:rounded-[2rem] bg-gray-200/80 animate-pulse overflow-hidden shadow-xl flex items-center justify-between px-6">
         {/* Left Arrow */}
-        <div className="w-10 h-10 rounded-full bg-white/30 backdrop-blur-sm border border-white/20" />
-        
+        <div className="w-10 h-10 rounded-full bg-background-card/30 backdrop-blur-sm border border-white/20" />
+
         {/* Center Text block place-holders */}
         <div className="flex flex-col items-center gap-3 w-full max-w-lg mx-auto">
-          <div className="w-24 h-2 rounded bg-white/30" />
-          <div className="w-3/4 h-8 md:h-12 rounded bg-white/30" />
-          <div className="w-1/2 h-4 rounded bg-white/30" />
+          <div className="w-24 h-2 rounded bg-background-card/30" />
+          <div className="w-3/4 h-8 md:h-12 rounded bg-background-card/30" />
+          <div className="w-1/2 h-4 rounded bg-background-card/30" />
         </div>
 
         {/* Right Arrow */}
-        <div className="w-10 h-10 rounded-full bg-white/30 backdrop-blur-sm border border-white/20" />
+        <div className="w-10 h-10 rounded-full bg-background-card/30 backdrop-blur-sm border border-white/20" />
 
         {/* Dots Pagination indicators */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
-          <div className="w-5 h-2 rounded-full bg-white/60" />
-          <div className="w-2 h-2 rounded-full bg-white/30" />
-          <div className="w-2 h-2 rounded-full bg-white/30" />
+          <div className="w-5 h-2 rounded-full bg-background-card/60" />
+          <div className="w-2 h-2 rounded-full bg-background-card/30" />
+          <div className="w-2 h-2 rounded-full bg-background-card/30" />
         </div>
       </div>
     </div>
@@ -93,7 +93,7 @@ export const SearchBarSkeleton: React.FC = () => {
   return (
     <div className="w-full flex justify-center px-4 my-6 select-none shrink-0">
       <div className="relative w-full max-w-[480px] h-12 rounded-full bg-gray-100/80 animate-pulse border border-gray-200/40 flex items-center px-4">
-        <div className="w-4 h-4 rounded-full border-2 border-gray-300 mr-3 shrink-0" />
+        <div className="w-4 h-4 rounded-full border-2 border-brand-primary/25 mr-3 shrink-0" />
         <div className="w-32 h-4 rounded bg-gray-200/60" />
       </div>
     </div>
@@ -103,7 +103,7 @@ export const SearchBarSkeleton: React.FC = () => {
 // 5. Promo Banner Skeleton
 export const PromoBannerSkeleton: React.FC = () => {
   return (
-    <div className="max-w-[480px] mx-auto bg-white border border-gray-100 rounded-xl p-3.5 my-5 flex items-center gap-3 shadow-sm select-none animate-pulse">
+    <div className="max-w-[480px] mx-auto bg-background-card border border-brand-primary/10 rounded-xl p-3.5 my-5 flex items-center gap-3 shadow-sm select-none animate-pulse">
       <div className="w-8 h-8 rounded-full bg-gray-200/60 shrink-0" />
       <div className="w-48 h-4 rounded bg-gray-200/50" />
     </div>
@@ -113,7 +113,7 @@ export const PromoBannerSkeleton: React.FC = () => {
 // 6. Menu Card Skeleton
 export const MenuCardSkeleton: React.FC = () => {
   return (
-    <div className="bg-white rounded-xl border border-gray-100/80 overflow-hidden relative flex flex-col justify-between shadow-card h-full select-none animate-pulse">
+    <div className="bg-background-card rounded-xl border border-brand-primary/10/80 overflow-hidden relative flex flex-col justify-between shadow-card h-full select-none animate-pulse">
       {/* Image Block placeholder */}
       <div className="relative w-full aspect-square bg-gray-100/70" />
 
@@ -195,17 +195,17 @@ export const MenuSectionSkeleton: React.FC = () => {
 // 10. Complete Layout Skeleton (the overall fallback matched to the UI)
 export const CompleteAppSkeleton: React.FC = () => {
   return (
-    <div className="min-h-screen bg-transparent text-gray-900 flex flex-col font-sans">
+    <div className="min-h-screen bg-transparent text-text-primary flex flex-col font-sans">
       {/* Announcement bar skeleton placeholder */}
-      <div className="bg-gray-300 h-8 w-full animate-pulse" />
-      
+      <div className="hidden bg-gray-300 h-8 w-full animate-pulse" />
+
       <HeaderSkeleton />
       <HeroBannerSkeleton />
       <CategoryNavSkeleton />
       <SearchBarSkeleton />
       <PromoBannerSkeleton />
       <PopularItemsSkeleton />
-      
+
       <main className="flex-1 max-w-[1280px] w-full mx-auto px-4 md:px-8 py-4">
         <MenuSectionSkeleton />
       </main>

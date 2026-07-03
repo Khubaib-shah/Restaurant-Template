@@ -33,7 +33,7 @@ import { CheckoutView } from './components/cart/CheckoutView';
 import { Search, ShoppingBag } from 'lucide-react';
 
 const RestaurantAppContent: React.FC = () => {
-  const { config } = useRestaurant();
+  const { config, setIsLocationModalOpen } = useRestaurant();
   const { isCheckoutActive } = useCart();
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -51,13 +51,13 @@ const RestaurantAppContent: React.FC = () => {
 
     if (isLoading) {
       body.style.backgroundImage = "none";
-      body.style.backgroundColor = "#FAF9F6";
+      body.style.backgroundColor = config.theme.colors.background.page;
       return;
     }
 
     if (isCheckoutActive) {
       body.style.backgroundImage = "none";
-      body.style.backgroundColor = "#FFFFFF";
+      body.style.backgroundColor = config.theme.colors.background.card;
       return;
     }
 
@@ -132,7 +132,7 @@ const RestaurantAppContent: React.FC = () => {
   }
 
   return (
-    <div id="ghalib-app-root" className="min-h-screen bg-transparent text-gray-900 flex flex-col font-sans">
+    <div className="min-h-screen bg-transparent text-text-primary flex flex-col font-sans">
 
       {/* 1. Announcement notification bar strip */}
       <AnnouncementBar />
@@ -185,20 +185,20 @@ const RestaurantAppContent: React.FC = () => {
                   /* High fidelity empty search display */
                   <div
                     id="search-empty-state"
-                    className="py-16 px-6 text-center bg-white border border-gray-100 rounded-2xl shadow-sm space-y-4 max-w-md mx-auto"
+                    className="py-16 px-6 text-center bg-background-card border border-brand-primary/15 rounded-2xl shadow-sm space-y-4 max-w-md mx-auto"
                   >
-                    <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 border border-gray-100 mx-auto">
+                    <div className="w-16 h-16 rounded-full divide-brand-primary/5 flex items-center justify-center text-text-muted border border-brand-primary/15 mx-auto">
                       <Search size={24} />
                     </div>
                     <div className="space-y-1">
-                      <h3 className="text-base font-bold text-gray-800">No items found</h3>
-                      <p className="text-xs text-gray-400 max-w-[240px] leading-relaxed mx-auto">
+                      <h3 className="text-base font-bold text-text-primary">No items found</h3>
+                      <p className="text-xs text-text-muted max-w-[240px] leading-relaxed mx-auto">
                         We couldn't find any dishes matching "{searchQuery}". Try adjusting your keywords.
                       </p>
                     </div>
                     <button
                       onClick={() => setSearchQuery('')}
-                      className="px-5 py-2 bg-brand-primary text-white text-xs font-bold uppercase tracking-wider rounded-lg"
+                      className="px-5 py-2 bg-brand-primary  text-text-inverse text-xs font-bold uppercase tracking-wider rounded-lg"
                     >
                       Clear Search
                     </button>

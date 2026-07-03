@@ -3,7 +3,7 @@ import { Category, MenuItem } from '../types/menu';
 export const categories: Category[] = [
   { id: 'cat-deals', name: 'Deals', slug: 'deals', sortOrder: 1, bannerStyle: 'pentagon', cardStyle: 'minimal' },
   { id: 'cat-new-addition', name: 'New Addition', slug: 'new-addition', sortOrder: 2, bannerStyle: 'plain' },
-  { id: 'cat-starters', name: 'Starters', slug: 'starters', sortOrder: 3, bannerStyle: 'pentagon', cardStyle: 'list'},
+  { id: 'cat-starters', name: 'Starters', slug: 'starters', sortOrder: 3, bannerStyle: 'pentagon', cardStyle: 'list' },
   { id: 'cat-bbq', name: 'BBQ', slug: 'bbq', sortOrder: 4, bannerStyle: 'pentagon' },
   { id: 'cat-chaat', name: 'Chaat', slug: 'chaat', sortOrder: 5, bannerStyle: 'pentagon' },
   { id: 'cat-karahi', name: 'Karahi', slug: 'karahi', sortOrder: 6, bannerStyle: 'pentagon' },
@@ -165,43 +165,6 @@ export const menuItems: MenuItem[] = [
     isAvailable: true,
     isFeatured: false
   },
-  {
-    id: 'new-three-milk-cake-slice',
-    categoryId: 'cat-new-addition',
-    name: 'Three Milk Cake Slice',
-    description: 'Indulge in the decadent delight of our Three Milk Cake Slice - a velvety, moist sponge.',
-    imageUrl: 'https://images.unsplash.com/photo-1588195538326-c5b1e9f80a1b?w=600&auto=format&fit=crop&q=80',
-    basePrice: 500,
-    discountedPrice: 300,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'new-kunafa-three-milk',
-    categoryId: 'cat-new-addition',
-    name: 'Kunafa Three Milk Cake',
-    description: 'Indulge in the exquisite delight of Kunafa Three Milk Cake - a heavenly dessert fusion.',
-    imageUrl: 'https://images.unsplash.com/photo-1587314168485-3236d6710814?w=600&auto=format&fit=crop&q=80',
-    basePrice: 750,
-    discountedPrice: 450,
-    hasVariants: false,
-    badge: 'NEW_ARRIVAL',
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'new-maash-daal',
-    categoryId: 'cat-new-addition',
-    name: 'Maash Ki Daal - Dhaba Style (new)',
-    description: 'Indulge in the rich and aromatic Maash Ki Daal prepared in a rustic Dhaba Style.',
-    imageUrl: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&auto=format&fit=crop&q=80',
-    basePrice: 800,
-    discountedPrice: 480,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
 
   // --- STARTERS ---
   {
@@ -249,214 +212,6 @@ export const menuItems: MenuItem[] = [
     imageUrl: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=600&auto=format&fit=crop&q=80',
     basePrice: 490,
     discountedPrice: 294,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-seafood-soup',
-    categoryId: 'cat-starters',
-    name: 'SeaFood Chowder Soup',
-    description: 'Creamy seafood stew packed with premium fish bites, calamari, and prawns.',
-    imageUrl: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=600&auto=format&fit=crop&q=80',
-    basePrice: 690,
-    discountedPrice: 414,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-caesar-salad',
-    categoryId: 'cat-starters',
-    name: 'Grilled Chicken Caesar Salad',
-    description: 'Crispy romaine tossed in creamy Caesar dressing, with shaved parmesan and herb chicken.',
-    imageUrl: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1140,
-    discountedPrice: 684,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-fattoush',
-    categoryId: 'cat-starters',
-    name: 'Fattoush',
-    description: 'Levantine salad with mixed greens, radishes, tomatoes, and crispy toasted pita chips.',
-    imageUrl: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&auto=format&fit=crop&q=80',
-    basePrice: 840,
-    discountedPrice: 504,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-hummus',
-    categoryId: 'cat-starters',
-    name: 'Hummus',
-    description: 'Creamy blend of chickpeas, tahini, garlic, and cold-pressed olive oil, served with pita.',
-    imageUrl: 'https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?w=600&auto=format&fit=crop&q=80',
-    basePrice: 720,
-    discountedPrice: 432,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-cheese-naan',
-    categoryId: 'cat-starters',
-    name: 'Cheese Naan',
-    description: 'Leavened flatbread stuffed with soft mozzarella cheese and brushed with butter.',
-    imageUrl: 'https://images.unsplash.com/photo-1559561724-4ea348cd867f?w=600&auto=format&fit=crop&q=80',
-    basePrice: 770,
-    discountedPrice: 462,
-    hasVariants: false,
-    badge: 'HOT_SELLING',
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-lahori-fish',
-    categoryId: 'cat-starters',
-    name: 'Lahori Fish',
-    description: 'Gram flour coated deep-fried river fish infused with crushed coriander and carom seeds.',
-    imageUrl: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1340,
-    discountedPrice: 804,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-bbq-wings',
-    categoryId: 'cat-starters',
-    name: 'BBQ Wings',
-    description: 'Golden fried chicken wings tossed in our signature smokey honey BBQ sauce.',
-    imageUrl: 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=600&auto=format&fit=crop&q=80',
-    basePrice: 920,
-    discountedPrice: 552,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-dynamite-prawns',
-    categoryId: 'cat-starters',
-    name: 'Dynamite Prawns',
-    description: 'Battered crispy fried prawns tossed in spicy, creamy, sweet-chili mayo sauce.',
-    imageUrl: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1240,
-    discountedPrice: 744,
-    hasVariants: false,
-    badge: 'BEST_SELLER',
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-prawn-tempura',
-    categoryId: 'cat-starters',
-    name: 'Prawn Tempura',
-    description: 'Lightly battered jumbo prawns fried until crispy, served with sweet soy tempura dip.',
-    imageUrl: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1850,
-    discountedPrice: 1110,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-spring-rolls',
-    categoryId: 'cat-starters',
-    name: 'Vegetable Spring Rolls',
-    description: 'Golden, crispy wrapper filled with shredded, seasoned Chinese vegetables.',
-    imageUrl: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80',
-    basePrice: 790,
-    discountedPrice: 474,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-peri-bites',
-    categoryId: 'cat-starters',
-    name: 'Peri Bites',
-    description: 'Spicy green chillies stuffed with seasoned chicken and cheese, crumb-coated and deep-fried.',
-    imageUrl: 'https://images.unsplash.com/photo-1601050690597-df056fb4ce78?w=600&auto=format&fit=crop&q=80',
-    basePrice: 990,
-    discountedPrice: 594,
-    hasVariants: false,
-    badge: 'SPECIAL_FLAVORS',
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-chicken-strips-fries',
-    categoryId: 'cat-starters',
-    name: 'Cheesy Chicken Strips & Fries',
-    description: 'Crispy fried golden tenders topped with warm cheese sauce, served with French fries.',
-    imageUrl: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1090,
-    discountedPrice: 654,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-loaded-fries',
-    categoryId: 'cat-starters',
-    name: 'Loaded Fries',
-    description: 'Crisp fries loaded with spicy minced chicken, dynamic cheese sauce, jalapenos, and ranch.',
-    imageUrl: 'https://images.unsplash.com/photo-1585109649139-366815a0d713?w=600&auto=format&fit=crop&q=80',
-    basePrice: 890,
-    discountedPrice: 534,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-regular-fries',
-    categoryId: 'cat-starters',
-    name: 'Regular Fries',
-    description: 'Classic crisp golden potato french fries salted slightly.',
-    imageUrl: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&auto=format&fit=crop&q=80',
-    basePrice: 475,
-    discountedPrice: 285,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-green-salad',
-    categoryId: 'cat-starters',
-    name: 'Fresh Green Salad',
-    description: 'Fresh sliced cucumbers, carrots, onions, tomatoes, and green chillies.',
-    imageUrl: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&auto=format&fit=crop&q=80',
-    basePrice: 380,
-    discountedPrice: 228,
-    hasVariants: false,
-    badge: 'TRENDING',
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-raita',
-    categoryId: 'cat-starters',
-    name: 'Raita',
-    description: 'Creamy yogurt spiced with traditional crushed herbs, mint, cumin and coriander.',
-    imageUrl: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&auto=format&fit=crop&q=80',
-    basePrice: 325,
-    discountedPrice: 195,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'starter-dynamite-chicken',
-    categoryId: 'cat-starters',
-    name: 'Dynamite Chicken (New)',
-    description: 'Battered crispy fried chicken bites tossed in rich creamy sweet-chili mayo sauce.',
-    imageUrl: undefined, // test fallback placeholder
-    basePrice: 990,
-    discountedPrice: 594,
     hasVariants: false,
     isAvailable: true,
     isFeatured: false
@@ -562,94 +317,6 @@ export const menuItems: MenuItem[] = [
     isAvailable: true,
     isFeatured: false
   },
-  {
-    id: 'bbq-chicken-bihari',
-    categoryId: 'cat-bbq',
-    name: 'Chicken Bihari Kebab',
-    description: 'Spicy melt-in-mouth chicken strips marinated in mustard oil, yogurt, and warm Bihari spices.',
-    imageUrl: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1300,
-    discountedPrice: 780,
-    hasVariants: false,
-    badge: 'BEST_SELLER',
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'bbq-beef-chullu',
-    categoryId: 'cat-bbq',
-    name: 'Beef Chullu Kabab',
-    description: 'Persian style chargrilled ground beef seekh served on buttered saffron rice with roasted tomatoes.',
-    imageUrl: 'https://images.unsplash.com/photo-1561651823-34feb02250e4?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1400,
-    discountedPrice: 840,
-    hasVariants: false,
-    servingNote: 'Served With Saffron Rice',
-    isAvailable: true,
-    isFeatured: true
-  },
-  {
-    id: 'bbq-mutton-persian',
-    categoryId: 'cat-bbq',
-    name: 'Mutton Persian Khaas Kabab',
-    description: 'Finely minced premium mutton skewers seasoned with saffron, onions and white pepper.',
-    imageUrl: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1950,
-    discountedPrice: 1170,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'bbq-reshmi-kabab',
-    categoryId: 'cat-bbq',
-    name: 'Chicken Reshmi Kabab',
-    description: 'Minced chicken blended with cream, cheese, and fresh coriander, charbroiled to silkiness.',
-    imageUrl: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1300,
-    discountedPrice: 780,
-    hasVariants: false,
-    badge: 'MOST_FAVOURITE',
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'bbq-fry-beef',
-    categoryId: 'cat-bbq',
-    name: 'Fry Kabab (Beef)',
-    description: 'Tawa-style pan-fried shredded beef kabab cooked with butter, green chillies, and ginger.',
-    imageUrl: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1250,
-    discountedPrice: 750,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'bbq-chargha',
-    categoryId: 'cat-bbq',
-    name: 'BBQ Chargha',
-    description: 'Whole chicken deeply marinated in hot spices, steamed and charcoal roasted.',
-    imageUrl: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1500,
-    discountedPrice: 900,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'bbq-mutton-chanp',
-    categoryId: 'cat-bbq',
-    name: 'Mutton Masala Chanp',
-    description: 'Juicy mutton chops marinated with yogurt, spices and charcoal-roasted to tenderness.',
-    imageUrl: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80',
-    basePrice: 2290,
-    discountedPrice: 1374,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-
   // --- CHAAT ---
   {
     id: 'chaat-mix',
@@ -692,18 +359,6 @@ export const menuItems: MenuItem[] = [
     categoryId: 'cat-chaat',
     name: 'Bhel Puri',
     description: 'Crisp puffed rice tossed with onions, tomatoes, sweet tamarind, and spicy mint chutneys.',
-    imageUrl: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&auto=format&fit=crop&q=80',
-    basePrice: 425,
-    discountedPrice: 255,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'chaat-sev-puri',
-    categoryId: 'cat-chaat',
-    name: 'Sev Puri',
-    description: 'Flat papris loaded with potatoes, dynamic chutney trio, yogurt and heavy sprinkle of sev.',
     imageUrl: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&auto=format&fit=crop&q=80',
     basePrice: 425,
     discountedPrice: 255,
@@ -1011,42 +666,6 @@ export const menuItems: MenuItem[] = [
     isAvailable: true,
     isFeatured: false
   },
-  {
-    id: 'chef-prawn-masala',
-    categoryId: 'cat-chefs-recommendation',
-    name: 'Prawn Masala',
-    description: 'Juicy prawns in a savory, spiced masala sauce.',
-    imageUrl: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&auto=format&fit=crop&q=80',
-    basePrice: 2150,
-    discountedPrice: 1290,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'chef-brain-masala',
-    categoryId: 'cat-chefs-recommendation',
-    name: 'Brain Masala',
-    description: 'Rich, creamy, and savory, a signature delicacy for the adventurous palate.',
-    imageUrl: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=600&auto=format&fit=crop&q=80',
-    basePrice: 2150,
-    discountedPrice: 1290,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'chef-maash-daal-rec',
-    categoryId: 'cat-chefs-recommendation',
-    name: 'Maash Ki Daal - Dhaba Style (new)',
-    description: 'Indulge in the rich and aromatic Maash Ki Daal prepared in a rustic Dhaba Style.',
-    imageUrl: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&auto=format&fit=crop&q=80',
-    basePrice: 800,
-    discountedPrice: 480,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
 
   // --- FLAVORS OF THE WORLD ---
   {
@@ -1094,104 +713,6 @@ export const menuItems: MenuItem[] = [
     imageUrl: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=80',
     basePrice: 1300,
     discountedPrice: 780,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'world-alfredo-pasta',
-    categoryId: 'cat-flavors-of-the-world',
-    name: 'Alfredo Pasta',
-    description: 'A creamy, dreamy sauce over al dente pasta.',
-    imageUrl: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0bc6?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1490,
-    discountedPrice: 894,
-    hasVariants: false,
-    badge: 'TRENDING',
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'world-signature-pasta',
-    categoryId: 'cat-flavors-of-the-world',
-    name: 'Pasta in Special Signature Sauce',
-    description: 'A bold, savory sauce that makes every bite memorable.',
-    imageUrl: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0bc6?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1450,
-    discountedPrice: 870,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'world-fish-chips',
-    categoryId: 'cat-flavors-of-the-world',
-    name: 'Fish & Chips',
-    description: 'Crispy fish and golden chips - a timeless duo.',
-    imageUrl: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1650,
-    discountedPrice: 990,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'world-tarragon-chicken',
-    categoryId: 'cat-flavors-of-the-world',
-    name: 'Tarragon Chicken',
-    description: 'Fragrant tarragon sauce with tender chicken prepared for a savory experience.',
-    imageUrl: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1450,
-    discountedPrice: 870,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'world-moroccan-chicken',
-    categoryId: 'cat-flavors-of-the-world',
-    name: 'Moroccan Chicken',
-    description: 'Rich Moroccan spices and tender chicken in every bite. Served with saffron rice.',
-    imageUrl: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1450,
-    discountedPrice: 870,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'world-cordon-bleu',
-    categoryId: 'cat-flavors-of-the-world',
-    name: 'Cheesy Chicken Corden Blue',
-    description: 'Crispy chicken wrapped with savory ham and creamy cheese.',
-    imageUrl: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1550,
-    discountedPrice: 930,
-    hasVariants: false,
-    badge: 'TRENDING',
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'world-parmesan-chicken',
-    categoryId: 'cat-flavors-of-the-world',
-    name: 'Parmesan Chicken',
-    description: 'Crispy chicken topped with parmesan for savory perfection. Served with pasta.',
-    imageUrl: 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1550,
-    discountedPrice: 930,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'world-creamy-tomato-pasta',
-    categoryId: 'cat-flavors-of-the-world',
-    name: 'Pasta in creamy tomato sauce (new)',
-    description: 'Smooth, rich sauce making comfort pasta magic.',
-    imageUrl: 'https://images.unsplash.com/photo-1555949258-eb67b1ef0bc6?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1350,
-    discountedPrice: 810,
     hasVariants: false,
     isAvailable: true,
     isFeatured: false
@@ -1262,43 +783,6 @@ export const menuItems: MenuItem[] = [
     isAvailable: true,
     isFeatured: false
   },
-  {
-    id: 'steak-beef-mustard',
-    categoryId: 'cat-steaks',
-    name: 'Beef Steak With Creamy Mustard Sauce',
-    description: 'Bold mustard sauce adds flair to a juicy beef steak. Served with your choice of side lines.',
-    imageUrl: 'https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80',
-    basePrice: 2690,
-    discountedPrice: 1614,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'steak-chicken-moroccan',
-    categoryId: 'cat-steaks',
-    name: 'Chicken Steak with moroccan sauce',
-    description: 'Spicy Moroccan chili herb sauce topped on premium grilled chicken breast.',
-    imageUrl: undefined,
-    basePrice: 1750,
-    discountedPrice: 1050,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-  {
-    id: 'steak-beef-pepper',
-    categoryId: 'cat-steaks',
-    name: 'Beef Steak With Creamy Pepper Sauce',
-    description: 'Indulge in our classic beef tenderloin steak glazed in peppercorn sauce.',
-    imageUrl: undefined,
-    basePrice: 2690,
-    discountedPrice: 1614,
-    hasVariants: false,
-    isAvailable: true,
-    isFeatured: false
-  },
-
   // --- BRICK OVEN PIZZA ---
   {
     id: 'pizza-margherita',
@@ -1349,20 +833,6 @@ export const menuItems: MenuItem[] = [
     isAvailable: true,
     isFeatured: false
   },
-  {
-    id: 'pizza-sicilian',
-    categoryId: 'cat-brick-oven-pizza',
-    name: 'Spicy Sicilian',
-    description: 'Fiery sauce and savory toppings for pizza lovers who crave a kick.',
-    imageUrl: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80',
-    basePrice: 1650,
-    discountedPrice: 990,
-    hasVariants: false,
-    badge: 'BEST_SELLER',
-    isAvailable: true,
-    isFeatured: false
-  },
-
   // --- KID'S CORNER ---
   {
     id: 'kids-mac-cheese',

@@ -10,15 +10,15 @@ export const ItemBadge: React.FC<ItemBadgeProps> = ({ type, className = '' }) =>
   if (!type) return null;
 
   const config = {
-    NEW_ARRIVAL: { label: 'NEW ARRIVAL', style: 'bg-green-600 text-white' },
-    BEST_SELLER: { label: 'BEST SELLER', style: 'bg-yellow-600 text-white' },
-    TRENDING: { label: 'TRENDING', style: 'bg-orange-600 text-white' },
-    POPULAR: { label: 'POPULAR', style: 'bg-yellow-600 text-white' },
-    HOT_SELLING: { label: 'HOT SELLING', style: 'bg-red-600 text-white' },
-    MOST_FAVOURITE: { label: 'MOST FAVOURITE', style: 'bg-amber-600 text-white' },
-    SPECIAL_FLAVORS: { label: 'SPECIAL FLAVORS', style: 'bg-cyan-600 text-white' },
-    CHEFS_SPECIAL: { label: "CHEF'S SPECIAL", style: 'bg-teal-700 text-white' },
-    CHEFS_RECOMMENDATION: { label: "CHEF'S REC", style: 'bg-green-600 text-white' }
+    NEW_ARRIVAL: { label: 'NEW ARRIVAL', style: 'bg-green-600  text-text-inverse' },
+    BEST_SELLER: { label: 'BEST SELLER', style: 'bg-yellow-600  text-text-inverse' },
+    TRENDING: { label: 'TRENDING', style: 'bg-orange-600  text-text-inverse' },
+    POPULAR: { label: 'POPULAR', style: 'bg-yellow-600  text-text-inverse' },
+    HOT_SELLING: { label: 'HOT SELLING', style: 'bg-red-600  text-text-inverse' },
+    MOST_FAVOURITE: { label: 'MOST FAVOURITE', style: 'bg-amber-600  text-text-inverse' },
+    SPECIAL_FLAVORS: { label: 'SPECIAL FLAVORS', style: 'bg-cyan-600  text-text-inverse' },
+    CHEFS_SPECIAL: { label: "CHEF'S SPECIAL", style: 'bg-teal-700  text-text-inverse' },
+    CHEFS_RECOMMENDATION: { label: "CHEF'S REC", style: 'bg-green-600  text-text-inverse' }
   };
 
   const badge = config[type];
