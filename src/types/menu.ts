@@ -26,6 +26,10 @@ export interface MenuItem {
   pricePrefix?: 'From';            // for variant items
 }
 
+export interface MenuCategory extends Category {
+  items: MenuItem[];
+}
+
 export type BadgeType =
   | 'NEW_ARRIVAL'
   | 'BEST_SELLER'

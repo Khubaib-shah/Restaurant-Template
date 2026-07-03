@@ -2,8 +2,9 @@ import React, { useState, useMemo, useEffect, useRef } from "react";
 import { RestaurantProvider, useRestaurant } from "./context/RestaurantContext";
 import { CartProvider, useCart } from "./context/CartContext";
 import { useScrollSpy } from "./hooks/useScrollSpy";
-import { categories, menuItems } from "./data/mock-menu";
-import { MenuItem } from "./types/menu";
+import { getRestaurantMenu } from "./lib/getRestaurantMenu";
+import { getMenuByCategory } from "./lib/getMenuByCategory";
+import { MenuCategory, MenuItem } from "./types/menu";
 import { CompleteAppSkeleton } from "./components/skeletons/SectionSkeletons";
 
 // Import layout components
@@ -74,49 +75,53 @@ const RestaurantAppContent: React.FC = () => {
     }
   }, [config, isLoading, isCheckoutActive]);
 
+  const { categories: menuCategories, menuItems } = useMemo(() => {
+    return getRestaurantMenu(config.slug);
+  }, [config.slug]);
+
   // List of category slugs for scroll spy
   const categorySlugs = useMemo(() => {
     if (isLoading) return [];
-    return categories.map((cat) => cat.slug);
-  }, [isLoading]);
+    return menuCategories.map((cat) => cat.slug);
+  }, [isLoading, menuCategories]);
 
   // Use the native IntersectionObserver scroll spy
   const activeSpySlug = useScrollSpy(categorySlugs);
-  const activeCategorySlug = activeSpySlug || categories[0]?.slug || "";
+  const activeCategorySlug = activeSpySlug || menuCategories[0]?.slug || "";
 
-  // Filter items based on query in real-time
+  const menuByCategory = useMemo<MenuCategory[]>(() => {
+    return getMenuByCategory(menuCategories, menuItems);
+  }, [menuCategories, menuItems]);
+
   const filteredItemsByCategory = useMemo(() => {
     const result: Record<string, MenuItem[]> = {};
-
-    // Initialize records
-    categories.forEach((cat) => {
-      result[cat.id] = [];
-    });
-
     const cleanQuery = searchQuery.trim().toLowerCase();
 
-    menuItems.forEach((item) => {
-      const matchesSearch =
-        !cleanQuery ||
-        item.name.toLowerCase().includes(cleanQuery) ||
-        (item.description &&
-          item.description.toLowerCase().includes(cleanQuery));
+    menuByCategory.forEach((category) => {
+      result[category.id] = [];
+    });
 
-      if (matchesSearch) {
-        if (!result[item.categoryId]) {
-          result[item.categoryId] = [];
+    menuByCategory.forEach((category) => {
+      category.items.forEach((item) => {
+        const matchesSearch =
+          !cleanQuery ||
+          item.name.toLowerCase().includes(cleanQuery) ||
+          (item.description &&
+            item.description.toLowerCase().includes(cleanQuery));
+
+        if (matchesSearch) {
+          result[category.id].push(item);
         }
-        result[item.categoryId].push(item);
-      }
+      });
     });
 
     return result;
-  }, [searchQuery]);
+  }, [menuByCategory, searchQuery]);
 
   // Check if overall search resulted in 0 items matching
   const hasMatchingItems = useMemo(() => {
     return Object.values(filteredItemsByCategory).some(
-      (list) => (list as MenuItem[]).length > 0,
+      (list) => list.length > 0,
     );
   }, [filteredItemsByCategory]);
 
@@ -151,7 +156,7 @@ const RestaurantAppContent: React.FC = () => {
 
             {/* 4. Active category scrolling tabs bar */}
             <CategoryNav
-              categories={categories}
+              categories={menuCategories}
               activeCategorySlug={activeCategorySlug}
             />
 
@@ -181,7 +186,7 @@ const RestaurantAppContent: React.FC = () => {
                   className="flex-1 min-w-0 space-y-6"
                 >
                   {hasMatchingItems ? (
-                    categories.map((category) => {
+                    menuByCategory.map((category) => {
                       const categoryItems =
                         filteredItemsByCategory[category.id] || [];
                       if (categoryItems.length === 0) return null;

@@ -4,15 +4,24 @@ const DOMAIN_MAP: Record<string, string> = {
   "ghalib.local": "ghalib",
   "pizza.local": "pizza",
   "demo.local": "demo",
+  localhost: "demo",
+  "127.0.0.1": "demo",
+  "[::1]": "demo",
   "ghalib.thekhubaib.me": "ghalib",
   "pizza.thekhubaib.me": "pizza",
   "demo.thekhubaib.me": "demo",
 };
 
 export function getRestaurantSlug() {
-  const host = window.location.hostname;
+  const params = new URLSearchParams(window.location.search);
+  const restaurantOverride = params.get("restaurant");
 
-  return DOMAIN_MAP[host] ?? "ghalib";
+  if (restaurantOverride && restaurantOverride in restaurants) {
+    return restaurantOverride;
+  }
+
+  const host = window.location.hostname;
+  return DOMAIN_MAP[host] ?? "demo";
 }
 
 const slug = getRestaurantSlug() as keyof typeof restaurants;

@@ -1,13 +1,16 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useMemo, useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Flame } from 'lucide-react';
-import { menuItems } from '../../data/mock-menu';
 import { useCart } from '../../context/CartContext';
 import { formatPrice } from '../../lib/price';
 import { ImagePlaceholder } from '../ui/ImagePlaceholder';
 import { motion } from 'motion/react';
+import { useRestaurant } from '../../context/RestaurantContext';
+import { getRestaurantMenu } from '../../lib/getRestaurantMenu';
 
 export const PopularWithOrder: React.FC = () => {
   const { addItem, state: cartState } = useCart();
+  const { config } = useRestaurant();
+  const { menuItems } = useMemo(() => getRestaurantMenu(config.slug), [config.slug]);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
