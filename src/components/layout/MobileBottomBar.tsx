@@ -185,7 +185,7 @@ export const MobileBottomBar: React.FC = () => {
               className="w-auto min-w-[280px] md:min-w-[320px] max-w-sm h-14 rounded-full bg-brand-primary text-text-inverse px-6 flex items-center justify-between shadow-2xl hover:bg-brand-primary-hover hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer pointer-events-auto border-2 border-white/10 shadow-brand-primary/30 group animate-flash"
             >
               {/* Left: Item Counter Bubble */}
-              <div className="w-8 h-8 rounded-full bg-background-card text-brand-primary flex items-center justify-center text-sm font-extrabold shadow-sm select-none shrink-0">
+              <div className="w-8 h-8 rounded-full bg-background-card/20 text-text-inverse flex items-center justify-center text-sm font-extrabold shadow-sm select-none shrink-0">
                 {itemCount}
               </div>
 
@@ -251,7 +251,7 @@ export const MobileBottomBar: React.FC = () => {
                 aria-label="Open Cart"
               >
                 <div className="flex items-center gap-1.5 min-w-0">
-                  <span className="w-5.5 h-5.5 rounded-full bg-brand- text-brand-primary flex items-center justify-center text-[10.5px] font-bold shrink-0">
+                  <span className="w-5.5 h-5.5 rounded-full bg-background-card/15 text-text-inverse flex items-center justify-center text-[10.5px] font-bold shrink-0">
                     {itemCount}
                   </span>
                   <span className="text-[10px] font-medium uppercase tracking-wider truncate">

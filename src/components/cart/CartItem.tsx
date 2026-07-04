@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { Trash2 } from 'lucide-react';
-import { CartItem as CartItemType } from '../../types/cart';
-import { useCart } from '../../context/CartContext';
-import { formatPrice } from '../../lib/price';
-import { QuantityStepper } from './QuantityStepper';
-import { ImagePlaceholder } from '../ui/ImagePlaceholder';
-import { AnimatePresence, motion } from 'motion/react';
+import React, { useState } from "react";
+import { Trash2 } from "lucide-react";
+import { CartItem as CartItemType } from "../../types/cart";
+import { useCart } from "../../context/CartContext";
+import { formatPrice } from "../../lib/price";
+import { QuantityStepper } from "./QuantityStepper";
+import { ImagePlaceholder } from "../ui/ImagePlaceholder";
+import { AnimatePresence, motion } from "motion/react";
 
 interface CartItemProps {
   item: CartItemType;
@@ -61,7 +61,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
           {/* Variant selections list */}
           {item.variantSelections && item.variantSelections.length > 0 && (
             <div className="text-[10px] text-text-muted font-medium leading-tight">
-              {item.variantSelections.map((sel) => sel.optionName).join(', ')}
+              {item.variantSelections.map((sel) => sel.optionName).join(", ")}
             </div>
           )}
 
@@ -115,7 +115,7 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
                 initial={{ scale: 0.92, opacity: 0, y: 15 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 exit={{ scale: 0.92, opacity: 0, y: 15 }}
-                transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+                transition={{ type: "spring", damping: 25, stiffness: 350 }}
                 onClick={(e) => e.stopPropagation()}
                 className="bg-background-card rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-8 max-w-[400px] w-full shadow-2xl border border-brand-primary/15 flex flex-col items-center select-none"
               >
@@ -138,14 +138,17 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
                 <div className="flex gap-2.5 sm:gap-4 w-full">
                   <button
                     onClick={handleConfirmRemove}
-                    className="flex-1 h-11 sm:h-14 bg-[#052E16] hover:bg-[#032110]  text-text-inverse flex items-center justify-center gap-1.5 sm:gap-2 rounded-xl sm:rounded-2xl font-bold text-[13px] sm:text-[14px] tracking-wide transition-all cursor-pointer shadow-lg shadow-[#052E16]/10 hover:scale-[1.01] active:scale-[0.99] animate-flash px-2"
+                    className="flex-1 h-11 sm:h-14 bg-brand-primary hover:bg-brand-primary/80 text-text-inverse flex items-center justify-center gap-1.5 sm:gap-2 rounded-xl sm:rounded-2xl font-bold text-[13px] sm:text-[14px] tracking-wide transition-all cursor-pointer shadow-lg shadow-brand-primary/10 active:scale-[0.99] animate-flash px-2"
                   >
-                    <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" strokeWidth={2} />
+                    <Trash2
+                      className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"
+                      strokeWidth={2}
+                    />
                     <span className="truncate">Yes, Remove</span>
                   </button>
                   <button
                     onClick={() => setShowConfirm(false)}
-                    className="flex-1 h-11 sm:h-14 bg-background-card hover:divide-brand-primary/5 border border-brand-primary/20 text-[#2D3E4D] flex items-center justify-center rounded-xl sm:rounded-2xl font-bold text-[13px] sm:text-[14px] tracking-wide transition-all cursor-pointer hover:scale-[1.01] active:scale-[0.99] px-2"
+                    className="flex-1 h-11 sm:h-14 bg-background-card hover:divide-brand-primary/5 border border-brand-primary/20 text-text-primary flex items-center justify-center rounded-xl sm:rounded-2xl font-bold text-[13px] sm:text-[14px] tracking-wide transition-all cursor-pointer  active:scale-[0.99] px-2"
                   >
                     Cancel
                   </button>
@@ -158,4 +161,3 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
     </>
   );
 };
-

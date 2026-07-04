@@ -13,7 +13,7 @@ export const PromoBanner = () => {
 
   return (
     <div
-      className="max-w-[1220px] container mx-2 sm:mx-4 lg:mx-auto relative overflow-hidden rounded-xl my-4 border px-3 sm:px-5 py-3.5 shadow-sm"
+      className="w-full max-w-[1180px] container mx-auto my-4 relative overflow-hidden rounded-xl  border px-3 sm:px-5 py-3.5 shadow-sm"
       style={{
         background: colors.background.card,
         borderColor: `${colors.primary}25`,

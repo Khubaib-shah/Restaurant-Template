@@ -252,7 +252,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({
 
                 {/* Text overlay */}
                 <div className="absolute bottom-5 left-5 right-5 text-text-inverse pointer-events-none">
-                  <h2 className="text-xl md:text-2xl font-black leading-tight tracking-tight mb-1.5 drop-shadow">
+                  <h2 className="text-xl md:text-2xl font-bold leading-tight tracking-tight mb-1.5 drop-shadow">
                     {item.name}
                   </h2>
                   {item.description && (
@@ -268,7 +268,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({
                 {/* Top Bar with Pricing and Action Buttons */}
                 <div className="p-5 pb-3.5 border-b border-brand-primary/10 flex items-center justify-between shrink-0">
                   <div className="flex items-baseline gap-2">
-                    <span className="text-xl md:text-2xl font-black text-text-primary">
+                    <span className="text-xl md:text-2xl font-bold text-text-primary">
                       {formatPrice(unitPrice)}
                     </span>
                     {item.basePrice > item.discountedPrice && (
@@ -335,7 +335,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({
                                   {group.name}
                                 </h3>
                                 {group.required && (
-                                  <span className="text-[9px] font-black px-1.5 py-0.5 rounded bg-brand-primary/10 text-brand-primary uppercase tracking-wider">
+                                  <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-brand-primary/10 text-brand-primary uppercase tracking-wider">
                                     Required
                                   </span>
                                 )}
@@ -382,7 +382,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({
                                       <span>{option.name}</span>
                                     </div>
                                     {option.additionalPrice > 0 && (
-                                      <span className="text-[10px] text-brand-primary font-black bg-brand-primary/10 px-1.5 py-0.5 rounded">
+                                      <span className="text-[10px] text-brand-primary font-bold bg-brand-primary/10 px-1.5 py-0.5 rounded">
                                         + {formatPrice(option.additionalPrice)}
                                       </span>
                                     )}

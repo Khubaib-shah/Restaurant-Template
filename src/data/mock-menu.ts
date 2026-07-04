@@ -2973,6 +2973,7 @@ export const pizzaCategories = [
   {
     id: "cat-deals",
     name: "Deals",
+    sortOrder: 4,
     imageUrl:
       "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80",
     isAvailable: true,
