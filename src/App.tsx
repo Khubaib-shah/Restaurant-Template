@@ -274,13 +274,15 @@ function AppRouter() {
 
   useEffect(() => {
     const description =
-      config.seoText || config.footer.description || `${config.name} restaurant online menu and ordering.`;
+      config.seoText ||
+      config.footer.description ||
+      `${config.name} restaurant online menu and ordering.`;
     const pageLabel =
       currentPath === "/privacy" || currentPath.startsWith("/privacy/")
         ? "Privacy Policy"
         : currentPath === "/faq" || currentPath.startsWith("/faq/")
-        ? "FAQ"
-        : "Order Online";
+          ? "FAQ"
+          : "Order Online";
     const title = `${pageLabel} | ${config.name}`;
 
     document.title = title;
