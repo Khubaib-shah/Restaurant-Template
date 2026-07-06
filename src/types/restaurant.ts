@@ -38,6 +38,7 @@ export interface RestaurantConfig {
   theme: RestaurantTheme;
   footer: {
     description: string;
+    layoutVariant?: FooterLayoutVariant;
   };
   privacyPolicy?: {
     title?: string;
@@ -76,6 +77,8 @@ export interface ThemeAssets {
 
   categoryBackground?: string;
 }
+
+export type FooterLayoutVariant = "classic" | "compact" | "minimal";
 
 export interface ThemeColors {
   primary: string;

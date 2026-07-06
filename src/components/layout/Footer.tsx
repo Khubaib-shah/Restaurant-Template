@@ -17,6 +17,7 @@ const information = [
 
 export const Footer: React.FC = () => {
   const { config } = useRestaurant();
+  const variant = config.footer.layoutVariant ?? "classic";
 
   const navigateTo = (
     path: string,
@@ -29,56 +30,273 @@ export const Footer: React.FC = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  return (
-    <footer className="border-t border-brand-primary/10 bg-background-card text-text-secondary">
-      <section className="max-w-[1220px] mx-auto px-6 py-16">
-        <div className="grid gap-14 grid-cols-2 lg:grid-cols-12 items-center justify-center">
-          <div className="space-y-6 col-span-2 md:col-span-8">
-            <div className="flex items-center gap-4">
-              <div className="flex h-28 w-28 items-center justify-center rounded-3xl text-brand-primary">
-                <img
-                  src={config.logo}
-                  alt={config.name}
-                  className="size-full object-contain"
-                />
+  const footerContent = () => {
+    if (variant === "compact") {
+      return (
+        <section className="container max-w-7xl mx-auto md:my-8 px-6 py-12 rounded-t-3xl md:rounded-3xl relative overflow-hidden backdrop-blur-sm bg-brand-accent/5 border border-brand-primary/20 shadow-2xl shadow-black/20 ring-1 ring-brand-primary/10">
+          <div className="grid gap-10 lg:grid-cols-[1.7fr_1fr] items-start">
+            <div className="space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="flex h-20 w-20 items-center justify-center rounded-3xl text-brand-primary bg-brand-primary/5">
+                  <img
+                    src={config.logo}
+                    alt={config.name}
+                    className="h-14 w-14 object-contain"
+                  />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-[0.35em] text-brand-primary font-bold">
+                    {config.slug}
+                  </p>
+                  <h2 className="mt-2 text-2xl font-black text-text-primary">
+                    {config.name}
+                  </h2>
+                </div>
               </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.35em] text-brand-primary font-bold">
-                  {config.slug}
-                </p>
-                <h2 className="mt-2 text-2xl font-black text-text-primary">
-                  {config.name}
-                </h2>
-              </div>
+
+              <p className="max-w-xl text-sm leading-7 text-text-secondary">
+                {config.footer.description}
+              </p>
             </div>
 
-            <p className="max-w-lg text-sm leading-7 text-text-secondary">
-              {config.footer.description}
-            </p>
+            <div className="grid gap-6 sm:grid-cols-2 text-sm text-text-secondary">
+              <div className="space-y-3">
+                <p className="text-sm uppercase tracking-[0.35em] text-text-primary font-semibold">
+                  Product
+                </p>
+                <div className="flex flex-col gap-3">
+                  {productLinks.map((link) =>
+                    link.label === "Search" ? (
+                      <a
+                        key={link.label}
+                        href="/"
+                        className="hover:text-brand-primary transition-colors"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleSearchFocus();
+                        }}
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        className="hover:text-brand-primary transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    ),
+                  )}
+                </div>
+              </div>
 
-            <div className="flex items-center gap-3">
-              <a
-                href={config.social.facebook || "#"}
-                className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary transition-all duration-300 hover:bg-brand-primary hover:text-text-inverse hover:-translate-y-1 hover:shadow-lg"
-                aria-label="Facebook"
-              >
-                <Facebook size={18} />
-              </a>
-              <a
-                href={config.social.instagram || "#"}
-                className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary transition-all duration-300 hover:bg-brand-primary hover:text-text-inverse hover:-translate-y-1 hover:shadow-lg"
-                aria-label="Instagram"
-              >
-                <Instagram size={18} />
-              </a>
+              <div className="space-y-3">
+                <p className="text-sm uppercase tracking-[0.35em] text-text-primary font-semibold">
+                  Information
+                </p>
+                <div className="flex flex-col gap-3">
+                  {information.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      className="hover:text-brand-primary transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="space-y-5  md:col-span-2">
-            <h3 className="text-sm uppercase tracking-[0.35em] text-text-primary font-semibold">
-              Product
-            </h3>
-            <div className="flex flex-col gap-3 text-sm text-text-secondary">
+          <div className="mt-14 border-t border-brand-primary/15 pt-8 text-sm text-text-secondary md:flex md:items-center md:justify-between">
+            <p>
+              Powered by{" "}
+              <a
+                href="https://www.thekhubaib.me"
+                className="font-semibold text-xl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Khubaib Shah
+              </a>
+            </p>
+            <div className="flex flex-wrap items-center gap-4 mt-4 md:mt-0">
+              <a
+                href="/privacy"
+                onClick={(e) => navigateTo("/privacy", e)}
+                className="hover:text-brand-primary transition-colors"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href="/faq"
+                onClick={(e) => navigateTo("/faq", e)}
+                className="hover:text-brand-primary transition-colors"
+              >
+                FAQ
+              </a>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    if (variant === "classic") {
+      return (
+        <section className="container max-w-7xl mx-auto py-12">
+          <div className="grid gap-10 lg:grid-cols-[1.7fr_1fr] items-start">
+            <div className="space-y-6">
+              <div className="flex items-center gap-4">
+                <div className="flex h-20 w-20 items-center justify-center rounded-3xl">
+                  <img
+                    src={config.logo}
+                    alt={config.name}
+                    className="w-full h-full object-contain rounded-full  "
+                  />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-[0.35em] text-brand-primary font-bold">
+                    {config.slug}
+                  </p>
+                  <h2 className="mt-2 text-2xl font-black text-text-primary">
+                    {config.name}
+                  </h2>
+                </div>
+              </div>
+
+              <p className="max-w-xl text-sm leading-7 text-text-secondary">
+                {config.footer.description}
+              </p>
+
+              <div className="flex gap-4">
+                {config.social.facebook && (
+                  <a
+                    href={config.social.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-primary hover:text-brand-primary/80 transition-colors"
+                  >
+                    <Facebook size={20} />
+                  </a>
+                )}
+                {config.social.instagram && (
+                  <a
+                    href={config.social.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-brand-primary hover:text-brand-primary/80 transition-colors"
+                  >
+                    <Instagram size={20} />
+                  </a>
+                )}
+              </div>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2 text-sm text-text-secondary">
+              <div className="space-y-3">
+                <p className="text-sm uppercase tracking-[0.35em] text-text-primary font-semibold">
+                  Product
+                </p>
+                <div className="flex flex-col gap-3">
+                  {productLinks.map((link) =>
+                    link.label === "Search" ? (
+                      <a
+                        key={link.label}
+                        href="/"
+                        className="hover:text-brand-primary transition-colors"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleSearchFocus();
+                        }}
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        className="hover:text-brand-primary transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    ),
+                  )}
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <p className="text-sm uppercase tracking-[0.35em] text-text-primary font-semibold">
+                  Information
+                </p>
+                <div className="flex flex-col gap-3">
+                  {information.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      className="hover:text-brand-primary transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-14 border-t border-brand-primary/15 pt-8 pb-8 md:pb-0 text-sm text-text-secondary flex flex-col md:flex-row-reverse items-center md:justify-between">
+            <div className="flex flex-wrap items-center gap-4 mt-4 md:mt-0">
+              <a
+                href="/privacy"
+                onClick={(e) => navigateTo("/privacy", e)}
+                className="hover:text-brand-primary transition-colors"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href="/faq"
+                onClick={(e) => navigateTo("/faq", e)}
+                className="hover:text-brand-primary transition-colors"
+              >
+                FAQ
+              </a>
+            </div>
+            <p>
+              Powered by{" "}
+              <a
+                href="https://www.thekhubaib.me"
+                className="font-semibold text-xl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Khubaib Shah
+              </a>
+            </p>
+          </div>
+        </section>
+      );
+    }
+
+    if (variant === "minimal") {
+      return (
+        <section className="max-w-4xl mx-auto px-6 py-12 text-center">
+          <div className="space-y-6">
+            <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-brand-primary/5 text-brand-primary">
+              <img
+                src={config.logo}
+                alt={config.name}
+                className="h-12 w-12 object-contain"
+              />
+            </div>
+            <div>
+              <h2 className="text-2xl font-black text-text-primary">
+                {config.name}
+              </h2>
+              <p className="mt-2 text-sm text-text-secondary leading-7">
+                {config.footer.description}
+              </p>
+            </div>
+            <div className="flex flex-wrap justify-center gap-4 text-sm text-text-secondary">
               {productLinks.map((link) =>
                 link.label === "Search" ? (
                   <a
@@ -103,41 +321,7 @@ export const Footer: React.FC = () => {
                 ),
               )}
             </div>
-          </div>
-
-          <div className="space-y-5 md:col-span-2">
-            <h3 className="text-sm uppercase tracking-[0.35em] text-text-primary font-semibold">
-              Information
-            </h3>
-            <div className="flex flex-col gap-3 text-sm text-text-secondary">
-              {information.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="hover:text-brand-primary transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-16 border-t border-brand-primary/15 pt-8">
-          <div className="flex flex-col gap-4 text-sm text-text-secondary md:flex-row md:items-center md:justify-between">
-            <p>
-              Powered by{" "}
-              <a
-                href="https://www.thekhubaib.me"
-                className="font-semibold text-xl"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Khubaib Shah
-              </a>
-              . All rights reserved.
-            </p>
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap justify-center gap-4 text-sm text-text-secondary">
               <a
                 href="/privacy"
                 onClick={(e) => navigateTo("/privacy", e)}
@@ -153,9 +337,14 @@ export const Footer: React.FC = () => {
                 FAQ
               </a>
             </div>
+            <p className="text-xs text-text-muted">
+              Powered by Khubaib Shah. All rights reserved.
+            </p>
           </div>
-        </div>
-      </section>
-    </footer>
-  );
+        </section>
+      );
+    }
+  };
+
+  return footerContent();
 };

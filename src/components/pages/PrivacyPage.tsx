@@ -14,23 +14,19 @@ export const PrivacyPage: React.FC = () => {
     sections: [
       {
         heading: "What information we collect",
-        body:
-          "We collect your name, phone number, delivery address, order details, and payment information needed to prepare and deliver your order safely.",
+        body: "We collect your name, phone number, delivery address, order details, and payment information needed to prepare and deliver your order safely.",
       },
       {
         heading: "How we use your information",
-        body:
-          "Your information is used to process orders, contact you about your order, improve service quality, and prevent fraud.",
+        body: "Your information is used to process orders, contact you about your order, improve service quality, and prevent fraud.",
       },
       {
         heading: "Sharing your information",
-        body:
-          "We do not sell your personal data. We may share limited information with delivery and payment partners only to fulfill your order.",
+        body: "We do not sell your personal data. We may share limited information with delivery and payment partners only to fulfill your order.",
       },
       {
         heading: "Contact us",
-        body:
-          "If you have any questions about this privacy notice, please contact us at the details available on our website.",
+        body: "If you have any questions about this privacy notice, please contact us at the details available on our website.",
       },
     ],
   };
@@ -56,7 +52,7 @@ export const PrivacyPage: React.FC = () => {
 
           <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
             <div className="space-y-6">
-              {policy.sections.map((section, index) => (
+              {policy.sections?.map((section, index) => (
                 <section
                   key={`${section.heading}-${index}`}
                   className="rounded-[1.5rem] border border-brand-primary/10 bg-background-card p-6 shadow-sm"
@@ -89,15 +85,21 @@ export const PrivacyPage: React.FC = () => {
               </p>
               <div className="mt-5 space-y-3 text-sm text-text-secondary">
                 <p>
-                  <span className="font-semibold text-text-primary">Phone:</span>{" "}
+                  <span className="font-semibold text-text-primary">
+                    Phone:
+                  </span>{" "}
                   {config.contact.phone}
                 </p>
                 <p>
-                  <span className="font-semibold text-text-primary">Email:</span>{" "}
+                  <span className="font-semibold text-text-primary">
+                    Email:
+                  </span>{" "}
                   {config.contact.email}
                 </p>
                 <p>
-                  <span className="font-semibold text-text-primary">Address:</span>{" "}
+                  <span className="font-semibold text-text-primary">
+                    Address:
+                  </span>{" "}
                   {config.contact.address}
                 </p>
               </div>

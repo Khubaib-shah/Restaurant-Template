@@ -121,6 +121,12 @@ export const demoConfig: RestaurantConfig = {
     cardStyle: "list",
   },
 
+  footer: {
+    description:
+      "Scoops Ice Cream serves refreshing frozen treats and sweet desserts with lightning-fast delivery across Clifton.",
+    layoutVariant: "compact",
+  },
+
   heroSlides: [
     {
       id: "slide-1",

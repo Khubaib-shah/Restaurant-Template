@@ -118,6 +118,12 @@ export const pizzaConfig: RestaurantConfig = {
     cardStyle: "minimal",
   },
 
+  footer: {
+    description:
+      "Crave hot pizza, cheesy sides and bubbly beverages delivered fresh from Pizza Palace.",
+    layoutVariant: "minimal",
+  },
+
   // ==========================
   // HERO
   // ==========================

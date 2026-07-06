@@ -1,5 +1,6 @@
 // TODO: MULTI-TENANT — Replace with: await api.getMenu(slug)
 
+import { desc } from "motion/react-client";
 import { Badge } from "../components/ui/Badge";
 
 export const categories = [];
@@ -2768,8 +2769,8 @@ export const iceCreamCategories = [
   {
     id: "cat-special-combos",
     name: "Special Combos",
-    imageUrl:
-      "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&auto=format&fit=crop&q=80",
+    imageUrl: "",
+    description: "Special Combos",
     isAvailable: true,
   },
   {

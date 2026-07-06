@@ -10,6 +10,21 @@ export const HeroBanner: React.FC = () => {
   const [direction, setDirection] = useState(1); // 1 = right, -1 = left
 
   useEffect(() => {
+    const preloadLinks = slides.slice(0, 2).map((slide) => {
+      const link = document.createElement("link");
+      link.rel = "preload";
+      link.as = "image";
+      link.href = slide.imageUrl;
+      document.head.appendChild(link);
+      return link;
+    });
+
+    return () => {
+      preloadLinks.forEach((link) => document.head.removeChild(link));
+    };
+  }, [slides]);
+
+  useEffect(() => {
     const timer = setInterval(() => {
       handleNext();
     }, 4000);
@@ -70,6 +85,8 @@ export const HeroBanner: React.FC = () => {
                 alt={slides[current].promoHeadline || "Food Promotion"}
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
+                loading={current === 0 ? "eager" : "lazy"}
+                fetchPriority={current === 0 ? "high" : "auto"}
               />
 
               {/* Slider Text Overlay Content (Centered) */}

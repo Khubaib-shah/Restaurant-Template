@@ -116,6 +116,12 @@ export const ghalibConfig: RestaurantConfig = {
     cardStyle: "default",
   },
 
+  footer: {
+    description:
+      "Ghalib Restaurant offers authentic flavours, fast delivery and friendly service across Karachi.",
+    layoutVariant: "classic",
+  },
+
   // ==========================
   // HERO
   // ==========================

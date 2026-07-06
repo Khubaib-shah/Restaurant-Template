@@ -105,6 +105,7 @@ export const azFoodCornerConfig: RestaurantConfig = {
   footer: {
     description:
       "Freshly baked pizzas, burgers, pasta, fries and refreshing beverages made with quality ingredients. Order online for fast delivery across Gulshan-e-Johar and nearby areas.",
+    layoutVariant: "classic",
   },
   privacyPolicy: {
     title: "AZ Food Corner Privacy Policy",
@@ -114,23 +115,19 @@ export const azFoodCornerConfig: RestaurantConfig = {
     sections: [
       {
         heading: "What information we collect",
-        body:
-          "We collect your name, phone number, delivery address, order details, and payment information required to process and deliver your order.",
+        body: "We collect your name, phone number, delivery address, order details, and payment information required to process and deliver your order.",
       },
       {
         heading: "How we use your information",
-        body:
-          "Your information is used to prepare orders, communicate with you, improve service quality, and prevent fraud and abuse.",
+        body: "Your information is used to prepare orders, communicate with you, improve service quality, and prevent fraud and abuse.",
       },
       {
         heading: "Sharing your information",
-        body:
-          "We do not sell your personal data. We may share limited information with trusted delivery and payment partners only to fulfill your order.",
+        body: "We do not sell your personal data. We may share limited information with trusted delivery and payment partners only to fulfill your order.",
       },
       {
         heading: "Your choices",
-        body:
-          "You can contact us at any time if you want to review, update, or ask questions about your personal information.",
+        body: "You can contact us at any time if you want to review, update, or ask questions about your personal information.",
       },
     ],
   },
@@ -168,7 +165,7 @@ export const azFoodCornerConfig: RestaurantConfig = {
     {
       id: "slide-1",
       imageUrl:
-        "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1783294513/banner-slider_dqrzg8.png",
+        "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1783302838/banner-slider_mzegyy.webp",
     },
     {
       id: "slide-2",
