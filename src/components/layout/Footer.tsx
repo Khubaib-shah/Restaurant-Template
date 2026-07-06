@@ -5,40 +5,41 @@ import { handleSearchFocus } from "@/src/lib/searchScroll";
 
 const productLinks = [
   { label: "Search", href: "/" },
-  { label: "Pricing", href: "/" },
-  { label: "Deals", href: "/" },
+  { label: "FAQs", href: "/faq" },
   { label: "Track Order", href: "/" },
 ];
 
-const resourceLinks = [
-  { label: "Opening Hours", href: "/" },
-  { label: "How It Works", href: "/" },
-  { label: "FAQs", href: "/" },
-  { label: "Support", href: "mailto:syedkhubaibshah@icloud.com" },
-];
-
-const companyLinks = [
-  { label: "About Us", href: "/pages/about" },
-  { label: "Developer Portfolio", href: "https://www.thekhubaib.me" },
-  { label: "Contact Developer", href: "mailto:syedkhubaibshah@icloud.com" },
-  { label: "Custom Development", href: "https://www.thekhubaib.me" },
+const information = [
+  { label: "5pm to 2am" },
+  { label: "0309 9930777", href: "tel:+923099930777" },
+  { label: "temp@gmail.com", href: "mailto:syedkhubaibshah@icloud.com" },
 ];
 
 export const Footer: React.FC = () => {
   const { config } = useRestaurant();
-  const currentYear = new Date().getFullYear();
+
+  const navigateTo = (
+    path: string,
+    e?: React.MouseEvent<HTMLAnchorElement>,
+  ) => {
+    if (e) e.preventDefault();
+    if (window.location.pathname === path) return;
+    window.history.pushState({}, "", path);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <footer className="border-t border-brand-primary/10 bg-background-card text-text-secondary">
       <section className="max-w-[1220px] mx-auto px-6 py-16">
         <div className="grid gap-14 grid-cols-2 lg:grid-cols-12 items-center justify-center">
-          <div className="space-y-6 col-span-2 md:col-span-6">
+          <div className="space-y-6 col-span-2 md:col-span-8">
             <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-3xl text-brand-primary">
+              <div className="flex h-28 w-28 items-center justify-center rounded-3xl text-brand-primary">
                 <img
                   src={config.logo}
                   alt={config.name}
-                  className="h-20 w-20 object-contain"
+                  className="size-full object-contain"
                 />
               </div>
               <div>
@@ -52,8 +53,7 @@ export const Footer: React.FC = () => {
             </div>
 
             <p className="max-w-lg text-sm leading-7 text-text-secondary">
-              A premium multi-tenant restaurant template built to support fresh
-              brands, modern kitchens, and elegant online ordering experiences.
+              {config.footer.description}
             </p>
 
             <div className="flex items-center gap-3">
@@ -83,8 +83,12 @@ export const Footer: React.FC = () => {
                 link.label === "Search" ? (
                   <a
                     key={link.label}
+                    href="/"
                     className="hover:text-brand-primary transition-colors"
-                    onClick={handleSearchFocus}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleSearchFocus();
+                    }}
                   >
                     {link.label}
                   </a>
@@ -103,29 +107,12 @@ export const Footer: React.FC = () => {
 
           <div className="space-y-5 md:col-span-2">
             <h3 className="text-sm uppercase tracking-[0.35em] text-text-primary font-semibold">
-              Resources
+              Information
             </h3>
             <div className="flex flex-col gap-3 text-sm text-text-secondary">
-              {resourceLinks.map((link) => (
+              {information.map((link) => (
                 <a
                   key={link.label}
-                  href={link.href}
-                  className="hover:text-brand-primary transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <div className="space-y-5 md:col-span-2">
-            <h3 className="text-sm uppercase tracking-[0.35em] text-text-primary font-semibold">
-              Company
-            </h3>
-            <div className="flex flex-col gap-3 text-sm text-text-secondary">
-              {companyLinks.map((link, index) => (
-                <a
-                  key={link.label + index}
                   href={link.href}
                   className="hover:text-brand-primary transition-colors"
                 >
@@ -139,26 +126,31 @@ export const Footer: React.FC = () => {
         <div className="mt-16 border-t border-brand-primary/15 pt-8">
           <div className="flex flex-col gap-4 text-sm text-text-secondary md:flex-row md:items-center md:justify-between">
             <p>
-              © {currentYear} {config.name}. All rights reserved.
+              Powered by{" "}
+              <a
+                href="https://www.thekhubaib.me"
+                className="font-semibold text-xl"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Khubaib Shah
+              </a>
+              . All rights reserved.
             </p>
             <div className="flex flex-wrap items-center gap-4">
               <a
-                href="/"
+                href="/privacy"
+                onClick={(e) => navigateTo("/privacy", e)}
                 className="hover:text-brand-primary transition-colors"
               >
                 Privacy Policy
               </a>
               <a
-                href="/"
+                href="/faq"
+                onClick={(e) => navigateTo("/faq", e)}
                 className="hover:text-brand-primary transition-colors"
               >
-                Terms of Service
-              </a>
-              <a
-                href="/"
-                className="hover:text-brand-primary transition-colors"
-              >
-                Cookies Settings
+                FAQ
               </a>
             </div>
           </div>

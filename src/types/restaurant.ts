@@ -36,6 +36,26 @@ export interface RestaurantConfig {
   seoText: string;
 
   theme: RestaurantTheme;
+  footer: {
+    description: string;
+  };
+  privacyPolicy?: {
+    title?: string;
+    lastUpdated?: string;
+    intro?: string;
+    sections?: Array<{
+      heading: string;
+      body: string | string[];
+    }>;
+  };
+  faqs?: {
+    title?: string;
+    intro?: string;
+    items?: Array<{
+      question: string;
+      answer: string | string[];
+    }>;
+  };
 }
 
 export interface RestaurantTheme {
@@ -52,7 +72,7 @@ export interface ThemeAssets {
     image?: string;
     video?: string;
     gradient?: string;
-  }
+  };
 
   categoryBackground?: string;
 }

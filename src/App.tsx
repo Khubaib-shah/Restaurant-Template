@@ -30,6 +30,8 @@ import { ItemModal } from "./components/menu/ItemModal";
 import { CheckoutView } from "./components/cart/CheckoutView";
 
 import { Search } from "lucide-react";
+import { PrivacyPage } from "./components/pages/PrivacyPage";
+import { FaqPage } from "./components/pages/FaqPage";
 
 const RestaurantAppContent: React.FC = () => {
   const { config, setIsLocationModalOpen } = useRestaurant();
@@ -204,7 +206,7 @@ const RestaurantAppContent: React.FC = () => {
                     /* High fidelity empty search display */
                     <div
                       id="search-empty-state"
-                      className="py-16 px-6 text-center bg-background-card border border-brand-primary/15 rounded-2xl shadow-sm space-y-4 max-w-md mx-auto"
+                      className="py-16 px-6 text-center space-y-4 max-w-md mx-auto"
                     >
                       <div className="w-16 h-16 rounded-full divide-brand-primary/5 flex items-center justify-center text-text-muted border border-brand-primary/15 mx-auto">
                         <Search size={24} />
@@ -214,8 +216,8 @@ const RestaurantAppContent: React.FC = () => {
                           No items found
                         </h3>
                         <p className="text-xs text-text-muted max-w-[240px] leading-relaxed mx-auto">
-                          We couldn't find any dishes matching "{searchQuery}".
-                          Try adjusting your keywords.
+                          We couldn't find anything matching "{searchQuery}".
+                          Try searching with different keywords.
                         </p>
                       </div>
                       <button
@@ -255,11 +257,36 @@ const RestaurantAppContent: React.FC = () => {
   );
 };
 
+function AppRouter() {
+  const [currentPath, setCurrentPath] = useState(
+    () => window.location.pathname,
+  );
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      setCurrentPath(window.location.pathname);
+    };
+
+    window.addEventListener("popstate", handleLocationChange);
+    return () => window.removeEventListener("popstate", handleLocationChange);
+  }, []);
+
+  if (currentPath === "/privacy" || currentPath.startsWith("/privacy/")) {
+    return <PrivacyPage />;
+  }
+
+  if (currentPath === "/faq" || currentPath.startsWith("/faq/")) {
+    return <FaqPage />;
+  }
+
+  return <RestaurantAppContent />;
+}
+
 export default function App() {
   return (
     <RestaurantProvider>
       <CartProvider>
-        <RestaurantAppContent />
+        <AppRouter />
       </CartProvider>
     </RestaurantProvider>
   );

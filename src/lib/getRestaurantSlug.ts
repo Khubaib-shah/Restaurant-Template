@@ -4,12 +4,14 @@ const DOMAIN_MAP: Record<string, string> = {
   "ghalib.local": "ghalib",
   "pizza.local": "pizza",
   "demo.local": "demo",
+  "azfoodcorner.local": "azfoodcorner",
   localhost: "demo",
   "127.0.0.1": "demo",
   "[::1]": "demo",
   "ghalib.thekhubaib.me": "ghalib",
   "pizza.thekhubaib.me": "pizza",
   "demo.thekhubaib.me": "demo",
+  "azfoodcorner.thekhubaib.me": "azfoodcorner",
 };
 
 export function getRestaurantSlug() {

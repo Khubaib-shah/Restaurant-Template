@@ -14,7 +14,12 @@ export default defineConfig(() => {
 
     server: {
       host: true,
-      allowedHosts: ["ghalib.local", "pizza.local", "demo.local"],
+      allowedHosts: [
+        "ghalib.local",
+        "pizza.local",
+        "demo.local",
+        "azfoodcorner.local",
+      ],
 
       hmr: process.env.DISABLE_HMR !== "true",
       watch: process.env.DISABLE_HMR === "true" ? null : {},

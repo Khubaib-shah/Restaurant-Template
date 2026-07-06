@@ -727,20 +727,27 @@ export const CheckoutView: React.FC = () => {
                           </span>
                         </div>
 
-                        {/* Variant choices badge if they exist */}
-                        {item.variantSelections &&
-                          item.variantSelections.length > 0 && (
-                            <div className="mt-1 flex flex-wrap gap-1">
-                              {item.variantSelections.map((sel) => (
-                                <span
-                                  key={sel.optionId}
-                                  className="inline-block bg-brand-primary/5 text-[9px] font-bold text-text-secondary px-1.5 py-0.5 rounded border border-brand-primary/10 uppercase"
-                                >
-                                  {sel.optionName}
-                                </span>
-                              ))}
-                            </div>
-                          )}
+                        {/* Modifier choices badge if they exist */}
+                        {(
+                          item.modifierSelections ??
+                          item.variantSelections ??
+                          []
+                        ).length > 0 && (
+                          <div className="mt-1 flex flex-wrap gap-1">
+                            {(
+                              item.modifierSelections ??
+                              item.variantSelections ??
+                              []
+                            ).map((sel) => (
+                              <span
+                                key={sel.optionId}
+                                className="inline-block bg-brand-primary/5 text-[9px] font-bold text-text-secondary px-1.5 py-0.5 rounded border border-brand-primary/10 uppercase"
+                              >
+                                {sel.optionName}
+                              </span>
+                            ))}
+                          </div>
+                        )}
 
                         {/* Prices row */}
                         <div className="flex items-baseline gap-1.5 mt-1.5">

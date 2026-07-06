@@ -61,7 +61,9 @@ export const HeroBanner: React.FC = () => {
               className="absolute inset-0 w-full h-full"
             >
               {/* Dark Dimming overlay */}
-              <div className="absolute inset-0 bg-black/45 z-10" />
+              {slides[current].promoLabel && (
+                <div className="absolute inset-0 bg-black/45 z-10" />
+              )}
 
               <img
                 src={slides[current].imageUrl}

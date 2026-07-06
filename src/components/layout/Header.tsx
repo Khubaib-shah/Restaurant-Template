@@ -45,7 +45,7 @@ export const Header: React.FC = () => {
                 id="header-logo-img-mobile"
                 src={config.logo}
                 alt={config.name}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain rounded-full"
                 referrerPolicy="no-referrer"
               />
             </div>
@@ -138,7 +138,7 @@ export const Header: React.FC = () => {
                 id="header-logo-img"
                 src={config.logo}
                 alt={config.name}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain rounded-full"
                 referrerPolicy="no-referrer"
               />
             </div>

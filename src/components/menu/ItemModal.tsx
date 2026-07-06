@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { X, Minus, Plus, ArrowRight } from "lucide-react";
-import { MenuItem, VariantGroup, VariantOption } from "../../types/menu";
+import { MenuItem, ModifierGroup, ModifierOption } from "../../types/menu";
 import { useCart } from "../../context/CartContext";
 import { formatPrice } from "../../lib/price";
 import { motion, AnimatePresence } from "motion/react";
@@ -17,9 +17,9 @@ export const ItemModal: React.FC<ItemModalProps> = ({
   onClose,
 }) => {
   const { addItem } = useCart();
-  const [selections, setSelections] = useState<Record<string, VariantOption[]>>(
-    {},
-  );
+  const [selections, setSelections] = useState<
+    Record<string, ModifierOption[]>
+  >({});
   const [quantity, setQuantity] = useState(1);
   const [note, setNote] = useState("");
   const [validationErrors, setValidationErrors] = useState<
@@ -35,12 +35,13 @@ export const ItemModal: React.FC<ItemModalProps> = ({
       setNote("");
       setValidationErrors({});
 
-      const initialSelections: Record<string, VariantOption[]> = {};
+      const initialSelections: Record<string, ModifierOption[]> = {};
+      const groups = item.modifierGroups ?? item.variants ?? [];
 
-      item.variants?.forEach((group) => {
+      groups.forEach((group) => {
         if (group.required && group.options.length > 0) {
           // Pre-select the first option for required groups if minSelect === 1
-          if (group.minSelect === 1 && group.maxSelect === 1) {
+          if (group.minSelect === 1 && group.maxSelect >= 1) {
             initialSelections[group.id] = [group.options[0]];
           } else {
             initialSelections[group.id] = [];
@@ -67,6 +68,8 @@ export const ItemModal: React.FC<ItemModalProps> = ({
 
   if (!item) return null;
 
+  const groups = item.modifierGroups ?? item.variants ?? [];
+
   const handleShare = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -87,13 +90,13 @@ export const ItemModal: React.FC<ItemModalProps> = ({
     }
   };
 
-  const handleOptionSelect = (group: VariantGroup, option: VariantOption) => {
+  const handleOptionSelect = (group: ModifierGroup, option: ModifierOption) => {
     const currentGroupSelections = selections[group.id] || [];
     const isAlreadySelected = currentGroupSelections.some(
       (o) => o.id === option.id,
     );
 
-    let newSelections: VariantOption[] = [];
+    let newSelections: ModifierOption[] = [];
 
     if (group.maxSelect === 1) {
       // Single select
@@ -114,10 +117,10 @@ export const ItemModal: React.FC<ItemModalProps> = ({
       }
     }
 
-    setSelections({
-      ...selections,
+    setSelections((prev) => ({
+      ...prev,
       [group.id]: newSelections,
-    });
+    }));
 
     // Clear validation error if selection meets requirement
     if (newSelections.length >= group.minSelect) {
@@ -128,8 +131,8 @@ export const ItemModal: React.FC<ItemModalProps> = ({
   };
 
   // Compute live price based on current selections
-  const additionalPrice = (Object.values(selections) as VariantOption[][])
-    .reduce((acc, curr) => acc.concat(curr), [] as VariantOption[])
+  const additionalPrice = (Object.values(selections) as ModifierOption[][])
+    .reduce((acc, curr) => acc.concat(curr), [] as ModifierOption[])
     .reduce((sum, opt) => sum + opt.additionalPrice, 0);
 
   const unitPrice = item.discountedPrice + additionalPrice;
@@ -140,7 +143,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({
     const errors: Record<string, string> = {};
     let isValid = true;
 
-    item.variants?.forEach((group) => {
+    groups.forEach((group) => {
       const selected = selections[group.id] || [];
       if (group.required && selected.length < group.minSelect) {
         errors[group.id] =
@@ -155,7 +158,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({
 
   const handleAddToCart = () => {
     if (!validateSelections()) {
-      // Scroll to the first error
+      // Scroll to the first error using the current validation state
       const firstErrorKey = Object.keys(validationErrors)[0];
       const errorEl = document.getElementById(`group-err-${firstErrorKey}`);
       if (errorEl) {
@@ -167,8 +170,8 @@ export const ItemModal: React.FC<ItemModalProps> = ({
     // Prepare selections flat list
     const selectionsList = Object.entries(selections).flatMap(
       ([groupId, options]) => {
-        const group = item.variants?.find((g) => g.id === groupId);
-        return (options as VariantOption[]).map((opt) => ({
+        const group = groups.find((g) => g.id === groupId);
+        return options.map((opt) => ({
           groupId,
           groupName: group?.name || "",
           optionId: opt.id,
@@ -196,6 +199,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({
       quantity,
       unitPrice,
       originalUnitPrice,
+      modifierSelections: selectionsList,
       variantSelections: selectionsList,
       note: note.trim() || undefined,
     });
@@ -314,12 +318,18 @@ export const ItemModal: React.FC<ItemModalProps> = ({
 
                 {/* Scrollable Content Body (Variant groups & Notes) */}
                 <div className="flex-1 min-h-0 overflow-y-auto p-5 space-y-5 overscroll-contain text-sm leading-relaxed scrollbar-thin">
-                  {/* Variant choices */}
-                  {item.variants && item.variants.length > 0 && (
+                  {/* Customization choices */}
+                  {groups.length > 0 && (
                     <div className="space-y-5">
-                      {item.variants.map((group) => {
+                      {groups.map((group) => {
                         const selectedOptions = selections[group.id] || [];
                         const isError = !!validationErrors[group.id];
+                        const selectionLabel =
+                          group.maxSelect === 1
+                            ? "Select 1"
+                            : group.minSelect === group.maxSelect
+                              ? `Select ${group.minSelect}`
+                              : `Choose ${group.minSelect}-${group.maxSelect}`;
 
                         return (
                           <div
@@ -341,9 +351,7 @@ export const ItemModal: React.FC<ItemModalProps> = ({
                                 )}
                               </div>
                               <span className="text-[11px] text-text-secondary font-bold uppercase tracking-wider">
-                                {group.maxSelect === 1
-                                  ? "Select 1"
-                                  : `Up to ${group.maxSelect}`}
+                                {selectionLabel}
                               </span>
                             </div>
 

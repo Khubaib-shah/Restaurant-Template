@@ -7,6 +7,8 @@ import {
   pizzaItems,
   iceCreamCategories,
   iceCreamItems,
+  azFoodCornerCategories,
+  azFoodCornerItems,
 } from "../data/mock-menu";
 
 const restaurantMenuSources = {
@@ -18,18 +20,25 @@ const restaurantMenuSources = {
     categories: pizzaCategories,
     menuItems: pizzaItems,
   },
+  azfoodcorner: {
+    categories: azFoodCornerCategories,
+    menuItems: azFoodCornerItems,
+  },
   demo: {
     categories: iceCreamCategories,
     menuItems: iceCreamItems,
   },
 } as const;
 
+const normalizeRestaurantSlug = (slug: string) =>
+  slug.toLowerCase().replace(/[^a-z0-9]+/g, "");
+
 const normalizeCategory = (category: any, index: number): Category => ({
   id: category.id,
   name: category.name,
   slug: category.slug ?? toKebabCase(category.name),
   sortOrder: category.sortOrder ?? index + 1,
-  bannerStyle: category.bannerStyle ?? "plain",
+  imageUrl: category.imageUrl,
   description: category.description,
   cardStyle: category.cardStyle,
 });
@@ -42,18 +51,21 @@ const normalizeMenuItem = (item: any): MenuItem => ({
   imageUrl: item.imageUrl,
   basePrice: item.basePrice,
   discountedPrice: item.discountedPrice ?? item.basePrice,
-  hasVariants: item.hasVariants ?? false,
-  variants: item.variants,
+  modifierGroups: item.modifierGroups,
   badge: item.badge,
   isAvailable: item.isAvailable ?? true,
   isFeatured: item.isFeatured ?? false,
   dealLayout: item.dealLayout,
   servingNote: item.servingNote,
-  pricePrefix: item.pricePrefix === "From" ? "From" : undefined,
+  pricePrefix: item.pricePrefix,
 });
 
 export const getRestaurantMenu = (slug: string) => {
-  const source = restaurantMenuSources[slug as keyof typeof restaurantMenuSources] ?? restaurantMenuSources.demo;
+  const normalizedSlug = normalizeRestaurantSlug(slug);
+  const source =
+    restaurantMenuSources[
+      normalizedSlug as keyof typeof restaurantMenuSources
+    ] ?? restaurantMenuSources.demo;
 
   return {
     categories: source.categories.map(normalizeCategory),

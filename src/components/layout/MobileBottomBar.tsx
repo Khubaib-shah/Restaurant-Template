@@ -35,7 +35,7 @@ export const MobileBottomBar: React.FC = () => {
   const openWhatsApp = () => {
     const phone = config.contact.phone.replace(/[^0-9]/g, "") || "03149784156";
     const message = encodeURIComponent(
-      "Hi Ghalib, I'd like to make an inquiry about the menu!",
+      `Hi ${config.name}, I'd like to make an inquiry about the menu!`,
     );
     window.open(
       `https://wa.me/${phone}?text=${message}`,

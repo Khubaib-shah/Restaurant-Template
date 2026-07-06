@@ -17,18 +17,7 @@ export const PopularItems: React.FC<PopularItemsProps> = ({
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Extract items with special badges (Best Sellers, Chef's Special, Hot Selling)
-  const popularItems = items.filter(
-    (item) =>
-      item.badge === "MOST_FAVOURITE" ||
-      item.badge === "CHEFS_SPECIAL" ||
-      item.badge === "CHEFS_RECOMMENDATION" ||
-      item.badge === "BEST_SELLER" ||
-      item.badge === "TRENDING" ||
-      item.badge === "NEW_ARRIVAL" ||
-      item.badge === "POPULAR" ||
-      item.badge === "SPECIAL_FLAVORS" ||
-      item.badge === "HOT_SELLING",
-  );
+  const popularItems = items.filter((item) => item.isFeatured);
 
   console.log(popularItems);
   if (popularItems.length === 0) return null;

@@ -31,10 +31,13 @@ export const MenuCard: React.FC<MenuCardProps> = ({
     (sum, i) => sum + i.quantity,
     0,
   );
+  const hasCustomization = Boolean(
+    (item.modifierGroups?.length ?? 0) > 0 || (item.variants?.length ?? 0) > 0,
+  );
 
-  // If non-variant item, we can grab the unique cart item
-  const nonVariantCartItem =
-    !item.hasVariants && cartItemsOfThisMenu.length > 0
+  // If the item is non-customizable, we can grab the unique cart item
+  const simpleCartItem =
+    !hasCustomization && cartItemsOfThisMenu.length > 0
       ? cartItemsOfThisMenu[0]
       : null;
 
@@ -43,7 +46,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({
 
     if (!item.isAvailable) return;
 
-    if (item.hasVariants) {
+    if (hasCustomization) {
       if (onCustomizeClick) {
         onCustomizeClick(item);
       }
@@ -62,15 +65,15 @@ export const MenuCard: React.FC<MenuCardProps> = ({
 
   const handleIncrement = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (nonVariantCartItem) {
-      updateQuantity(nonVariantCartItem.id, nonVariantCartItem.quantity + 1);
+    if (simpleCartItem) {
+      updateQuantity(simpleCartItem.id, simpleCartItem.quantity + 1);
     }
   };
 
   const handleDecrement = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (nonVariantCartItem) {
-      updateQuantity(nonVariantCartItem.id, nonVariantCartItem.quantity - 1);
+    if (simpleCartItem) {
+      updateQuantity(simpleCartItem.id, simpleCartItem.quantity - 1);
     }
   };
 
@@ -91,12 +94,12 @@ export const MenuCard: React.FC<MenuCardProps> = ({
         id={`menu-card-${item.id}`}
         onClick={handleCardClick}
         className={`bg-transparent overflow-hidden relative cursor-pointer flex flex-col select-none transition-opacity duration-150 ${
-          !item.isAvailable ? "opacity-65 grayscale-[40%]" : ""
+          !item.isAvailable ? "opacity-65 grayscale-40" : ""
         }`}
       >
         {/* Image Block */}
         <div className="relative w-full aspect-square bg-brand-primary/5 overflow-hidden rounded-2xl border border-brand-primary/10">
-          {item.badge && <ItemBadge type={item.badge} />}
+          {item.badge && <ItemBadge badge={item.badge} />}
 
           {item.imageUrl ? (
             <>
@@ -143,7 +146,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({
           {/* Add to Cart Overlay Circle / Stepper */}
           {item.isAvailable && (
             <div className="absolute bottom-2.5 right-2.5 z-10">
-              {item.hasVariants ? (
+              {hasCustomization ? (
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -154,7 +157,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({
                 >
                   <Plus size={18} strokeWidth={2.5} />
                 </button>
-              ) : nonVariantCartItem ? (
+              ) : simpleCartItem ? (
                 <div className="flex items-center justify-between h-8 bg-brand-primary rounded-full text-text-inverse shadow-md px-1.5 gap-1.5">
                   <button
                     onClick={handleDecrement}
@@ -163,8 +166,8 @@ export const MenuCard: React.FC<MenuCardProps> = ({
                   >
                     <Minus size={11} strokeWidth={3} />
                   </button>
-                  <span className="font-extrabold text-[11px] min-w-[8px] text-center select-none">
-                    {nonVariantCartItem.quantity}
+                  <span className="font-extrabold text-[11px] min-w-2 text-center select-none">
+                    {simpleCartItem.quantity}
                   </span>
                   <button
                     onClick={handleIncrement}
@@ -226,7 +229,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({
         id={`menu-card-${item.id}`}
         onClick={handleCardClick}
         className={`bg-background-card rounded-xl border border-brand-primary/30 p-3 relative cursor-pointer flex items-center gap-3 select-none transition-shadow hover:shadow-md duration-150 ${
-          !item.isAvailable ? "opacity-65 grayscale-[40%]" : ""
+          !item.isAvailable ? "opacity-65 grayscale-40" : ""
         }`}
       >
         {/* Left: Compact Image */}
@@ -263,24 +266,14 @@ export const MenuCard: React.FC<MenuCardProps> = ({
         {/* Center: Details */}
         <div className="flex-1 min-w-0 pr-1 flex flex-col justify-between h-full">
           <div>
-            {item.badge && (
+            {item.badge?.text && (
               <div className="mb-1.5 flex flex-wrap">
                 <span
                   className={`inline-block rounded px-2 py-0.5 text-[8px] font-black uppercase tracking-widest whitespace-nowrap shadow-sm ${
-                    item.badge === "BEST_SELLER"
-                      ? "bg-amber-100 text-amber-800 border border-amber-200/60"
-                      : item.badge === "HOT_SELLING"
-                        ? "bg-red-105 text-red-800 border border-red-200/60"
-                        : item.badge === "NEW_ARRIVAL"
-                          ? "bg-green-100 text-green-800 border border-green-200/60"
-                          : item.badge === "TRENDING"
-                            ? "bg-orange-100 text-orange-800 border border-orange-200/60"
-                            : item.badge === "POPULAR"
-                              ? "bg-yellow-100 text-yellow-800 border border-yellow-200/60"
-                              : "bg-brand-primary/10 text-brand-primary border border-brand-primary/20"
+                    item.badge.color || "bg-brand-primary text-text-inverse"
                   }`}
                 >
-                  {item.badge.replace("_", " ")}
+                  {item.badge.text}
                 </span>
               </div>
             )}
@@ -321,7 +314,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({
         {/* Right: Actions */}
         {item.isAvailable && (
           <div className="shrink-0 flex items-center justify-center">
-            {item.hasVariants ? (
+            {hasCustomization ? (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -332,7 +325,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({
               >
                 <Plus size={18} strokeWidth={2.5} />
               </button>
-            ) : nonVariantCartItem ? (
+            ) : simpleCartItem ? (
               <div className="flex flex-col items-center justify-between h-20 w-8 bg-brand-primary rounded-full text-text-inverse shadow-md py-1.5">
                 <button
                   onClick={handleIncrement}
@@ -342,7 +335,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({
                   <Plus size={12} strokeWidth={3} />
                 </button>
                 <span className="font-extrabold text-[11px] select-none">
-                  {nonVariantCartItem.quantity}
+                  {simpleCartItem.quantity}
                 </span>
                 <button
                   onClick={handleDecrement}
@@ -378,12 +371,12 @@ export const MenuCard: React.FC<MenuCardProps> = ({
       }
       onClick={handleCardClick}
       className={`bg-background-card rounded-xl border border-brand-primary overflow-hidden relative cursor-pointer flex flex-col justify-between shadow-card select-none transition-opacity duration-150 ${
-        !item.isAvailable ? "opacity-65 grayscale-[40%]" : ""
+        !item.isAvailable ? "opacity-65 grayscale-40" : ""
       }`}
     >
       {/* Image Area */}
       <div className="relative w-full aspect-square bg-brand-primary/5 overflow-hidden">
-        {item.badge && <ItemBadge type={item.badge} />}
+        {item.badge && <ItemBadge badge={item.badge} />}
 
         {item.imageUrl ? (
           <>
@@ -481,7 +474,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({
             >
               Unavailable
             </button>
-          ) : item.hasVariants ? (
+          ) : hasCustomization ? (
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -491,7 +484,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({
             >
               {totalQuantity > 0 ? `In Cart (${totalQuantity})` : "Add to Cart"}
             </button>
-          ) : nonVariantCartItem ? (
+          ) : simpleCartItem ? (
             // Stepper style button for non-variant item already in cart
             <div className="flex items-center justify-between w-full h-9 bg-brand-primary rounded-lg overflow-hidden text-text-inverse">
               <button
@@ -502,7 +495,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({
                 <Minus size={14} strokeWidth={2.5} />
               </button>
               <span className="font-extrabold text-sm select-none">
-                {nonVariantCartItem.quantity}
+                {simpleCartItem.quantity}
               </span>
               <button
                 onClick={handleIncrement}

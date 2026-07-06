@@ -14,6 +14,8 @@ interface CartItemProps {
 export const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const { updateQuantity, removeItem } = useCart();
   const [showConfirm, setShowConfirm] = useState(false);
+  const selectedOptions =
+    item.modifierSelections ?? item.variantSelections ?? [];
 
   const handleIncrement = () => {
     updateQuantity(item.id, item.quantity + 1);
@@ -58,10 +60,10 @@ export const CartItem: React.FC<CartItemProps> = ({ item }) => {
             {item.name}
           </h4>
 
-          {/* Variant selections list */}
-          {item.variantSelections && item.variantSelections.length > 0 && (
+          {/* Modifier selections list */}
+          {selectedOptions.length > 0 && (
             <div className="text-[10px] text-text-muted font-medium leading-tight">
-              {item.variantSelections.map((sel) => sel.optionName).join(", ")}
+              {selectedOptions.map((sel) => sel.optionName).join(", ")}
             </div>
           )}
 
