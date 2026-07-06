@@ -258,6 +258,7 @@ const RestaurantAppContent: React.FC = () => {
 };
 
 function AppRouter() {
+  const { config } = useRestaurant();
   const [currentPath, setCurrentPath] = useState(
     () => window.location.pathname,
   );
@@ -270,6 +271,44 @@ function AppRouter() {
     window.addEventListener("popstate", handleLocationChange);
     return () => window.removeEventListener("popstate", handleLocationChange);
   }, []);
+
+  useEffect(() => {
+    const description =
+      config.seoText || config.footer.description || `${config.name} restaurant online menu and ordering.`;
+    const pageLabel =
+      currentPath === "/privacy" || currentPath.startsWith("/privacy/")
+        ? "Privacy Policy"
+        : currentPath === "/faq" || currentPath.startsWith("/faq/")
+        ? "FAQ"
+        : "Order Online";
+    const title = `${pageLabel} | ${config.name}`;
+
+    document.title = title;
+
+    const updateMeta = (
+      attr: "name" | "property",
+      key: string,
+      content: string,
+    ) => {
+      let element = document.head.querySelector(
+        `meta[${attr}="${key}"]`,
+      ) as HTMLMetaElement | null;
+      if (!element) {
+        element = document.createElement("meta");
+        element.setAttribute(attr, key);
+        document.head.appendChild(element);
+      }
+      element.setAttribute("content", content);
+    };
+
+    updateMeta("name", "description", description);
+    updateMeta("property", "og:title", title);
+    updateMeta("property", "og:description", description);
+    updateMeta("name", "twitter:title", title);
+    updateMeta("name", "twitter:description", description);
+    updateMeta("name", "twitter:card", "summary_large_image");
+    updateMeta("property", "og:url", window.location.href);
+  }, [config, currentPath]);
 
   if (currentPath === "/privacy" || currentPath.startsWith("/privacy/")) {
     return <PrivacyPage />;

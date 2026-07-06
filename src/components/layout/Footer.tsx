@@ -145,7 +145,7 @@ export const Footer: React.FC = () => {
 
     if (variant === "classic") {
       return (
-        <section className="container max-w-7xl mx-auto py-12">
+        <section className="container max-w-7xl mx-auto px-2 sm:px-4 md:px-6 py-12">
           <div className="grid gap-10 lg:grid-cols-[1.7fr_1fr] items-start">
             <div className="space-y-6">
               <div className="flex items-center gap-4">
