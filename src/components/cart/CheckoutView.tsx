@@ -272,6 +272,45 @@ export const CheckoutView: React.FC = () => {
     setTimeout(() => {
       const generatedId = `GK-${Math.floor(100000 + Math.random() * 900000)}`;
       setOrderId(generatedId);
+
+      // Construct WhatsApp message
+      let message = `*Order (${generatedId})*\n\n`;
+      message += `*Customer Details*\n`;
+      message += `Name: ${title} ${fullName}\n`;
+      message += `Mobile: ${mobileNumber}\n`;
+      if (altMobileNumber) message += `Alt Mobile: ${altMobileNumber}\n`;
+      if (emailAddress) message += `Email: ${emailAddress}\n`;
+
+      message += `\n*Delivery Details*\n`;
+      message += `Area: ${currentLocation.area}\n`;
+      message += `Address: ${deliveryAddress}\n`;
+      if (nearestLandmark) message += `Landmark: ${nearestLandmark}\n`;
+      if (deliveryInstructions) message += `Instructions: ${deliveryInstructions}\n`;
+
+      message += `\n*Order Items*\n`;
+      cartState.items.forEach(item => {
+        message += `${item.quantity}x ${item.name} (${formatPrice(item.unitPrice * item.quantity)})\n`;
+        const modifiers = item.modifierSelections ?? item.variantSelections ?? [];
+        if (modifiers.length > 0) {
+          message += `   Options: ${modifiers.map(m => m.optionName).join(", ")}\n`;
+        }
+      });
+
+      message += `\n*Payment Details*\n`;
+      message += `Method: ${paymentMethod === "cod" ? "Cash on Delivery" : "Online Payment"}\n`;
+      if (changeRequest) message += `Change needed for: Rs. ${changeRequest}\n`;
+
+      message += `\n*Summary*\n`;
+      message += `Subtotal: ${formatPrice(subtotal)}\n`;
+      message += `Delivery Fee: ${formatPrice(deliveryFee)}\n`;
+      if (discount > 0) message += `Discount: -${formatPrice(discount)}\n`;
+      message += `*Total: ${formatPrice(total)}*`;
+
+      const encodedMessage = encodeURIComponent(message);
+      const whatsappUrl = `https://wa.me/923149784156?text=${encodedMessage}`;
+
+      window.open(whatsappUrl, "_blank");
+
       setIsSubmitting(false);
       setOrderSuccess(true);
     }, 1500);
@@ -391,11 +430,10 @@ export const CheckoutView: React.FC = () => {
                               setTitle(val);
                               setIsTitleOpen(false);
                             }}
-                            className={`px-4 py-2.5 text-sm font-bold cursor-pointer transition-colors ${
-                              title === val
-                                ? "bg-brand-primary text-text-inverse font-black"
-                                : "text-gray-700 hover:bg-brand-primary/5 hover:text-text-primary"
-                            }`}
+                            className={`px-4 py-2.5 text-sm font-bold cursor-pointer transition-colors ${title === val
+                              ? "bg-brand-primary text-text-inverse font-black"
+                              : "text-gray-700 hover:bg-brand-primary/5 hover:text-text-primary"
+                              }`}
                           >
                             {val}
                           </div>
@@ -613,11 +651,10 @@ export const CheckoutView: React.FC = () => {
               {/* Cash On Delivery Radio Card */}
               <div
                 onClick={() => setPaymentMethod("cod")}
-                className={`border rounded-xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer select-none relative transition-all bg-background-card ${
-                  paymentMethod === "cod"
-                    ? "border-brand-primary bg-brand-primary/5 ring-1 ring-brand-primary"
-                    : "border-brand-primary/5 hover:border-brand-primary/25"
-                }`}
+                className={`border rounded-xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer select-none relative transition-all bg-background-card ${paymentMethod === "cod"
+                  ? "border-brand-primary bg-brand-primary/5 ring-1 ring-brand-primary"
+                  : "border-brand-primary/5 hover:border-brand-primary/25"
+                  }`}
               >
                 {paymentMethod === "cod" && (
                   <div className="absolute top-2.5 right-2.5 w-4 h-4 bg-brand-primary text-text-inverse rounded-full flex items-center justify-center">
@@ -635,11 +672,10 @@ export const CheckoutView: React.FC = () => {
               {/* Online Payment Radio Card */}
               <div
                 onClick={() => setPaymentMethod("online")}
-                className={`border rounded-xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer select-none relative transition-all bg-background-card ${
-                  paymentMethod === "online"
-                    ? "border-brand-primary bg-brand-primary/5 ring-1 ring-brand-primary"
-                    : "border-gray-200 hover:border-brand-primary/25"
-                }`}
+                className={`border rounded-xl p-4 flex flex-col items-center justify-center gap-2 cursor-pointer select-none relative transition-all bg-background-card ${paymentMethod === "online"
+                  ? "border-brand-primary bg-brand-primary/5 ring-1 ring-brand-primary"
+                  : "border-gray-200 hover:border-brand-primary/25"
+                  }`}
               >
                 {paymentMethod === "online" && (
                   <div className="absolute top-2.5 right-2.5 w-4 h-4 bg-brand-primary text-text-inverse rounded-full flex items-center justify-center">
@@ -733,21 +769,21 @@ export const CheckoutView: React.FC = () => {
                           item.variantSelections ??
                           []
                         ).length > 0 && (
-                          <div className="mt-1 flex flex-wrap gap-1">
-                            {(
-                              item.modifierSelections ??
-                              item.variantSelections ??
-                              []
-                            ).map((sel) => (
-                              <span
-                                key={sel.optionId}
-                                className="inline-block bg-brand-primary/5 text-[9px] font-bold text-text-secondary px-1.5 py-0.5 rounded border border-brand-primary/10 uppercase"
-                              >
-                                {sel.optionName}
-                              </span>
-                            ))}
-                          </div>
-                        )}
+                            <div className="mt-1 flex flex-wrap gap-1">
+                              {(
+                                item.modifierSelections ??
+                                item.variantSelections ??
+                                []
+                              ).map((sel) => (
+                                <span
+                                  key={sel.optionId}
+                                  className="inline-block bg-brand-primary/5 text-[9px] font-bold text-text-secondary px-1.5 py-0.5 rounded border border-brand-primary/10 uppercase"
+                                >
+                                  {sel.optionName}
+                                </span>
+                              ))}
+                            </div>
+                          )}
 
                         {/* Prices row */}
                         <div className="flex items-baseline gap-1.5 mt-1.5">
