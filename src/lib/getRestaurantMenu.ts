@@ -24,6 +24,10 @@ const restaurantMenuSources = {
     categories: azFoodCornerCategories,
     menuItems: azFoodCornerItems,
   },
+  marhababbq: {
+    categories: azFoodCornerCategories,
+    menuItems: azFoodCornerItems,
+  },
   demo: {
     categories: iceCreamCategories,
     menuItems: iceCreamItems,

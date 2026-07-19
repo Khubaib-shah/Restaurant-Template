@@ -5,6 +5,7 @@ const DOMAIN_MAP: Record<string, string> = {
   "pizza.local": "pizza",
   "demo.local": "demo",
   "azfoodcorner.local": "azfoodcorner",
+  "marhababbq.local": "marhababbq",
   localhost: "demo",
   "127.0.0.1": "demo",
   "[::1]": "demo",
@@ -12,6 +13,7 @@ const DOMAIN_MAP: Record<string, string> = {
   "pizza.thekhubaib.me": "pizza",
   "demo.thekhubaib.me": "demo",
   "azfoodcorner.thekhubaib.me": "azfoodcorner",
+  "marhababbq.thekhubaib.me": "marhababbq",
 };
 
 export function getRestaurantSlug() {
