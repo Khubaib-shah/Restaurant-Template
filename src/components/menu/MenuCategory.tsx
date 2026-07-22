@@ -1,5 +1,6 @@
 import { useRestaurant } from "@/src/context/RestaurantContext";
 import { Category } from "@/src/types/menu";
+import { motion } from "motion/react";
 
 interface MenuCategoryProps {
   category: Category;
@@ -10,7 +11,13 @@ export const MenuCategory = ({ category }: MenuCategoryProps) => {
   console.log("category.url", category.imageUrl);
   console.log("theme", config.theme.assets.categoryBackground);
   return (
-    <div className="mb-3 md:mb-6">
+    <motion.div 
+      className="mb-3 md:mb-6"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5 }}
+    >
       {category.imageUrl ? (
         <div className="relative flex flex-col items-center text-center py-2 md:py-4 select-none">
           <img
@@ -51,7 +58,7 @@ export const MenuCategory = ({ category }: MenuCategoryProps) => {
           )}
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
 

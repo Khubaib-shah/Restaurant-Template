@@ -230,10 +230,10 @@ export const ItemModal: React.FC<ItemModalProps> = ({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="bg-background-card w-full max-w-[920px] h-[90dvh] md:h-[560px] rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden pointer-events-auto text-text-primary"
+              className="bg-background-card w-full max-w-[920px] max-h-[90dvh] md:h-auto md:max-h-[560px] rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden pointer-events-auto text-text-primary"
             >
               {/* Left Side: Product Hero Image & Info Overlay */}
-              <div className="relative w-full md:w-1/2 h-[220px] md:h-full shrink-0 overflow-hidden bg-brand-primary/5 border-b md:border-b-0 md:border-r border-brand-primary/10">
+              <div className="relative w-full md:w-1/2 h-[220px] md:h-auto self-stretch shrink-0 overflow-hidden bg-brand-primary/5 border-b md:border-b-0 md:border-r border-brand-primary/10">
                 {item.imageUrl ? (
                   <img
                     src={item.imageUrl}

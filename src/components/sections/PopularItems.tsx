@@ -68,7 +68,7 @@ export const PopularItems: React.FC<PopularItemsProps> = ({
 
       {/* Mobile Grid View */}
       <div
-        className={`grid ${config.theme.cardStyle === "list" ? "grid-cols-1" : "grid-cols-2"}  gap-2 md:hidden`}
+        className={`grid ${config.theme.cardStyle === "list" || config.theme.cardStyle === "list-alt" ? "grid-cols-1" : "grid-cols-2"}  gap-2 md:hidden`}
       >
         {popularItems.slice(0, 4).map((item) => (
           <MenuCard
@@ -87,7 +87,7 @@ export const PopularItems: React.FC<PopularItemsProps> = ({
         {popularItems.map((item) => (
           <div
             key={item.id}
-            className={`shrink-0 ${config.theme.cardStyle === "list" ? "w-full md:w-1/3" : "w-[240px]"}`}
+            className={`shrink-0 ${config.theme.cardStyle === "list" || config.theme.cardStyle === "list-alt" ? "w-full md:w-1/3" : "w-[240px]"}`}
           >
             <MenuCard item={item} onCustomizeClick={onCustomizeClick} />
           </div>

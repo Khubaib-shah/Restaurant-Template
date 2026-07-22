@@ -12,9 +12,25 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
   categories,
   activeCategorySlug,
 }) => {
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const navContainerRef = useRef<HTMLDivElement>(null);
   const activeTabRef = useRef<HTMLButtonElement>(null);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (wrapperRef.current) {
+        // If it's sticky at top: 0px, its top will be <= 0 when scrolled past it.
+        // We use <= 1 just in case of sub-pixel rendering.
+        setIsScrolled(wrapperRef.current.getBoundingClientRect().top <= 1);
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Check initial scroll position
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Smoothly scroll the category tabs bar so that the active category is visible/centered
   useEffect(() => {
@@ -61,6 +77,7 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
 
   return (
     <div
+      ref={wrapperRef}
       id="category-nav-wrapper"
       className={`sticky w-full transition-all duration-200 ${isBottomSheetOpen ? "z-[160]" : "z-50"}`}
       style={{
@@ -69,16 +86,24 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
     >
       <nav
         id="category-nav-bar"
-        className="bg-brand-primary h-12 w-full border-t border-white/10 shadow-md select-none flex items-center justify-between"
+        className={`h-12 w-full select-none flex items-center justify-between transition-colors duration-300 ${
+          isScrolled
+            ? "bg-background-card shadow-sm border-b border-gray-100"
+            : "bg-brand-primary border-t border-white/10 shadow-md"
+        }`}
       >
         {/* Left Side: Hamburger Menu Button to open bottom sheet */}
         <button
           id="category-hamburger-btn"
           onClick={() => setIsBottomSheetOpen(true)}
-          className="h-full px-4 text-text-inverse hover:bg-background-card/10 active:scale-95 transition-all flex items-center justify-center border-r border-white/10 cursor-pointer"
+          className={`h-full px-4 active:scale-95 transition-all flex items-center justify-center border-r cursor-pointer ${
+            isScrolled
+              ? "text-text-primary hover:bg-gray-100 border-gray-200"
+              : "text-text-inverse hover:bg-background-card/10 border-white/10"
+          }`}
           aria-label="Open Category List Bottom Sheet"
         >
-          <Menu size={18} className="text-inverse" />
+          <Menu size={18} />
         </button>
 
         {/* Center: Scrollable Categories list */}
@@ -87,27 +112,40 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
           id="category-nav-scroll"
           className="flex-1 h-full flex items-center overflow-x-auto no-scrollbar scroll-smooth"
         >
-          <div className="flex h-full min-w-max">
+          <div className="flex h-full min-w-max items-center px-2 gap-1.5">
             {categories.map((category) => {
               const isActive = category.slug === activeCategorySlug;
+              
+              // Conditional styles for pills based on scroll state
+              let btnClass = "relative px-4 py-1.5 md:px-5 md:py-2 flex items-center justify-center text-[10px] sm:text-xs md:text-[13px] uppercase font-bold tracking-wider transition-all cursor-pointer rounded-full ";
+              
+              if (isScrolled) {
+                if (isActive) {
+                  btnClass += "bg-brand-primary text-text-inverse shadow-sm";
+                } else {
+                  btnClass += "text-text-secondary hover:bg-gray-100 hover:text-text-primary";
+                }
+              } else {
+                if (isActive) {
+                  btnClass += "bg-background-card text-brand-primary shadow-sm";
+                } else {
+                  btnClass += "text-text-inverse/90 hover:bg-white/15";
+                }
+              }
+
               return (
                 <button
                   key={category.id}
                   ref={isActive ? activeTabRef : null}
                   id={`nav-tab-${category.slug}`}
                   onClick={() => handleTabClick(category.slug)}
-                  className={`relative px-4 md:px-5 h-full flex items-center justify-center text-[10px] sm:text-xs md:text-[13px] uppercase md:font-semibold tracking-wider text-text-inverse transition-all cursor-pointer hover:bg-background-card/10 ${
-                    isActive
-                      ? "text-text-inverse font-semibold"
-                      : "text-text-inverse/80 hover:text-text-inverse"
-                  }`}
+                  className={btnClass}
                 >
-                  {category.name}
+                  <span className="relative z-10">{category.name}</span>
                   {isActive && (
                     <motion.div
-                      layoutId="activeTabUnderline"
-                      id="active-tab-indicator"
-                      className="absolute bottom-0 left-0 right-0 h-[3px] bg-background-card rounded-t-sm"
+                      layoutId="activeTabPill"
+                      className={`absolute inset-0 rounded-full z-0 ${isScrolled ? 'bg-brand-primary' : 'bg-background-card'}`}
                       transition={{
                         type: "spring",
                         stiffness: 380,
@@ -125,12 +163,16 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
         <button
           id="category-arrow-btn"
           onClick={handleNextCategory}
-          className="h-full px-4 text-text-inverse hover:bg-background-card/10 active:scale-95 transition-all flex items-center justify-center border-l border-white/10 cursor-pointer"
+          className={`h-full px-4 active:scale-95 transition-all flex items-center justify-center border-l cursor-pointer ${
+            isScrolled
+              ? "text-text-primary hover:bg-gray-100 border-gray-200"
+              : "text-text-inverse hover:bg-background-card/10 border-white/10"
+          }`}
           aria-label="Go to next category"
         >
           <ChevronRight
             size={18}
-            className="text-inverse transition-transform active:translate-x-1 duration-200"
+            className="transition-transform active:translate-x-1 duration-200"
           />
         </button>
       </nav>

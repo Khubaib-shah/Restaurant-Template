@@ -9,6 +9,8 @@ import {
   iceCreamItems,
   azFoodCornerCategories,
   azFoodCornerItems,
+  marhababbqCategories,
+  marhababbqItems,
 } from "../data/mock-menu";
 
 const restaurantMenuSources = {
@@ -25,8 +27,8 @@ const restaurantMenuSources = {
     menuItems: azFoodCornerItems,
   },
   marhababbq: {
-    categories: azFoodCornerCategories,
-    menuItems: azFoodCornerItems,
+    categories: marhababbqCategories,
+    menuItems: marhababbqItems,
   },
   demo: {
     categories: iceCreamCategories,
@@ -68,7 +70,7 @@ export const getRestaurantMenu = (slug: string) => {
   const normalizedSlug = normalizeRestaurantSlug(slug);
   const source =
     restaurantMenuSources[
-      normalizedSlug as keyof typeof restaurantMenuSources
+    normalizedSlug as keyof typeof restaurantMenuSources
     ] ?? restaurantMenuSources.demo;
 
   return {

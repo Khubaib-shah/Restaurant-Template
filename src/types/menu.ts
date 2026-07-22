@@ -5,7 +5,7 @@ export interface Category {
   sortOrder: number;
   imageUrl?: string;
   description?: string;
-  cardStyle?: "default" | "minimal" | "list";
+  cardStyle?: "default" | "minimal" | "list" | "list-alt";
 }
 
 export interface MenuItem {

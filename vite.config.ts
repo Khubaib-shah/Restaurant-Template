@@ -19,6 +19,7 @@ export default defineConfig(() => {
         "pizza.local",
         "demo.local",
         "azfoodcorner.local",
+        "marhababbq.local",
       ],
 
       hmr: process.env.DISABLE_HMR !== "true",

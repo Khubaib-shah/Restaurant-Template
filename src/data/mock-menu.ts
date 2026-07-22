@@ -4971,3 +4971,743 @@ export const pizzaItems = [
     isFeatured: true,
   },
 ];
+
+
+
+export const marhababbqCategories = [
+  {
+    id: "cat-platter",
+    name: "Marhaba Platters",
+    sortOrder: 1,
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784691197/marhaba-platter-marhaba-bbq-restaurant_iqgkm7.webp",
+    isAvailable: true,
+  },
+  {
+    id: "cat-chicken-karahi",
+    name: "Chicken Karahi",
+    sortOrder: 2,
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784691191/chicken-karahi-marhaba-bbq-restaurant_d9lpap.webp",
+    isAvailable: true,
+  },
+  {
+    id: "cat-mutton-karahi",
+    name: "Mutton Karahi",
+    sortOrder: 3,
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784691230/mutton-karahi-marhaba-bbq-restaurant_bwp6z1.webp",
+    isAvailable: true,
+  },
+  {
+    id: "cat-special-handi",
+    name: "Special Handi",
+    sortOrder: 4,
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784691254/special-handi-marhaba-bbq-restaurant_bfx0oy.webp",
+    isAvailable: true,
+  },
+  {
+    id: "cat-grill-chargha",
+    name: "Grill  Chargha",
+    sortOrder: 5,
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784691196/grill-chargha-marhaba-bbq-restaurant_hkomlk.webp",
+    isAvailable: true,
+  },
+  {
+    id: "cat-singature-bbq",
+    name: "Signature BBQ",
+    sortOrder: 6,
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784691191/bar-bq-marhaba-bbq-restaurant_w8tbr3.webp",
+    isAvailable: true,
+  },
+  {
+    id: "cat-chapli-kabab",
+    name: "Chapli Kabab",
+    sortOrder: 7,
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784691252/Peshawari-Chappli-Kabab-marhaba-restaurant_t0icjn.webp",
+    isAvailable: true,
+  },
+  {
+    id: "cat-club-sandwich",
+    name: "Club Sandwich",
+    sortOrder: 8,
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784682086/club-sandwich-marhaba-bbq_vndgu7.webp",
+    isAvailable: true,
+  },
+  {
+    id: "cat-special-roll",
+    name: "Special Roll",
+    sortOrder: 9,
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784691193/chicken-roll-marhaba-bbq-restaurant_yf7irr.webp",
+    isAvailable: true,
+  },
+  {
+    id: "cat-afghani-boti",
+    name: "Afghani Boti",
+    sortOrder: 10,
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784691174/afghani-pulao-marhaba-bbq-restaurant_mxt3i2.webp",
+    isAvailable: true,
+  },
+  {
+    id: "cat-extra",
+    name: "Extra",
+    sortOrder: 11,
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784691254/raita-salad-4kheer-marhaba-bbq-restaurant_vxz3nw.webp",
+    isAvailable: true,
+  },
+];
+export const marhababbqItems = [
+  {
+    id: "item-1",
+    categoryId: "cat-platter",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    isAvailable: false,
+    isFeatured: true,
+  },
+  {
+    id: "item-2",
+    categoryId: "cat-chicken-karahi",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-3",
+    categoryId: "cat-mutton-karahi",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-4",
+    categoryId: "cat-special-handi",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-5",
+    categoryId: "cat-grill-chargha",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-6",
+    categoryId: "cat-singature-bbq",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-7",
+    categoryId: "cat-chapli-kabab",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-8",
+    categoryId: "cat-club-sandwich",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-9",
+    categoryId: "cat-special-roll",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-10",
+    categoryId: "cat-afghani-boti",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-11",
+    categoryId: "cat-extra",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-1",
+    categoryId: "cat-platter",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-2",
+    categoryId: "cat-chicken-karahi",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-3",
+    categoryId: "cat-mutton-karahi",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-4",
+    categoryId: "cat-special-handi",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-5",
+    categoryId: "cat-grill-chargha",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-6",
+    categoryId: "cat-singature-bbq",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-7",
+    categoryId: "cat-chapli-kabab",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-8",
+    categoryId: "cat-club-sandwich",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-9",
+    categoryId: "cat-special-roll",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-10",
+    categoryId: "cat-afghani-boti",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+  {
+    id: "item-11",
+    categoryId: "cat-extra",
+    name: "Crispy Club Sandwich",
+    description: "3 layers of chicken, iceberg, tomatoes, mayo & secret sauce.",
+    imageUrl:
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516621/clubsandwich_rkgbxq.webp",
+    basePrice: 430,
+    // badge: {
+    //   text: "Chef's Choice",
+    //   color: "#ef4444",
+    // },
+    modifierGroups: [
+      {
+        id: "item-1",
+        name: "Other",
+        required: true,
+        minSelect: 0,
+        maxSelect: 1,
+        options: [
+          {
+            id: "cheese-sandwich",
+            name: "Extra Cheese",
+            additionalPrice: 20,
+          }
+        ],
+      },
+    ],
+    isAvailable: true,
+  },
+];

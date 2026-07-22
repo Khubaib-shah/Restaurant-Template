@@ -3,7 +3,7 @@ import { RestaurantConfig } from "../types/restaurant";
 export const marhabaBBQConfig: RestaurantConfig = {
   slug: "marhaba-bbq",
 
-  logo: "", // Add Marhaba BBQ logo
+  logo: "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784516309/logo_bfbsgk.webp", // Add Marhaba BBQ logo
 
   name: "Marhaba BBQ",
 
@@ -35,9 +35,9 @@ export const marhabaBBQConfig: RestaurantConfig = {
   taxPercent: 0,
 
   activePromo: {
-    type: "flat_percent",
-    value: 10,
-    label: "OFF",
+    type: "free_delivery",
+    value: 0,
+    label: "FREE",
   },
 
   seoText:
@@ -49,23 +49,23 @@ export const marhabaBBQConfig: RestaurantConfig = {
 
   theme: {
     colors: {
-      primary: "#A11D1D",
-      accent: "#D89C27",
+      primary: "#C62828",       // Rich BBQ Red
+      accent: "#F59E0B",        // Amber
 
       background: {
-        page: "#F9F4EA",
+        page: "#FAFAF9",
         card: "#FFFFFF",
-        header: "#1F1F1F",
-        categoryBanner: "#EFE6D5",
+        header: "#18181B",
+        categoryBanner: "#FFF7ED",
       },
 
       text: {
-        primary: "#3C2A21",
-        secondary: "#6B5E55",
-        muted: "#A89A90",
+        primary: "#18181B",
+        secondary: "#52525B",
+        muted: "#A1A1AA",
         inverse: "#FFFFFF",
 
-        price: "#A11D1D",
+        price: "#C62828",
         originalPrice: "#9CA3AF",
       },
 
@@ -96,7 +96,7 @@ export const marhabaBBQConfig: RestaurantConfig = {
       categoryBackground: "",
     },
 
-    cardStyle: "minimal",
+    cardStyle: "list-alt",
   },
 
   // ==========================

@@ -64,7 +64,7 @@ export interface RestaurantTheme {
 
   assets: ThemeAssets;
 
-  cardStyle?: "default" | "minimal" | "list";
+  cardStyle?: "default" | "minimal" | "list" | "list-alt";
 }
 
 export interface ThemeAssets {

@@ -44,13 +44,16 @@ export const HeroBanner: React.FC = () => {
   if (slides.length === 0) return null;
 
   return (
-    <div
+    <motion.div
+      initial={{ y: 20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
       id="hero-banner-container"
       className="w-full bg-transparent px-2 sm:px-4 lg:px-6 mt-4 mb-2 lg:mt-6 select-none shrink-0"
     >
       <div
         id="hero-banner-slider"
-        className="relative w-full h-[180px] md:h-[calc(100dvh-162px)] bg-gray-900 overflow-hidden rounded-2xl lg:rounded-[2rem] border-2 border-white shadow-lg lg:shadow-xl"
+        className="relative w-full h-[200px] md:h-[calc(100dvh-162px)] bg-gray-900 overflow-hidden rounded-2xl lg:rounded-[2rem] border-2 border-white shadow-lg lg:shadow-xl"
       >
         {/* Slides Slider with Framer Motion AnimatePresence */}
         <div className="absolute inset-0">
@@ -61,32 +64,52 @@ export const HeroBanner: React.FC = () => {
               variants={{
                 enter: (dir: number) => ({
                   x: dir > 0 ? "100%" : "-100%",
-                  opacity: 0,
+                  zIndex: 2,
                 }),
-                center: { x: 0, opacity: 1 },
+                center: {
+                  x: 0,
+                  zIndex: 2,
+                },
                 exit: (dir: number) => ({
-                  x: dir > 0 ? "-100%" : "100%",
-                  opacity: 0,
+                  x: dir > 0 ? "-30%" : "30%",
+                  zIndex: 1,
                 }),
               }}
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.45, ease: "easeInOut" }}
-              className="absolute inset-0 w-full h-full"
+              transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+              className="absolute inset-0 w-full h-full shadow-2xl"
             >
               {/* Dark Dimming overlay */}
               {slides[current].promoLabel && (
                 <div className="absolute inset-0 bg-black/45 z-10" />
               )}
 
-              <img
+              <motion.img
+                variants={{
+                  enter: { scale: 1.15 },
+                  center: { scale: 1 },
+                  exit: { scale: 1.05 },
+                }}
+                transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
                 src={slides[current].imageUrl}
                 alt={slides[current].promoHeadline || "Food Promotion"}
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
                 loading={current === 0 ? "eager" : "lazy"}
                 fetchPriority={current === 0 ? "high" : "auto"}
+              />
+
+              {/* Revealing White Overlay Effect */}
+              <motion.div
+                variants={{
+                  enter: { opacity: 0.5 },
+                  center: { opacity: 0 },
+                  exit: { opacity: 0 },
+                }}
+                transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
+                className="absolute inset-0 bg-white pointer-events-none z-[5]"
               />
 
               {/* Slider Text Overlay Content (Centered) */}
@@ -138,11 +161,10 @@ export const HeroBanner: React.FC = () => {
                 setDirection(idx > current ? 1 : -1);
                 setCurrent(idx);
               }}
-              className={`h-1 lg:h-2 rounded-full transition-all cursor-pointer ${
-                idx === current
-                  ? "w-3 lg:w-5 bg-background-card"
-                  : "w-1 lg:w-2 bg-background-card/40"
-              }`}
+              className={`h-1 lg:h-2 rounded-full transition-all cursor-pointer ${idx === current
+                ? "w-3 lg:w-5 bg-background-card"
+                : "w-1 lg:w-2 bg-background-card/40"
+                }`}
               aria-label={`Go to slide ${idx + 1}`}
             />
           ))}
@@ -167,6 +189,6 @@ export const HeroBanner: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

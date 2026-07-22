@@ -2,6 +2,7 @@ import React from "react";
 import { MapPin, Phone, ShoppingCart, ChevronDown } from "lucide-react";
 import { useRestaurant } from "../../context/RestaurantContext";
 import { useCart } from "../../context/CartContext";
+import { motion } from "motion/react";
 
 export const Header: React.FC = () => {
   const { config, currentLocation, setIsLocationModalOpen } = useRestaurant();
@@ -15,7 +16,10 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header
+    <motion.header
+      initial={{ y: -60, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       id="main-header"
       className="relative bg-brand-primary  text-text-inverse h-12 lg:h-16 flex items-center justify-between px-4 md:px-8 z-[100] shadow-header"
     >
@@ -169,6 +173,6 @@ export const Header: React.FC = () => {
           </button>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 };

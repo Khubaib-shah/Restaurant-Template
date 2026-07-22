@@ -6,7 +6,7 @@ import { useRestaurant } from "@/src/context/RestaurantContext";
 interface MenuGridProps {
   items: MenuItem[];
   onCustomizeClick?: (item: MenuItem) => void;
-  cardStyle?: "default" | "minimal" | "list";
+  cardStyle?: "default" | "minimal" | "list" | "list-alt";
 }
 
 export const MenuGrid: React.FC<MenuGridProps> = ({
@@ -18,7 +18,7 @@ export const MenuGrid: React.FC<MenuGridProps> = ({
   return (
     <div
       className={
-        cardStyle === "list" || config.theme.cardStyle === "list"
+        cardStyle === "list" || cardStyle === "list-alt" || config.theme.cardStyle === "list" || config.theme.cardStyle === "list-alt"
           ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3 md:gap-4"
           : "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4"
       }
