@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+@import "tailwindcss";
+@source "../app";
+@source "../src/components";
+@source "../src/lib";
+@source "../src/context";
+@source "../src/App.tsx";
+
+/* ==========================================
+   Default Theme (Fallback)
+   These are overwritten by RestaurantProvider
+   ========================================== */
+
+:root {
+  /* Brand */
+  --primary: #1a3c2e;
+  --accent: #e63946;
+
+  /* Background */
+  --background-page: #f5f0e8;
+  --background-card: #ffffff;
+  --background-header: #1a3c2e;
+  --background-category-banner: #f5f0e8;
+
+  /* Text */
+  --text-primary: #1a1a1a;
+  --text-secondary: #6b7280;
+  --text-muted: #9ca3af;
+  --text-inverse: #ffffff;
+  --text-price: #1a1a1a;
+  --text-original-price: #9ca3af;
+
+  /* Badge */
+  --badge-new-arrival: #16a34a;
+  --badge-best-seller: #ca8a04;
+  --badge-trending: #ea580c;
+  --badge-popular: #ca8a04;
+  --badge-hot-selling: #dc2626;
+  --badge-most-favourite: #d97706;
+  --badge-special-flavors: #0891b2;
+  --badge-chefs-special: #0f766e;
+  --badge-chefs-recommendation: #16a34a;
+
+  /* Cart */
+  --cart-savings-background: #f0fdf4;
+  --cart-savings-text: #16a34a;
+}
+
+/* ==========================================
+   Tailwind Theme Tokens
+   ========================================== */
+
+@theme {
+  /* Brand */
+  --color-brand-primary: var(--primary);
+  --color-brand-accent: var(--accent);
+
+  /* Background */
+  --color-background-page: var(--background-page);
+  --color-background-card: var(--background-card);
+  --color-background-header: var(--background-header);
+  --color-background-category-banner: var(--background-category-banner);
+
+  /* Text */
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-inverse: var(--text-inverse);
+  --color-text-price: var(--text-price);
+  --color-text-original-price: var(--text-original-price);
+
+  /* Badges */
+  --color-badge-new-arrival: var(--badge-new-arrival);
+  --color-badge-best-seller: var(--badge-best-seller);
+  --color-badge-trending: var(--badge-trending);
+  --color-badge-popular: var(--badge-popular);
+  --color-badge-hot-selling: var(--badge-hot-selling);
+  --color-badge-most-favourite: var(--badge-most-favourite);
+  --color-badge-special-flavors: var(--badge-special-flavors);
+  --color-badge-chefs-special: var(--badge-chefs-special);
+  --color-badge-chefs-recommendation: var(--badge-chefs-recommendation);
+
+  /* Cart */
+  --color-cart-savings-background: var(--cart-savings-background);
+  --color-cart-savings-text: var(--cart-savings-text);
+
+  /* Typography */
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ==========================================
+   Utilities
+   ========================================== */
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+#bg {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: -1;
+}
+
+.modal-overlay {
+  background: rgb(0 0 0 / 50%);
+  backdrop-filter: blur(2px);
+}
+
+@keyframes flash-shimmer {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 200%;
+  }
+}
+
+.animate-flash {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-flash::after {
+  content: "";
+  position: absolute;
+  inset-block-start: -50%;
+  inset-inline-start: -100%;
+  width: 60px;
+  height: 200%;
+
+  background: linear-gradient(90deg,
+      transparent,
+      rgb(255 255 255 / 45%),
+      transparent);
+
+  transform: rotate(15deg);
+  animation: flash-shimmer 4s infinite ease-in-out;
+  pointer-events: none;
+}
