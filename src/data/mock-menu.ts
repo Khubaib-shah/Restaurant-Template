@@ -5036,7 +5036,7 @@ export const marhababbqCategories = [
     name: "Club Sandwich",
     sortOrder: 8,
     imageUrl:
-      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784682086/club-sandwich-marhaba-bbq_vndgu7.webp",
+      "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784691194/club-sandwich-marhaba-bbq-restaurant_efph5u.webp",
     isAvailable: true,
   },
   {

@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useMemo } from "react";
+import React, { Suspense, lazy, useMemo, useCallback } from "react";
 import { MenuItem } from "../../types/menu";
 import { useCart } from "../../context/CartContext";
 import { useRestaurant } from "../../context/RestaurantContext";
@@ -14,6 +14,23 @@ export interface MenuCardProps {
   onCustomizeClick?: (item: MenuItem) => void;
   cardStyle?: "default" | "minimal" | "list" | "list-alt";
 }
+
+// Memoized Card Renderer to prevent re-rendering images and animations 
+// when the cart context updates, unless this specific card's props changed.
+const CardRenderer = React.memo(({ cardStyle, ...commonProps }: any) => {
+  const fallback = (
+    <div className="w-full h-full min-h-[120px] bg-background-card/50 animate-pulse rounded-xl" />
+  );
+
+  return (
+    <Suspense fallback={fallback}>
+      {cardStyle === "minimal" && <MinimalCard {...commonProps} />}
+      {cardStyle === "list" && <ListCard {...commonProps} />}
+      {cardStyle === "list-alt" && <ListAltCard {...commonProps} />}
+      {cardStyle === "default" && <DefaultCard {...commonProps} />}
+    </Suspense>
+  );
+});
 
 export const MenuCard: React.FC<MenuCardProps> = ({
   item,
@@ -45,7 +62,7 @@ export const MenuCard: React.FC<MenuCardProps> = ({
       ? cartItemsOfThisMenu[0]
       : null;
 
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const handleAddToCart = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
 
     if (!item.isAvailable) return;
@@ -65,53 +82,42 @@ export const MenuCard: React.FC<MenuCardProps> = ({
         originalUnitPrice: item.basePrice,
       });
     }
-  };
+  }, [item, hasCustomization, onCustomizeClick, addItem]);
 
-  const handleIncrement = (e: React.MouseEvent) => {
+  const handleIncrement = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     if (simpleCartItem) {
       updateQuantity(simpleCartItem.id, simpleCartItem.quantity + 1);
     }
-  };
+  }, [simpleCartItem, updateQuantity]);
 
-  const handleDecrement = (e: React.MouseEvent) => {
+  const handleDecrement = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     if (simpleCartItem) {
       updateQuantity(simpleCartItem.id, simpleCartItem.quantity - 1);
     }
-  };
+  }, [simpleCartItem, updateQuantity]);
 
   // Card click should open the details / customization modal for every card
-  const handleCardClick = () => {
+  const handleCardClick = useCallback(() => {
     if (!item.isAvailable) return;
     if (onCustomizeClick) {
       onCustomizeClick(item);
     }
-  };
-
-  const commonProps = {
-    item,
-    onCustomizeClick,
-    totalQuantity,
-    hasCustomization,
-    simpleCartItem,
-    handleAddToCart,
-    handleIncrement,
-    handleDecrement,
-    handleCardClick,
-  };
-
-  // Fallback placeholder while the specific card component loads
-  const fallback = (
-    <div className="w-full h-full min-h-[120px] bg-background-card/50 animate-pulse rounded-xl" />
-  );
+  }, [item, onCustomizeClick]);
 
   return (
-    <Suspense fallback={fallback}>
-      {cardStyle === "minimal" && <MinimalCard {...commonProps} />}
-      {cardStyle === "list" && <ListCard {...commonProps} />}
-      {cardStyle === "list-alt" && <ListAltCard {...commonProps} />}
-      {cardStyle === "default" && <DefaultCard {...commonProps} />}
-    </Suspense>
+    <CardRenderer
+      cardStyle={cardStyle}
+      item={item}
+      onCustomizeClick={onCustomizeClick}
+      totalQuantity={totalQuantity}
+      hasCustomization={hasCustomization}
+      simpleCartItem={simpleCartItem}
+      handleAddToCart={handleAddToCart}
+      handleIncrement={handleIncrement}
+      handleDecrement={handleDecrement}
+      handleCardClick={handleCardClick}
+    />
   );
 };

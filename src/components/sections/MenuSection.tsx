@@ -20,7 +20,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
   return (
     <section
       id={category.slug}
-      className=" container mx-auto py-3 md:py-8 scroll-mt-[80px]"
+      className="container mx-auto py-3 md:py-8 scroll-mt-[80px]"
     >
       {/* Category Header Title Info */}
       <MenuCategory category={category} />

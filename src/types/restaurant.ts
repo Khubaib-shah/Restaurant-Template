@@ -31,7 +31,7 @@ export interface RestaurantConfig {
 
   taxPercent: number;
 
-  activePromo: PromoConfig | null;
+  activePromo?: PromoConfig | null;
 
   seoText: string;
 

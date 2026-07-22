@@ -53,7 +53,7 @@ export const HeroBanner: React.FC = () => {
     >
       <div
         id="hero-banner-slider"
-        className="relative w-full h-[200px] md:h-[calc(100dvh-162px)] bg-gray-900 overflow-hidden rounded-2xl lg:rounded-[2rem] border-2 border-white shadow-lg lg:shadow-xl"
+        className="relative w-full h-[180px] md:h-[calc(100dvh-162px)] bg-gray-900 overflow-hidden rounded-2xl lg:rounded-[2rem] border-2 border-white shadow-lg lg:shadow-xl"
       >
         {/* Slides Slider with Framer Motion AnimatePresence */}
         <div className="absolute inset-0">

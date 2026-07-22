@@ -34,11 +34,7 @@ export const marhabaBBQConfig: RestaurantConfig = {
 
   taxPercent: 0,
 
-  activePromo: {
-    type: "free_delivery",
-    value: 0,
-    label: "FREE",
-  },
+
 
   seoText:
     "Marhaba BBQ serves authentic Pakistani BBQ, Chapli Kabab, Namkeen Tikka, Behari Boti, Karahi, Malai Boti, Fish, Karak Chai and traditional KPK cuisine in Karachi. Order online for fresh charcoal grilled food with fast delivery.",
@@ -175,17 +171,17 @@ export const marhabaBBQConfig: RestaurantConfig = {
     {
       id: "slide-1",
       imageUrl:
-        "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784461419/chapli-kabab_pknx5p.webp", // BBQ Banner
+        "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784696551/marahaba-bbq-restaurant_lqizti.webp", // BBQ Banner
     },
     {
       id: "slide-2",
       imageUrl:
-        "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784461419/chapli-kabab_pknx5p.webp", // Chapli Kabab Banner
+        "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784697596/family-deals-marahaba-bbq-restaurant_thztdo.webp", // Chapli Kabab Banner
     },
     {
       id: "slide-3",
       imageUrl:
-        "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784461419/chapli-kabab_pknx5p.webp", // Family Platter Banner
+        "https://res.cloudinary.com/dvyhnxnpq/image/upload/v1784697595/bar-b-q-deals-marahaba-bbq-restaurant_bwfsgq.webp", // Family Platter Banner
     },
   ],
 };
